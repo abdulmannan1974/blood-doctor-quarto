@@ -1,0 +1,159 @@
+---
+title: "Data Loaders — Feeding Reactive OJS from Any Language"
+subtitle: "The Quarto equivalent of Observable Framework's data loaders: compute on the back-end, visualise on the front-end"
+engine: jupyter
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: show
+---
+
+::: {.callout-tip}
+## One idea, three moving parts
+[Observable Framework](https://github.com/observablehq/framework) popularised the **data loader** pattern: a script in *any* language (Python, R, SQL, shell) produces a static data snapshot at build time, and the front-end loads it instantly with no live server. Quarto expresses the same idea natively:
+
+1. A **`{python}` / `{r}` / `{bash}` chunk** does the heavy analysis at render time.
+2. **`ojs_define()`** (or a written-out file + **`FileAttachment`**) hands the result to the browser.
+3. A **`{ojs}` cell** consumes it and stays fully reactive.
+
+The expensive computation runs once, during `quarto render`; the published page is then pure static HTML that reacts instantly.
+:::
+
+---
+
+# 1. Live pattern — Python loader → `ojs_define` → reactive OJS
+
+The Python chunk below simulates a factor-level assay dataset and passes it straight into the Observable runtime with `ojs_define()`.
+
+```{python}
+#| label: python-loader
+import numpy as np, pandas as pd
+
+rng = np.random.default_rng(7)
+n = 200
+severity = rng.choice(["Severe", "Moderate", "Mild"], size=n, p=[0.34, 0.33, 0.33])
+baseline = np.where(severity == "Severe", rng.uniform(0, 1, n),
+            np.where(severity == "Moderate", rng.uniform(1, 5, n),
+                     rng.uniform(5, 40, n)))
+age = rng.integers(4, 75, n)
+abr = np.clip(np.where(severity == "Severe", 6, np.where(severity == "Moderate", 2.5, 0.6))
+              + rng.normal(0, 2, n), 0, None).round()
+
+assays = pd.DataFrame({
+    "severity": severity,
+    "baseline": baseline.round(2),
+    "age": age,
+    "abr": abr.astype(int),
+})
+
+# Hand the whole table to Observable JS under the name `assays`.
+ojs_define(assays = assays)
+assays.head()
+```
+
+An OJS cell now reads that exact table and draws it — the analysis ran once in Python at render time, the chart is pure client-side SVG:
+
+```{ojs}
+//| echo: false
+// `assays` arrives from Python as a column-oriented object → transpose to rows.
+rowsFromPython = transpose(assays)
+```
+
+```{ojs}
+//| echo: false
+Plot.plot({
+  title: `${rowsFromPython.length} factor-level assays supplied by the Python loader`,
+  width: 760, height: 340, grid: true,
+  x: {label: "Baseline factor level (%) →"},
+  y: {label: "↑ Annualised bleed rate"},
+  color: {legend: true},
+  marks: [
+    Plot.dot(rowsFromPython, {x: "baseline", y: "abr", fill: "severity", r: 4.5, fillOpacity: 0.8, tip: true}),
+    Plot.linearRegressionY(rowsFromPython, {x: "baseline", y: "abr"})
+  ]
+})
+```
+
+::: {.callout-note}
+`ojs_define()` serialises a pandas/R data frame as **columns**. Observable's built-in `transpose()` helper flips it back to the array-of-rows shape that `Plot` and `Inputs.table` expect.
+
+**Why no slider here?** Mixing an `ojs_define` (server → client) with an interactive `viewof` (client input) on the *same* page makes Quarto emit a Shiny server binding, which needs `server: shiny`. For static publishing, keep loaders and interactive widgets on separate pages — the live sliders live on the [Inputs gallery](observable-inputs.qmd).
+:::
+
+---
+
+# 2. Live pattern — `FileAttachment` reads a vendored CSV
+
+No back-end language at all: a static CSV in the project's `data/` folder, parsed in the browser. This is the closest analogue to a Framework file-based data loader.
+
+```{ojs}
+penguins = FileAttachment("../data/penguins.csv").csv({typed: true})
+```
+
+```{ojs}
+//| echo: false
+Plot.plot({
+  title: `Palmer penguins — ${penguins.length} rows loaded via FileAttachment`,
+  width: 760, height: 360, grid: true,
+  color: {legend: true},
+  x: {label: "Culmen length (mm) →"},
+  y: {label: "↑ Flipper length (mm)"},
+  marks: [
+    Plot.dot(penguins, {x: "culmen_length_mm", y: "flipper_length_mm", fill: "species", tip: true})
+  ]
+})
+```
+
+`FileAttachment` also parses `.json()`, `.text()`, `.arrayBuffer()`, `.image()` and `.arrow()` — so the same mechanism loads Arrow tables, GeoJSON, or images.
+
+---
+
+# 3. Reference patterns for other back-ends
+
+These are the loader idioms for the remaining languages, adapted from the [`data-loader-examples`](https://github.com/observablehq/data-loader-examples) repository. Shown as listings because a single Quarto document runs one execution engine at a time — copy them into a knitr- or shell-engined page to run live.
+
+### R loader (knitr engine)
+
+```r
+#| label: r-loader
+library(dplyr)
+recovery <- tibble(
+  day = 0:28,
+  platelets = 20 + 380 / (1 + exp(-0.30 * (0:28 - 14)))
+)
+ojs_define(recovery = recovery)   # → available as `recovery` in {ojs}
+```
+
+### Shell / SQL loader (writes a file the page then attaches)
+
+A `bash` chunk (or a standalone data-loader script) can shell out to `duckdb`, `curl`, `jq` or any CLI and emit a data file:
+
+```bash
+# data/labs.csv is regenerated at render time
+duckdb -c "COPY (
+  SELECT severity, avg(baseline) AS mean_baseline
+  FROM read_csv_auto('raw/assays.csv')
+  GROUP BY severity
+) TO 'data/labs.csv' (HEADER, DELIMITER ',');"
+```
+
+```{{ojs}}
+labs = FileAttachment("../data/labs.csv").csv({typed: true})
+```
+
+### JavaScript loader (fetch + transform at render, cache with `freeze`)
+
+```js
+// A Node data loader that fetches and reshapes an API response.
+const res = await fetch("https://example.org/api/registry.json");
+const data = (await res.json()).map(d => ({id: d.id, abr: +d.annualBleeds}));
+process.stdout.write(JSON.stringify(data));   // → data/registry.json
+```
+
+---
+
+::: {.callout-important}
+## Why this is the powerful bit
+Quarto's `execute: freeze: auto` (set in `_quarto.yml`) means each loader runs **only when its source changes**. The committed `_freeze/` cache lets continuous-publishing CI rebuild the site *without* re-installing Python, R or database drivers — the reactive front-end ships as static assets. Heavy analysis stays reproducible; the reader gets instant interactivity. See the [Inputs gallery](observable-inputs.qmd) and [Plot showcase](observable-plot.qmd) for what to build on top of the loaded data.
+:::

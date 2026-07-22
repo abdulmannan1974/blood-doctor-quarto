@@ -18,6 +18,8 @@ project:
     - outputs/slides_files/**
     - outputs/epub-hbs-hba2/hbs-vs-beta-thal-hba2.epub
     - book/_book/**
+    - resources/plot-cheatsheets/**
+    - data/**
   preview:
     port: 4321
     browser: false
@@ -51,10 +53,14 @@ website:
             href: engines/julia.qmd
           - text: "Observable (interactive)"
             href: engines/observable.qmd
-          - text: "Observable Plot (gallery)"
+          - text: "Observable Inputs (gallery)"
+            href: engines/observable-inputs.qmd
+          - text: "Observable Plot (showcase)"
             href: engines/observable-plot.qmd
-          - text: "Observable Plot (all marks)"
-            href: engines/observable-plot.qmd
+          - text: "Plot cheatsheet & reference"
+            href: engines/plot-reference.qmd
+          - text: "Data loaders (any language → OJS)"
+            href: engines/data-loaders.qmd
           - text: "Diagrams & algorithms"
             href: diagrams/algorithms.qmd
           - text: "Interactive teaching"

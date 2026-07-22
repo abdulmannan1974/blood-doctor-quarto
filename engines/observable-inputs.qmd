@@ -1,0 +1,278 @@
+---
+title: "Observable Inputs — The Complete Interactive Gallery"
+subtitle: "Every built-in input widget, each wired to a live haematology worked example"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: show
+---
+
+::: {.callout-tip}
+## Reactive widgets with zero installation
+Every widget on this page comes from the [`@observablehq/inputs`](https://github.com/observablehq/inputs) library, which Quarto's `{ojs}` engine bundles natively — no `import`, no server, no build step. Each `viewof` cell exposes a **reactive value**; any other cell that names that value re-runs automatically when the widget changes. The pattern below is the backbone of a live clinical dashboard: *inputs on top, reactive calculations and charts underneath.*
+:::
+
+Shared demo cohort used throughout this page:
+
+```{ojs}
+//| echo: false
+// A simulated haemophilia-clinic cohort reused by the examples below.
+cohort = d3.range(140).map(i => {
+  const severity = ["Severe", "Moderate", "Mild"][i % 3];
+  const factor = i % 4 === 0 ? "IX" : "VIII";
+  const baseline = severity === "Severe" ? Math.random() * 1 :
+                   severity === "Moderate" ? 1 + Math.random() * 4 :
+                   5 + Math.random() * 35;
+  const age = 4 + Math.floor(Math.random() * 70);
+  const inhibitor = severity === "Severe" && Math.random() < 0.28;
+  const bleeds = Math.max(0, Math.round((severity === "Severe" ? 6 : severity === "Moderate" ? 2.5 : 0.6)
+                 + (inhibitor ? 4 : 0) + (Math.random() - 0.5) * 3));
+  return {
+    id: `H-${1000 + i}`,
+    name: `Patient ${1000 + i}`,
+    factor,                       // deficient factor
+    severity,
+    baseline: +baseline.toFixed(1), // baseline factor level (%)
+    age,
+    weight: +(12 + age * 0.9 + Math.random() * 15).toFixed(1),
+    inhibitor,
+    bleeds,                       // annualised bleed count (ABR proxy)
+    onProphylaxis: severity !== "Mild" ? Math.random() < 0.8 : Math.random() < 0.3
+  };
+})
+```
+
+---
+
+# 1. `Inputs.range` — continuous sliders
+
+The workhorse of any pharmacokinetic or dosing tool. Returns a `number`.
+
+```{ojs}
+//| panel: input
+viewof targetLevel = Inputs.range([1, 100], {value: 30, step: 1, label: "Target trough factor level (%):"})
+viewof halfLife = Inputs.range([6, 24], {value: 12, step: 0.5, label: "FVIII half-life t½ (h):"})
+```
+
+```{ojs}
+//| echo: false
+// Reactive dosing curve driven by the two sliders above.
+ke_f = Math.log(2) / halfLife
+decay = d3.range(0, 72.5, 0.5).map(t => ({t, level: 100 * Math.exp(-ke_f * t)}))
+timeBelowTarget = (Math.log(100 / targetLevel) / ke_f)
+```
+
+```{ojs}
+//| echo: false
+Plot.plot({
+  title: `Single-dose decay — factor falls below ${targetLevel}% at ${timeBelowTarget.toFixed(1)} h`,
+  width: 760, height: 320, grid: true,
+  x: {label: "Hours since infusion →"},
+  y: {label: "↑ Factor level (% of peak)", domain: [0, 100]},
+  marks: [
+    Plot.areaY(decay, {x: "t", y: "level", fillOpacity: 0.12}),
+    Plot.lineY(decay, {x: "t", y: "level", strokeWidth: 2}),
+    Plot.ruleY([targetLevel], {stroke: "crimson", strokeDasharray: "4 4"}),
+    Plot.ruleX([timeBelowTarget], {stroke: "crimson", strokeDasharray: "2 3"})
+  ]
+})
+```
+
+---
+
+# 2. `Inputs.select` & `Inputs.radio` — pick one category
+
+`select` suits long lists; `radio` suits 2–5 options you want visible at once. Both return the chosen value.
+
+```{ojs}
+//| panel: input
+viewof pickSeverity = Inputs.select(["All", "Severe", "Moderate", "Mild"], {value: "All", label: "Severity filter:"})
+viewof pickFactor = Inputs.radio(["Both", "VIII", "IX"], {value: "Both", label: "Deficient factor:"})
+```
+
+```{ojs}
+//| echo: false
+filtered = cohort.filter(d =>
+  (pickSeverity === "All" || d.severity === pickSeverity) &&
+  (pickFactor === "Both" || d.factor === pickFactor))
+```
+
+```{ojs}
+//| echo: false
+Plot.plot({
+  title: `${filtered.length} patients match — annualised bleed rate by age`,
+  width: 760, height: 340, grid: true,
+  x: {label: "Age (years) →"},
+  y: {label: "↑ Annualised bleeds"},
+  color: {legend: true},
+  marks: [
+    Plot.dot(filtered, {x: "age", y: "bleeds", fill: "severity", r: 5, fillOpacity: 0.8, tip: true}),
+    Plot.linearRegressionY(filtered, {x: "age", y: "bleeds", stroke: "severity"})
+  ]
+})
+```
+
+---
+
+# 3. `Inputs.checkbox` — pick many categories
+
+Returns an **array** of the selected values.
+
+```{ojs}
+//| panel: input
+viewof shownSeverities = Inputs.checkbox(["Severe", "Moderate", "Mild"], {value: ["Severe", "Moderate", "Mild"], label: "Show severities:"})
+```
+
+```{ojs}
+//| echo: false
+Plot.plot({
+  title: "Baseline factor level distribution",
+  width: 760, height: 300, grid: true,
+  x: {label: "Baseline factor level (%) →"},
+  y: {label: "↑ Count"},
+  color: {legend: true},
+  marks: [
+    Plot.rectY(cohort.filter(d => shownSeverities.includes(d.severity)),
+      Plot.binX({y: "count"}, {x: "baseline", fill: "severity", fillOpacity: 0.7, thresholds: 24}))
+  ]
+})
+```
+
+---
+
+# 4. `Inputs.toggle` — a single boolean
+
+```{ojs}
+//| panel: input
+viewof prophylaxisOnly = Inputs.toggle({label: "Prophylaxis patients only", value: false})
+viewof logScale = Inputs.toggle({label: "Log-scale the y-axis", value: false})
+```
+
+```{ojs}
+//| echo: false
+proph = prophylaxisOnly ? cohort.filter(d => d.onProphylaxis) : cohort
+Plot.plot({
+  title: `Weight vs baseline level — ${proph.length} patients`,
+  width: 760, height: 320, grid: true,
+  y: {type: logScale ? "log" : "linear", label: `↑ Baseline level (%)${logScale ? " — log" : ""}`},
+  x: {label: "Weight (kg) →"},
+  marks: [Plot.dot(proph, {x: "weight", y: d => Math.max(0.1, d.baseline), fill: "inhibitor", tip: true})]
+})
+```
+
+---
+
+# 5. `Inputs.search` + `Inputs.table` — an interactive registry
+
+`Inputs.search` filters any array by a free-text query; `Inputs.table` renders a sortable, selectable grid. Chaining them gives a live patient registry in three lines.
+
+```{ojs}
+//| panel: input
+viewof query = Inputs.search(cohort, {placeholder: "Search the cohort (e.g. Severe, IX, H-1042)…"})
+```
+
+```{ojs}
+viewof selectedRows = Inputs.table(query, {
+  columns: ["id", "factor", "severity", "baseline", "age", "weight", "inhibitor", "bleeds", "onProphylaxis"],
+  header: {
+    id: "ID", factor: "Factor", severity: "Severity", baseline: "Baseline %",
+    age: "Age", weight: "Weight kg", inhibitor: "Inhibitor", bleeds: "ABR", onProphylaxis: "Prophylaxis"
+  },
+  sort: "bleeds", reverse: true, rows: 12
+})
+```
+
+```{ojs}
+//| echo: false
+md`**${selectedRows.length}** row(s) selected · mean ABR of selection: **${
+  selectedRows.length ? (d3.mean(selectedRows, d => d.bleeds)).toFixed(1) : "—"
+}**`
+```
+
+---
+
+# 6. `Inputs.number`, `Inputs.text` & `Inputs.textarea` — typed entry
+
+```{ojs}
+//| panel: input
+viewof patientWeight = Inputs.number([3, 150], {value: 70, step: 0.5, label: "Patient weight (kg):"})
+viewof desiredRise = Inputs.number([10, 100], {value: 50, step: 5, label: "Desired factor rise (%):"})
+viewof clinicianNote = Inputs.text({label: "Clinician initials:", placeholder: "e.g. AM", value: ""})
+```
+
+```{ojs}
+//| echo: false
+// Standard FVIII loading dose: units = weight(kg) × desired rise(%) × 0.5
+fviiiDose = Math.round(patientWeight * desiredRise * 0.5)
+md`**Calculated FVIII loading dose:** ${fviiiDose.toLocaleString()} IU  ${clinicianNote ? `· prescribed by ${clinicianNote}` : ""}`
+```
+
+---
+
+# 7. `Inputs.date` & `Inputs.color` — specialised pickers
+
+```{ojs}
+//| panel: input
+viewof reviewDate = Inputs.date({label: "Next review date:", value: "2026-09-01"})
+viewof brandColour = Inputs.color({label: "Chart accent colour:", value: "#a4133c"})
+```
+
+```{ojs}
+//| echo: false
+daysToReview = Math.round((new Date(reviewDate) - new Date("2026-07-22")) / 86400000)
+Plot.plot({
+  title: `Review in ${daysToReview} days — bleeds by severity (accent ${brandColour})`,
+  width: 760, height: 280, marginLeft: 70,
+  x: {label: "Mean annualised bleeds →"},
+  marks: [
+    Plot.barX(cohort, Plot.groupY({x: "mean"}, {y: "severity", x: "bleeds", fill: brandColour, sort: {y: "x"}})),
+    Plot.ruleX([0])
+  ]
+})
+```
+
+---
+
+# 8. `Inputs.button` — event-driven actions
+
+A button returns a **click count** — increment it to trigger a fresh random resample, useful for demonstrating variability or bootstrap intuition.
+
+```{ojs}
+//| panel: input
+viewof resample = Inputs.button("🎲 Resample cohort mean ABR")
+```
+
+```{ojs}
+//| echo: false
+resample; // referencing it makes this cell re-run on click
+bootstrapMean = d3.mean(d3.range(cohort.length).map(() => cohort[Math.floor(Math.random() * cohort.length)].bleeds))
+md`Bootstrap resample #${resample} → mean ABR = **${bootstrapMean.toFixed(2)}**`
+```
+
+---
+
+# 9. `Inputs.form` — grouped inputs as one reactive object
+
+`Inputs.form` bundles several inputs into a **single value object**, ideal for a compact parameter panel.
+
+```{ojs}
+//| panel: input
+viewof regimen = Inputs.form({
+  dose: Inputs.range([10, 60], {value: 30, step: 5, label: "Dose IU/kg:"}),
+  interval: Inputs.select([48, 72, 96, 168], {value: 72, label: "Interval (h):"}),
+  ph: Inputs.radio(["Standard", "Extended", "Non-factor"], {value: "Extended", label: "Product type:"})
+})
+```
+
+```{ojs}
+//| echo: false
+md`Selected regimen → **${regimen.dose} IU/kg** every **${regimen.interval} h** · **${regimen.ph} half-life**`
+```
+
+---
+
+::: {.callout-note}
+## The mental model
+Read this page top-to-bottom as one program: a `viewof x = Inputs.…` cell publishes a value called `x`; any later cell that mentions `x` becomes a *dependent* and re-executes the instant `x` changes. That is Observable's **topological dataflow** — the same engine that powers the live decks, dashboards and teaching tools elsewhere on this site. See also the [Observable Plot showcase](observable-plot.qmd) and the [data-loaders guide](data-loaders.qmd) for feeding server-computed data into these widgets.
+:::

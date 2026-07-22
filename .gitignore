@@ -19,6 +19,7 @@
 # is rendered locally and deployed reproducibly by continuous publishing.
 
 **/*.quarto_ipynb
+**/*.quarto_ipynb_*
 
 # Large installers, OS cruft, dropped review page, backups
 *.pkg

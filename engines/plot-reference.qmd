@@ -1,0 +1,122 @@
+---
+title: "Observable Plot — Cheatsheet & Quick Reference"
+subtitle: "The official visual cheatsheets, embedded, plus a distilled marks / scales / transforms lookup"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+---
+
+::: {.callout-tip}
+## A reference you can keep open while you build
+The five PDFs below are Observable's official [`plot-cheatsheets`](https://github.com/observablehq/plot-cheatsheets), vendored into this site so they load offline and never rot. Pair them with the live, runnable examples on the [Observable Plot showcase](observable-plot.qmd) page — this page is the *lookup*, that page is the *worked gallery*.
+:::
+
+# The visual cheatsheets
+
+::: {.panel-tabset}
+
+## Marks
+```{=html}
+<iframe src="../resources/plot-cheatsheets/marks.pdf" width="100%" height="720" style="border:1px solid #ddd;border-radius:6px"></iframe>
+```
+[Open marks.pdf ↗](../resources/plot-cheatsheets/marks.pdf)
+
+## Scales
+```{=html}
+<iframe src="../resources/plot-cheatsheets/scales.pdf" width="100%" height="720" style="border:1px solid #ddd;border-radius:6px"></iframe>
+```
+[Open scales.pdf ↗](../resources/plot-cheatsheets/scales.pdf)
+
+## Transforms
+```{=html}
+<iframe src="../resources/plot-cheatsheets/transforms.pdf" width="100%" height="720" style="border:1px solid #ddd;border-radius:6px"></iframe>
+```
+[Open transforms.pdf ↗](../resources/plot-cheatsheets/transforms.pdf)
+
+## Layouts
+```{=html}
+<iframe src="../resources/plot-cheatsheets/layouts.pdf" width="100%" height="720" style="border:1px solid #ddd;border-radius:6px"></iframe>
+```
+[Open layouts.pdf ↗](../resources/plot-cheatsheets/layouts.pdf)
+
+## Colours
+```{=html}
+<iframe src="../resources/plot-cheatsheets/colors.pdf" width="100%" height="720" style="border:1px solid #ddd;border-radius:6px"></iframe>
+```
+[Open colors.pdf ↗](../resources/plot-cheatsheets/colors.pdf)
+
+:::
+
+📄 **All five combined:** [plot-cheatsheets.pdf ↗](../resources/plot-cheatsheets/plot-cheatsheets.pdf)
+
+---
+
+# Quick reference
+
+## Marks — what to reach for
+
+| Mark | Use it for | Minimal call |
+|------|-----------|--------------|
+| `Plot.dot` | scatter, beeswarm | `Plot.dot(data, {x, y})` |
+| `Plot.line` / `Plot.lineY` | trends, time series | `Plot.lineY(data, {x, y})` |
+| `Plot.areaY` | filled trend, CI band | `Plot.areaY(data, {x, y})` |
+| `Plot.barY` / `Plot.barX` | ordinal categories | `Plot.barY(data, {x, y})` |
+| `Plot.rectY` | histograms (with `binX`) | `Plot.rectY(data, Plot.binX({y:"count"},{x}))` |
+| `Plot.cell` | heatmaps / matrices | `Plot.cell(data, {x, y, fill})` |
+| `Plot.rule{X,Y}` | reference lines, thresholds | `Plot.ruleY([0])` |
+| `Plot.tip` | interactive tooltips | add `tip: true` to any mark |
+| `Plot.text` | labels, annotations | `Plot.text(data, {x, y, text})` |
+| `Plot.linearRegressionY` | fitted trend | `Plot.linearRegressionY(data, {x, y})` |
+
+## Scales — control the mapping
+
+| Option | Effect |
+|--------|--------|
+| `x: {type: "log"}` | logarithmic axis |
+| `y: {domain: [0, 100]}` | fix the range |
+| `color: {scheme: "reds", legend: true}` | sequential colour + legend |
+| `color: {type: "categorical"}` | discrete category colours |
+| `r: {range: [2, 18]}` | bubble radius scaling |
+| `x: {tickFormat: "%b"}` | format ticks (dates, `%`) |
+
+## Transforms — reshape before drawing
+
+| Transform | Does |
+|-----------|------|
+| `Plot.binX` / `Plot.binY` | histogram binning |
+| `Plot.groupX` / `Plot.groupY` | aggregate (mean, sum, count) |
+| `Plot.stackY` | stacked bars / areas |
+| `Plot.dodgeX` / `Plot.dodgeY` | beeswarm, avoid overlap |
+| `Plot.normalizeY` | index to a baseline |
+| `Plot.windowY` | rolling mean / smoothing |
+| `Plot.map` / `Plot.select` | custom per-series ops |
+
+---
+
+# One-liners you can copy
+
+Each of these renders live below to prove the syntax works in this Quarto site:
+
+```{ojs}
+//| echo: false
+demo = d3.range(60).map(i => ({t: i, v: 50 + 30 * Math.sin(i / 6) + (Math.random() - 0.5) * 12, grp: i % 2 ? "A" : "B"}))
+```
+
+```{ojs}
+//| echo: false
+//| layout-ncol: 2
+Plot.plot({title: "dot + tip", height: 220, marks: [Plot.dot(demo, {x: "t", y: "v", fill: "grp", tip: true})]})
+Plot.plot({title: "lineY + windowY (rolling mean)", height: 220, marks: [
+  Plot.lineY(demo, {x: "t", y: "v", stroke: "#bbb"}),
+  Plot.lineY(demo, Plot.windowY({k: 7}, {x: "t", y: "v", stroke: "crimson", strokeWidth: 2}))
+]})
+Plot.plot({title: "rectY + binX (histogram)", height: 220, marks: [Plot.rectY(demo, Plot.binX({y: "count"}, {x: "v", fill: "grp"}))]})
+Plot.plot({title: "barX + groupY (mean by group)", height: 220, marginLeft: 40, marks: [
+  Plot.barX(demo, Plot.groupY({x: "mean"}, {y: "grp", x: "v", fill: "grp"})), Plot.ruleX([0])
+]})
+```
+
+::: {.callout-note}
+These cheatsheets and helpers came from the curated Observable mirror at `~/observablehq-mirror`, refreshable any time with `scripts/clone-observable-mirror.sh`.
+:::
