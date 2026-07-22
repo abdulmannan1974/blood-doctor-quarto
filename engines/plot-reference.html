@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Interactive Teaching Document – Blood Doctor · Quarto</title>
+<title>Observable Plot — Cheatsheet &amp; Quick Reference – Blood Doctor · Quarto</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -232,9 +232,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#layered-content-with-tabsets" id="toc-layered-content-with-tabsets" class="nav-link active" data-scroll-target="#layered-content-with-tabsets">Layered content with tabsets</a></li>
-  <li><a href="#callouts-for-emphasis" id="toc-callouts-for-emphasis" class="nav-link" data-scroll-target="#callouts-for-emphasis">Callouts for emphasis</a></li>
-  <li><a href="#a-live-interactive-doseexposure-explorer" id="toc-a-live-interactive-doseexposure-explorer" class="nav-link" data-scroll-target="#a-live-interactive-doseexposure-explorer">A live interactive: dose–exposure explorer</a></li>
+  <li><a href="#the-visual-cheatsheets" id="toc-the-visual-cheatsheets" class="nav-link active" data-scroll-target="#the-visual-cheatsheets">The visual cheatsheets</a></li>
+  <li><a href="#quick-reference" id="toc-quick-reference" class="nav-link" data-scroll-target="#quick-reference">Quick reference</a>
+  <ul class="collapse">
+  <li><a href="#marks-what-to-reach-for" id="toc-marks-what-to-reach-for" class="nav-link" data-scroll-target="#marks-what-to-reach-for">Marks — what to reach for</a></li>
+  <li><a href="#scales-control-the-mapping" id="toc-scales-control-the-mapping" class="nav-link" data-scroll-target="#scales-control-the-mapping">Scales — control the mapping</a></li>
+  <li><a href="#transforms-reshape-before-drawing" id="toc-transforms-reshape-before-drawing" class="nav-link" data-scroll-target="#transforms-reshape-before-drawing">Transforms — reshape before drawing</a></li>
+  </ul></li>
+  <li><a href="#one-liners-you-can-copy" id="toc-one-liners-you-can-copy" class="nav-link" data-scroll-target="#one-liners-you-can-copy">One-liners you can copy</a></li>
   </ul>
 </nav>
     </div>
@@ -243,8 +248,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Interactive Teaching Document</h1>
-<p class="subtitle lead">Tabsets, callouts and live widgets — the pattern behind your learning apps</p>
+<h1 class="title">Observable Plot — Cheatsheet &amp; Quick Reference</h1>
+<p class="subtitle lead">The official visual cheatsheets, embedded, plus a distilled marks / scales / transforms lookup</p>
 </div>
 
 
@@ -261,83 +266,257 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>This mirrors your single-file HTML learning apps, but authored in Markdown and fully reproducible.</p>
-<section id="layered-content-with-tabsets" class="level2">
-<h2 class="anchored" data-anchor-id="layered-content-with-tabsets">Layered content with tabsets</h2>
-<div class="tabset-margin-container"></div><div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Concept</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Mechanism</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Monitoring</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p>Emicizumab is a bispecific antibody bridging activated factor IX and factor X, mimicking the cofactor function of <strong>factor VIII</strong>.</p>
-</div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p>It does <strong>not</strong> require activation and is not affected by FVIII inhibitors — hence its role in haemophilia A with inhibitors.</p>
-</div>
-<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<p>Standard APTT-based assays are unreliable on emicizumab. Use a <strong>bovine-based chromogenic</strong> FVIII assay to monitor.</p>
-</div>
-</div>
-</div>
-</section>
-<section id="callouts-for-emphasis" class="level2">
-<h2 class="anchored" data-anchor-id="callouts-for-emphasis">Callouts for emphasis</h2>
-<div class="callout callout-style-default callout-warning callout-titled">
+<div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Warning</span>Assay pitfall
+<span class="screen-reader-only">Tip</span>A reference you can keep open while you build
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>Emicizumab shortens the APTT dramatically and invalidates one-stage FVIII assays.</p>
+<p>The five PDFs below are Observable’s official <a href="https://github.com/observablehq/plot-cheatsheets"><code>plot-cheatsheets</code></a>, vendored into this site so they load offline and never rot. Pair them with the live, runnable examples on the <a href="../engines/observable-plot.html">Observable Plot showcase</a> page — this page is the <em>lookup</em>, that page is the <em>worked gallery</em>.</p>
 </div>
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<section id="the-visual-cheatsheets" class="level1">
+<h1>The visual cheatsheets</h1>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Marks</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Scales</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Transforms</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Layouts</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-5-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-5" role="tab" aria-controls="tabset-1-5" aria-selected="false" href="">Colours</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<iframe src="../resources/plot-cheatsheets/marks.pdf" width="100%" height="720" style="border:1px solid #ddd;border-radius:6px"></iframe>
+<p><a href="../resources/plot-cheatsheets/marks.pdf">Open marks.pdf ↗</a></p>
 </div>
-<div class="callout-title-container flex-fill">
-<span class="screen-reader-only">Note</span>Expand: dosing summary
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<iframe src="../resources/plot-cheatsheets/scales.pdf" width="100%" height="720" style="border:1px solid #ddd;border-radius:6px"></iframe>
+<p><a href="../resources/plot-cheatsheets/scales.pdf">Open scales.pdf ↗</a></p>
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<iframe src="../resources/plot-cheatsheets/transforms.pdf" width="100%" height="720" style="border:1px solid #ddd;border-radius:6px"></iframe>
+<p><a href="../resources/plot-cheatsheets/transforms.pdf">Open transforms.pdf ↗</a></p>
 </div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Loading 3 mg/kg weekly ×4, then a maintenance schedule (weekly / fortnightly / four-weekly). <em>Verify against the current SmPC before clinical use.</em></p>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<iframe src="../resources/plot-cheatsheets/layouts.pdf" width="100%" height="720" style="border:1px solid #ddd;border-radius:6px"></iframe>
+<p><a href="../resources/plot-cheatsheets/layouts.pdf">Open layouts.pdf ↗</a></p>
+</div>
+<div id="tabset-1-5" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-5-tab">
+<iframe src="../resources/plot-cheatsheets/colors.pdf" width="100%" height="720" style="border:1px solid #ddd;border-radius:6px"></iframe>
+<p><a href="../resources/plot-cheatsheets/colors.pdf">Open colors.pdf ↗</a></p>
 </div>
 </div>
 </div>
+<p>📄 <strong>All five combined:</strong> <a href="../resources/plot-cheatsheets/plot-cheatsheets.pdf">plot-cheatsheets.pdf ↗</a></p>
+<hr>
 </section>
-<section id="a-live-interactive-doseexposure-explorer" class="level2">
-<h2 class="anchored" data-anchor-id="a-live-interactive-doseexposure-explorer">A live interactive: dose–exposure explorer</h2>
+<section id="quick-reference" class="level1">
+<h1>Quick reference</h1>
+<section id="marks-what-to-reach-for" class="level2">
+<h2 class="anchored" data-anchor-id="marks-what-to-reach-for">Marks — what to reach for</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 19%">
+<col style="width: 35%">
+<col style="width: 45%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Mark</th>
+<th>Use it for</th>
+<th>Minimal call</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Plot.dot</code></td>
+<td>scatter, beeswarm</td>
+<td><code>Plot.dot(data, {x, y})</code></td>
+</tr>
+<tr class="even">
+<td><code>Plot.line</code> / <code>Plot.lineY</code></td>
+<td>trends, time series</td>
+<td><code>Plot.lineY(data, {x, y})</code></td>
+</tr>
+<tr class="odd">
+<td><code>Plot.areaY</code></td>
+<td>filled trend, CI band</td>
+<td><code>Plot.areaY(data, {x, y})</code></td>
+</tr>
+<tr class="even">
+<td><code>Plot.barY</code> / <code>Plot.barX</code></td>
+<td>ordinal categories</td>
+<td><code>Plot.barY(data, {x, y})</code></td>
+</tr>
+<tr class="odd">
+<td><code>Plot.rectY</code></td>
+<td>histograms (with <code>binX</code>)</td>
+<td><code>Plot.rectY(data, Plot.binX({y:"count"},{x}))</code></td>
+</tr>
+<tr class="even">
+<td><code>Plot.cell</code></td>
+<td>heatmaps / matrices</td>
+<td><code>Plot.cell(data, {x, y, fill})</code></td>
+</tr>
+<tr class="odd">
+<td><code>Plot.rule{X,Y}</code></td>
+<td>reference lines, thresholds</td>
+<td><code>Plot.ruleY([0])</code></td>
+</tr>
+<tr class="even">
+<td><code>Plot.tip</code></td>
+<td>interactive tooltips</td>
+<td>add <code>tip: true</code> to any mark</td>
+</tr>
+<tr class="odd">
+<td><code>Plot.text</code></td>
+<td>labels, annotations</td>
+<td><code>Plot.text(data, {x, y, text})</code></td>
+</tr>
+<tr class="even">
+<td><code>Plot.linearRegressionY</code></td>
+<td>fitted trend</td>
+<td><code>Plot.linearRegressionY(data, {x, y})</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="scales-control-the-mapping" class="level2">
+<h2 class="anchored" data-anchor-id="scales-control-the-mapping">Scales — control the mapping</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Option</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>x: {type: "log"}</code></td>
+<td>logarithmic axis</td>
+</tr>
+<tr class="even">
+<td><code>y: {domain: [0, 100]}</code></td>
+<td>fix the range</td>
+</tr>
+<tr class="odd">
+<td><code>color: {scheme: "reds", legend: true}</code></td>
+<td>sequential colour + legend</td>
+</tr>
+<tr class="even">
+<td><code>color: {type: "categorical"}</code></td>
+<td>discrete category colours</td>
+</tr>
+<tr class="odd">
+<td><code>r: {range: [2, 18]}</code></td>
+<td>bubble radius scaling</td>
+</tr>
+<tr class="even">
+<td><code>x: {tickFormat: "%b"}</code></td>
+<td>format ticks (dates, <code>%</code>)</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="transforms-reshape-before-drawing" class="level2">
+<h2 class="anchored" data-anchor-id="transforms-reshape-before-drawing">Transforms — reshape before drawing</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Transform</th>
+<th>Does</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>Plot.binX</code> / <code>Plot.binY</code></td>
+<td>histogram binning</td>
+</tr>
+<tr class="even">
+<td><code>Plot.groupX</code> / <code>Plot.groupY</code></td>
+<td>aggregate (mean, sum, count)</td>
+</tr>
+<tr class="odd">
+<td><code>Plot.stackY</code></td>
+<td>stacked bars / areas</td>
+</tr>
+<tr class="even">
+<td><code>Plot.dodgeX</code> / <code>Plot.dodgeY</code></td>
+<td>beeswarm, avoid overlap</td>
+</tr>
+<tr class="odd">
+<td><code>Plot.normalizeY</code></td>
+<td>index to a baseline</td>
+</tr>
+<tr class="even">
+<td><code>Plot.windowY</code></td>
+<td>rolling mean / smoothing</td>
+</tr>
+<tr class="odd">
+<td><code>Plot.map</code> / <code>Plot.select</code></td>
+<td>custom per-series ops</td>
+</tr>
+</tbody>
+</table>
+<hr>
+</section>
+</section>
+<section id="one-liners-you-can-copy" class="level1">
+<h1>One-liners you can copy</h1>
+<p>Each of these renders live below to prove the syntax works in this Quarto site:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="43" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 42;"><span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>viewof weight <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">10</span><span class="op">,</span> <span class="dv">120</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">70</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Body weight (kg)"</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb1" data-startfrom="102" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 101;"><span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>demo <span class="op">=</span> d3<span class="op">.</span><span class="fu">range</span>(<span class="dv">60</span>)<span class="op">.</span><span class="fu">map</span>(i <span class="kw">=&gt;</span> ({<span class="dt">t</span><span class="op">:</span> i<span class="op">,</span> <span class="dt">v</span><span class="op">:</span> <span class="dv">50</span> <span class="op">+</span> <span class="dv">30</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sin</span>(i <span class="op">/</span> <span class="dv">6</span>) <span class="op">+</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>() <span class="op">-</span> <span class="fl">0.5</span>) <span class="op">*</span> <span class="dv">12</span><span class="op">,</span> <span class="dt">grp</span><span class="op">:</span> i <span class="op">%</span> <span class="dv">2</span> <span class="op">?</span> <span class="st">"A"</span> <span class="op">:</span> <span class="st">"B"</span>}))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-1" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
-<div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="49" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 48;"><span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>loading <span class="op">=</span> <span class="fl">3.0</span> <span class="op">*</span> weight</span>
-<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="fu">md</span><span class="vs">`A **3 mg/kg** loading dose for a **</span><span class="sc">${</span>weight<span class="sc">}</span><span class="vs"> kg** patient is</span></span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="vs">**</span><span class="sc">${</span>loading<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">0</span>)<span class="sc">}</span><span class="vs"> mg** per weekly dose during the 4-week loading phase.`</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-2-1" data-nodetype="declaration">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb2" data-startfrom="109" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 108;"><span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({<span class="dt">title</span><span class="op">:</span> <span class="st">"dot + tip"</span><span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">220</span><span class="op">,</span> <span class="dt">marks</span><span class="op">:</span> [Plot<span class="op">.</span><span class="fu">dot</span>(demo<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"t"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"v"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"grp"</span><span class="op">,</span> <span class="dt">tip</span><span class="op">:</span> <span class="kw">true</span>})]})</span>
+<span id="cb2-110"><a href="#cb2-110" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({<span class="dt">title</span><span class="op">:</span> <span class="st">"lineY + windowY (rolling mean)"</span><span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">220</span><span class="op">,</span> <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb2-111"><a href="#cb2-111" aria-hidden="true" tabindex="-1"></a>  Plot<span class="op">.</span><span class="fu">lineY</span>(demo<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"t"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"v"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"#bbb"</span>})<span class="op">,</span></span>
+<span id="cb2-112"><a href="#cb2-112" aria-hidden="true" tabindex="-1"></a>  Plot<span class="op">.</span><span class="fu">lineY</span>(demo<span class="op">,</span> Plot<span class="op">.</span><span class="fu">windowY</span>({<span class="dt">k</span><span class="op">:</span> <span class="dv">7</span>}<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"t"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"v"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"crimson"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">2</span>}))</span>
+<span id="cb2-113"><a href="#cb2-113" aria-hidden="true" tabindex="-1"></a>]})</span>
+<span id="cb2-114"><a href="#cb2-114" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({<span class="dt">title</span><span class="op">:</span> <span class="st">"rectY + binX (histogram)"</span><span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">220</span><span class="op">,</span> <span class="dt">marks</span><span class="op">:</span> [Plot<span class="op">.</span><span class="fu">rectY</span>(demo<span class="op">,</span> Plot<span class="op">.</span><span class="fu">binX</span>({<span class="dt">y</span><span class="op">:</span> <span class="st">"count"</span>}<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"v"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"grp"</span>}))]})</span>
+<span id="cb2-115"><a href="#cb2-115" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({<span class="dt">title</span><span class="op">:</span> <span class="st">"barX + groupY (mean by group)"</span><span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">220</span><span class="op">,</span> <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">40</span><span class="op">,</span> <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb2-116"><a href="#cb2-116" aria-hidden="true" tabindex="-1"></a>  Plot<span class="op">.</span><span class="fu">barX</span>(demo<span class="op">,</span> Plot<span class="op">.</span><span class="fu">groupY</span>({<span class="dt">x</span><span class="op">:</span> <span class="st">"mean"</span>}<span class="op">,</span> {<span class="dt">y</span><span class="op">:</span> <span class="st">"grp"</span><span class="op">,</span> <span class="dt">x</span><span class="op">:</span> <span class="st">"v"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"grp"</span>}))<span class="op">,</span> Plot<span class="op">.</span><span class="fu">ruleX</span>([<span class="dv">0</span>])</span>
+<span id="cb2-117"><a href="#cb2-117" aria-hidden="true" tabindex="-1"></a>]})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="ojs-cell-2-1" data-nodetype="expression">
 
 </div>
 </div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div id="ojs-cell-2-2" data-nodetype="expression">
 
 </div>
 </div>
+</div>
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="ojs-cell-2-3" data-nodetype="expression">
+
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="ojs-cell-2-4" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>These cheatsheets and helpers came from the curated Observable mirror at <code>~/observablehq-mirror</code>, refreshable any time with <code>scripts/clone-observable-mirror.sh</code>.</p>
 </div>
 </div>
 
@@ -346,11 +525,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiB3ZWlnaHQgPSBJbnB1dHMucmFuZ2UoWzEwLCAxMjBdLCB7dmFsdWU6IDcwLCBzdGVwOiAxLCBsYWJlbDogXCJCb2R5IHdlaWdodCAoa2cpXCJ9KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoibG9hZGluZyA9IDMuMCAqIHdlaWdodFxubWRgQSAqKjMgbWcva2cqKiBsb2FkaW5nIGRvc2UgZm9yIGEgKioke3dlaWdodH0ga2cqKiBwYXRpZW50IGlzXG4qKiR7bG9hZGluZy50b0ZpeGVkKDApfSBtZyoqIHBlciB3ZWVrbHkgZG9zZSBkdXJpbmcgdGhlIDQtd2VlayBsb2FkaW5nIHBoYXNlLmBcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnd2VpZ2h0JykifV19
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6ImRlbW8gPSBkMy5yYW5nZSg2MCkubWFwKGkgPT4gKHt0OiBpLCB2OiA1MCArIDMwICogTWF0aC5zaW4oaSAvIDYpICsgKE1hdGgucmFuZG9tKCkgLSAwLjUpICogMTIsIGdycDogaSAlIDIgPyBcIkFcIiA6IFwiQlwifSkpXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe3RpdGxlOiBcImRvdCArIHRpcFwiLCBoZWlnaHQ6IDIyMCwgbWFya3M6IFtQbG90LmRvdChkZW1vLCB7eDogXCJ0XCIsIHk6IFwidlwiLCBmaWxsOiBcImdycFwiLCB0aXA6IHRydWV9KV19KVxuUGxvdC5wbG90KHt0aXRsZTogXCJsaW5lWSArIHdpbmRvd1kgKHJvbGxpbmcgbWVhbilcIiwgaGVpZ2h0OiAyMjAsIG1hcmtzOiBbXG4gIFBsb3QubGluZVkoZGVtbywge3g6IFwidFwiLCB5OiBcInZcIiwgc3Ryb2tlOiBcIiNiYmJcIn0pLFxuICBQbG90LmxpbmVZKGRlbW8sIFBsb3Qud2luZG93WSh7azogN30sIHt4OiBcInRcIiwgeTogXCJ2XCIsIHN0cm9rZTogXCJjcmltc29uXCIsIHN0cm9rZVdpZHRoOiAyfSkpXG5dfSlcblBsb3QucGxvdCh7dGl0bGU6IFwicmVjdFkgKyBiaW5YIChoaXN0b2dyYW0pXCIsIGhlaWdodDogMjIwLCBtYXJrczogW1Bsb3QucmVjdFkoZGVtbywgUGxvdC5iaW5YKHt5OiBcImNvdW50XCJ9LCB7eDogXCJ2XCIsIGZpbGw6IFwiZ3JwXCJ9KSldfSlcblBsb3QucGxvdCh7dGl0bGU6IFwiYmFyWCArIGdyb3VwWSAobWVhbiBieSBncm91cClcIiwgaGVpZ2h0OiAyMjAsIG1hcmdpbkxlZnQ6IDQwLCBtYXJrczogW1xuICBQbG90LmJhclgoZGVtbywgUGxvdC5ncm91cFkoe3g6IFwibWVhblwifSwge3k6IFwiZ3JwXCIsIHg6IFwidlwiLCBmaWxsOiBcImdycFwifSkpLCBQbG90LnJ1bGVYKFswXSlcbl19KVxuIn1dfQ==
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
-window._ojs.paths.runtimeToDoc = "../../outputs";
+window._ojs.paths.runtimeToDoc = "../../engines";
 window._ojs.paths.runtimeToRoot = "../..";
 window._ojs.paths.docToRoot = "..";
 window._ojs.selfContained = false;
