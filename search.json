@@ -49,102 +49,144 @@
     "text": "A computed table\n\nimport pandas as pd\nsample_t = [0, 6, 12, 24, 36, 48]\npd.DataFrame({\n    \"Time (h)\": sample_t,\n    \"Concentration (mg/L)\": [round((dose/Vd)*np.exp(-ke*x), 2) for x in sample_t],\n    \"Fraction remaining\": [round(np.exp(-ke*x), 3) for x in sample_t],\n})\n\n\n\n\n\n\n\n\nTime (h)\nConcentration (mg/L)\nFraction remaining\n\n\n\n\n0\n0\n20.00\n1.000\n\n\n1\n6\n14.14\n0.707\n\n\n2\n12\n10.00\n0.500\n\n\n3\n24\n5.00\n0.250\n\n\n4\n36\n2.50\n0.125\n\n\n5\n48\n1.25\n0.062"
   },
   {
-    "objectID": "engines/julia.html",
-    "href": "engines/julia.html",
-    "title": "Julia Engine",
+    "objectID": "engines/observable-plot.html",
+    "href": "engines/observable-plot.html",
+    "title": "Observable Plot Master Showcase",
     "section": "",
-    "text": "The Julia engine runs Julia via IJulia. Great when an algorithm needs raw numerical speed. Plots use Plots.jl (GR backend). We set GKSwstype=100 so GR renders straight to a file on a headless machine."
+    "text": "TipThe Grammar of Graphics in the Browser\n\n\n\nObservable Plot (Plot) is a declarative JavaScript library for exploratory data visualization. It combines composable marks, data transforms (binning, grouping, stacking, dodging, density), faceted small multiples, and interactive tooltips (Plot.tip()) into a concise grammar of graphics interface that executes natively in Quarto without server reliance.\n\n\n\n\n1. Scatterplots & Beeswarm Dodge (Plot.dot, Plot.dodgeX)\nScatterplots assign numerical attributes to \\(X\\) and \\(Y\\) dimensions. When overplotting occurs, Plot.dodgeX() or Plot.dodgeY() arranges points into beeswarm distributions without overlap.\n\n\nCode\n// Simulated patient sample dataset\npatients = d3.range(120).map(i =&gt; {\n  const genotype = [\"HbSS\", \"HbS/β0\", \"HbS/β+\", \"HbSC\"][i % 4];\n  const sex = i % 2 === 0 ? \"Female\" : \"Male\";\n  const hb = genotype === \"HbSS\" ? 6.5 + Math.random() * 2.5 :\n             genotype === \"HbS/β0\" ? 7.2 + Math.random() * 2.2 :\n             genotype === \"HbS/β+\" ? 9.0 + Math.random() * 2.5 :\n             10.5 + Math.random() * 2.5;\n  const hbf = genotype === \"HbSS\" ? 8 + Math.random() * 14 :\n              genotype === \"HbS/β0\" ? 5 + Math.random() * 10 :\n              1 + Math.random() * 5;\n  const retic = 120 + (15 - hb) * 25 + (Math.random() - 0.5) * 40;\n  return { id: `P-${100+i}`, genotype, sex, hb, hbf, retic };\n})\n\n\n\n\n\n\n\n\n\nCode\nPlot.plot({\n  title: \"Hemoglobin (Hb) vs Fetal Hemoglobin (HbF) by Genotype\",\n  width: 760,\n  height: 380,\n  grid: true,\n  x: {label: \"Hemoglobin Hb (g/dL) →\"},\n  y: {label: \"↑ Fetal Hemoglobin HbF (%)\"},\n  color: {legend: true},\n  marks: [\n    Plot.ruleY([0]),\n    Plot.dot(patients, {\n      x: \"hb\",\n      y: \"hbf\",\n      fill: \"genotype\",\n      r: 4.5,\n      fillOpacity: 0.8,\n      tip: true\n    })\n  ]\n})\n\n\n\n\n\n\n\n\n\nFigure 1: Scatterplot of Hemoglobin vs HbF with interactive tooltips and color encoding.\n\n\n\n\n\n\nCode\nPlot.plot({\n  title: \"Beeswarm Distribution of Reticulocyte Count across Genotypes\",\n  width: 760,\n  height: 280,\n  x: {label: \"Genotype\"},\n  y: {label: \"Reticulocyte Count (x10⁹/L)\", grid: true},\n  color: {legend: true},\n  marks: [\n    Plot.dot(patients, Plot.dodgeX(\"dot\", {\n      x: \"genotype\",\n      y: \"retic\",\n      fill: \"genotype\",\n      r: 4,\n      tip: true\n    }))\n  ]\n})\n\n\n\n\n\n\n\n\n\nFigure 2: Beeswarm plot arranged via Plot.dodgeX() transform.\n\n\n\n\n\n\n\n2. Histograms & Automated Binning (Plot.rectY, Plot.binX)\nThe Plot.binX() transform automatically bins continuous numerical data and counts occurrences:\n\n\nCode\nPlot.plot({\n  title: \"Hemoglobin Frequency Histogram\",\n  width: 760,\n  height: 320,\n  grid: true,\n  x: {label: \"Hemoglobin Hb (g/dL)\"},\n  y: {label: \"↑ Patient Count\"},\n  color: {legend: true},\n  marks: [\n    Plot.rectY(patients, Plot.binX({y: \"count\"}, {x: \"hb\", fill: \"sex\", thresholds: 15})),\n    Plot.ruleY([0])\n  ]\n})\n\n\n\n\n\n\n\n\n\nFigure 3: Binned histogram of patient hemoglobin distribution stacked by sex.\n\n\n\n\n\n\n\n3. 2D Density Contours (Plot.density, Plot.contour)\nDensity contours visualize bivariate continuous distributions without clutter:\n\n\nCode\nPlot.plot({\n  title: \"2D Density Estimation (Hb vs Reticulocytes)\",\n  width: 760,\n  height: 360,\n  grid: true,\n  x: {label: \"Hemoglobin Hb (g/dL)\"},\n  y: {label: \"Reticulocytes (x10⁹/L)\"},\n  marks: [\n    Plot.density(patients, {x: \"hb\", y: \"retic\", stroke: \"genotype\", strokeWidth: 1.5}),\n    Plot.dot(patients, {x: \"hb\", y: \"retic\", fill: \"genotype\", r: 2, opacity: 0.5})\n  ]\n})\n\n\n\n\n\n\n\n\n\nFigure 4: Kernel Density Contours of Hemoglobin vs Reticulocytes.\n\n\n\n\n\n\n\n4. Grouped & Stacked Bar Charts (Plot.barY, Plot.groupX)\nCategorical summaries aggregated using Plot.groupX():\n\n\nCode\nPlot.plot({\n  title: \"Mean Hemoglobin Level by Genotype & Sex\",\n  width: 760,\n  height: 320,\n  x: {label: \"Genotype\"},\n  y: {label: \"Mean Hb (g/dL)\", grid: true},\n  color: {legend: true},\n  marks: [\n    Plot.barY(patients, Plot.groupX({y: \"mean\"}, {x: \"genotype\", y: \"hb\", fill: \"sex\", fx: \"sex\"})),\n    Plot.ruleY([0])\n  ]\n})\n\n\n\n\n\n\n\n\n\nFigure 5: Mean Hemoglobin by Genotype and Sex.\n\n\n\n\n\n\n\n5. Linear Regression & Trend Lines (Plot.linearRegressionY)\nStatistical trendlines with automatically calculated confidence bands:\n\n\nCode\nPlot.plot({\n  title: \"Linear Regression: Reticulocytes vs Hemoglobin\",\n  width: 760,\n  height: 340,\n  grid: true,\n  x: {label: \"Hemoglobin Hb (g/dL)\"},\n  y: {label: \"Reticulocytes (x10⁹/L)\"},\n  marks: [\n    Plot.dot(patients, {x: \"hb\", y: \"retic\", fill: \"genotype\", opacity: 0.6}),\n    Plot.linearRegressionY(patients, {x: \"hb\", y: \"retic\", stroke: \"#b71c1c\", strokeWidth: 2.5, ci: 0.95})\n  ]\n})\n\n\n\n\n\n\n\n\n\nFigure 6: Linear regression fit with confidence intervals.\n\n\n\n\n\n\n\n6. Boxplots & Statistical Ranges (Plot.boxY)\nBoxplots displaying median, interquartile range (\\(IQR\\)), whiskers, and outlier points:\n\n\nCode\nPlot.plot({\n  title: \"Sickle Cell Genotype Hemoglobin Distribution\",\n  width: 760,\n  height: 320,\n  x: {label: \"Genotype\"},\n  y: {label: \"Hemoglobin Hb (g/dL)\", grid: true},\n  marks: [\n    Plot.boxY(patients, {x: \"genotype\", y: \"hb\", fill: \"genotype\", tip: true})\n  ]\n})\n\n\n\n\n\n\n\n\n\nFigure 7: Hemoglobin distribution boxplots across sickle genotypes.\n\n\n\n\n\n\n\n7. Faceted Small Multiples (fx, fy)\nFaceting creates sub-plots across multiple dimensions for deep cohort comparison:\n\n\nCode\nPlot.plot({\n  title: \"Faceted Sub-plots: Hemoglobin vs HbF by Sex and Genotype\",\n  width: 760,\n  height: 420,\n  grid: true,\n  x: {label: \"Hb (g/dL)\"},\n  y: {label: \"HbF (%)\"},\n  marks: [\n    Plot.dot(patients, {\n      x: \"hb\",\n      y: \"hbf\",\n      fill: \"genotype\",\n      fx: \"sex\",\n      fy: \"genotype\",\n      r: 3.5,\n      tip: true\n    })\n  ]\n})\n\n\n\n\n\n\n\n\n\nFigure 8: Faceted grid comparing Hb vs HbF across Genotypes and Sex.\n\n\n\n\n\n\n\n8. Matrix Heatmaps (Plot.cell)\nHeatmaps for multi-variable correlation matrix or grid summaries:\n\n\nCode\n// Binned matrix aggregated for cell mark\nmatrixData = [\n  { group: \"HbSS\", metric: \"Anemia Severity\", value: 95 },\n  { group: \"HbSS\", metric: \"Vaso-occlusion Rate\", value: 85 },\n  { group: \"HbSS\", metric: \"HbF Protection\", value: 40 },\n  { group: \"HbS/β0\", metric: \"Anemia Severity\", value: 80 },\n  { group: \"HbS/β0\", metric: \"Vaso-occlusion Rate\", value: 75 },\n  { group: \"HbS/β0\", metric: \"HbF Protection\", value: 30 },\n  { group: \"HbS/β+\", metric: \"Anemia Severity\", value: 50 },\n  { group: \"HbS/β+\", metric: \"Vaso-occlusion Rate\", value: 40 },\n  { group: \"HbS/β+\", metric: \"HbF Protection\", value: 20 },\n  { group: \"HbSC\", metric: \"Anemia Severity\", value: 45 },\n  { group: \"HbSC\", metric: \"Vaso-occlusion Rate\", value: 60 },\n  { group: \"HbSC\", metric: \"HbF Protection\", value: 15 }\n]\n\n\n\n\n\n\n\n\n\nCode\nPlot.plot({\n  title: \"Clinical Severity Heatmap Matrix\",\n  width: 720,\n  height: 280,\n  padding: 0.05,\n  x: {label: \"Genotype\"},\n  y: {label: \"Clinical Parameter\"},\n  color: {scheme: \"Reds\", legend: true, label: \"Severity Score (0-100)\"},\n  marks: [\n    Plot.cell(matrixData, {x: \"group\", y: \"metric\", fill: \"value\", tip: true}),\n    Plot.text(matrixData, {x: \"group\", y: \"metric\", text: d =&gt; d.value, fill: d =&gt; d.value &gt; 60 ? \"white\" : \"black\"})\n  ]\n})\n\n\n\n\n\n\n\n\n\nFigure 9: Matrix heatmap showing clinical severity index.\n\n\n\n\n\n\n\n9. Summary of Observable Plot Mark Primitives\n\n\n\n\n\n\n\n\nMark Primitive\nVisual Element\nPrimary Clinical / Scientific Application\n\n\n\n\nPlot.dot()\nCircle / Symbol\nScatterplots, beeswarm plots, individual patient points\n\n\nPlot.lineY()\nPolyline\nTime-series, pharmacokinetic clearance, survival curves\n\n\nPlot.areaY()\nPolygon / Area\nCumulative dose, confidence bands, streamgraphs\n\n\nPlot.barY()\nRectangle\nCategorical bar charts, count frequency\n\n\nPlot.rectY()\nBinned Rect\nContinuous histograms, 2D heatmaps\n\n\nPlot.boxY()\nBox & Whiskers\nQuartiles, median, IQR, statistical outlier detection\n\n\nPlot.density()\nContour Lines\nBivariate kernel density estimates\n\n\nPlot.linearRegressionY()\nLine + Band\nTrendlines with 95% confidence intervals\n\n\nPlot.cell()\nGrid Cell\nCorrelation matrices, categorical heatmaps\n\n\nPlot.ruleY()\nLine\nReference thresholds (e.g., MEC, normal ranges)\n\n\nPlot.tip()\nHTML Callout\nInteractive mouse-over tooltips\n\n\n\n\n\n\n\n Back to top"
   },
   {
-    "objectID": "engines/julia.html#a-worked-example-iv-bolus-decay",
-    "href": "engines/julia.html#a-worked-example-iv-bolus-decay",
-    "title": "Julia Engine",
-    "section": "A worked example: IV bolus decay",
-    "text": "A worked example: IV bolus decay\n\nusing Plots\nENV[\"GKSwstype\"] = \"100\"   # headless GR: write to file, no display server\ngr()\n\ndose, Vd, thalf = 1000.0, 50.0, 12.0\nke = log(2) / thalf\nt  = 0:0.5:48\nC  = (dose / Vd) .* exp.(-ke .* t)\n\nplot(t, C, lw = 2.4, color = :firebrick, label = \"C(t)\",\n     xlabel = \"Time (h)\", ylabel = \"Concentration (mg/L)\",\n     title = \"Julia — one-compartment IV bolus\", legend = :topright)\nhline!([5], ls = :dash, color = :grey, label = \"MEC\")\n\n\n\n\n\n\nFigure 1: Julia + Plots.jl: concentration–time curve."
-  },
-  {
-    "objectID": "engines/julia.html#an-algorithm-newtonraphson-root-finding",
-    "href": "engines/julia.html#an-algorithm-newtonraphson-root-finding",
-    "title": "Julia Engine",
-    "section": "An algorithm: Newton–Raphson root finding",
-    "text": "An algorithm: Newton–Raphson root finding\nSolve for the time at which concentration reaches the 5 mg/L threshold. (The cell is self-contained.)\n\ndose, Vd, ke = 1000.0, 50.0, log(2) / 12   # constants\n\nf(x)  = (dose / Vd) * exp(-ke * x) - 5.0\ndf(x) = -ke * (dose / Vd) * exp(-ke * x)\n\nx = 10.0\nfor _ in 1:20\n    x -= f(x) / df(x)\nend\nprintln(\"Threshold crossed at t = \", round(x, digits = 2), \" h\")\nprintln(\"Analytic solution      = \", round(log((dose / Vd) / 5) / ke, digits = 2), \" h\")\n\nThreshold crossed at t = 24.0 h\nAnalytic solution      = 24.0 h"
-  },
-  {
-    "objectID": "posts/revealjs-slides/index.html",
-    "href": "posts/revealjs-slides/index.html",
-    "title": "Reveal.js slides — a deck that runs your code",
+    "objectID": "posts/scientific-manuscript/index.html",
+    "href": "posts/scientific-manuscript/index.html",
+    "title": "One source, three manuscripts — HTML, PDF & Word",
     "section": "",
-    "text": "This is where the story began — a badly aligned PowerPoint slide, decades ago. Today the same idea becomes a Reveal.js deck: authored in Markdown, with every figure generated by code at render, and presented full-screen in any browser."
+    "text": "The oldest friction in academic writing is format juggling: the journal wants a Word file, your co-author wants a PDF, the pre-print server wants HTML. Quarto produces all three from one source."
   },
   {
-    "objectID": "posts/revealjs-slides/index.html#a-slide-is-a-heading",
-    "href": "posts/revealjs-slides/index.html#a-slide-is-a-heading",
-    "title": "Reveal.js slides — a deck that runs your code",
-    "section": "A slide is a heading",
-    "text": "A slide is a heading\n---\nformat: revealjs\n---\n\n## Why Quarto slides?\n- Author in Markdown\n- **Executable** code makes figures live\n- Export to PDF with one flag\n\n## A computed figure\n```{python}\nimport matplotlib.pyplot as plt\nplt.plot([0,1,2],[0,1,4]); plt.show()\n```\nEach ## starts a new slide. Incremental bullets, speaker notes, fragments, transitions and a logo are all one line of YAML each. Press E in the deck to export to PDF; the same source can also target PowerPoint (pptx) or Beamer for LaTeX purists.\n\n\n\n\n\n\nTipPresent it now\n\n\n\nOpen the live Reveal.js deck — arrow keys to advance, F for full-screen, S for speaker notes."
+    "objectID": "posts/scientific-manuscript/index.html#declare-the-formats-render-once",
+    "href": "posts/scientific-manuscript/index.html#declare-the-formats-render-once",
+    "title": "One source, three manuscripts — HTML, PDF & Word",
+    "section": "Declare the formats, render once",
+    "text": "Declare the formats, render once\n---\ntitle: \"A reproducible haematology manuscript\"\nformat:\n  html:  default\n  pdf:   { documentclass: scrartcl }\n  docx:  default\n---\nThen:\nquarto render manuscript.qmd            # builds every format\nquarto render manuscript.qmd --to docx  # or just one\nCross-references (@fig-, @tbl-), citations from a .bib file, and figure numbering all travel across formats automatically. Send the Word file to a co-author for track-changes; submit the PDF to the journal; post the HTML as a pre-print — never re-formatting by hand.\n\n\n\n\n\n\nTipOpen the rendered outputs\n\n\n\nHTML · PDF · Word (.docx) — all three built from the one file."
   },
   {
-    "objectID": "posts/quarto-dashboard/index.html",
-    "href": "posts/quarto-dashboard/index.html",
-    "title": "Quarto dashboards — a clinical cockpit from code",
+    "objectID": "posts/r-engine/index.html",
+    "href": "posts/r-engine/index.html",
+    "title": "The R engine — knitr, ggplot2 and the tidyverse",
     "section": "",
-    "text": "Sometimes the output is not a paper but a dashboard — headline numbers, a chart and a table, laid out as a cockpit. Quarto builds these from the same Markdown + code you already know, with format: dashboard."
+    "text": "Quarto’s R support is the mature knitr engine that powered R Markdown for a decade. Anything you can do in R — ggplot2, survival, gtsummary, meta — you can do inside a document, with the output embedded automatically."
   },
   {
-    "objectID": "posts/quarto-dashboard/index.html#layout-by-headings-content-by-code",
-    "href": "posts/quarto-dashboard/index.html#layout-by-headings-content-by-code",
-    "title": "Quarto dashboards — a clinical cockpit from code",
-    "section": "Layout by headings, content by code",
-    "text": "Layout by headings, content by code\n---\ntitle: \"Anticoagulation Service Dashboard\"\nformat: dashboard\n---\n## Row {height=20%}\n```{python}\n#| content: valuebox\n#| title: \"Patients in range\"\ndict(value=\"78%\", icon=\"heart-pulse\", color=\"success\")\n```\n\n## Row\n```{python}\n# a matplotlib chart fills this card\n```\n```{python}\n# a pandas table fills the next card\n```\nRows and columns come from heading levels; #| content: valuebox turns a cell into a KPI tile. The result is responsive and self-contained — no dashboard framework, no server.\n\n\n\n\n\n\nTipOpen the live dashboard\n\n\n\nSee the anticoagulation dashboard — value boxes, a computed chart and a data table, all from one .qmd."
+    "objectID": "posts/r-engine/index.html#a-kaplanmeier-curve-from-code",
+    "href": "posts/r-engine/index.html#a-kaplanmeier-curve-from-code",
+    "title": "The R engine — knitr, ggplot2 and the tidyverse",
+    "section": "A Kaplan–Meier curve, from code",
+    "text": "A Kaplan–Meier curve, from code\n```{r}\n#| label: fig-km\n#| fig-cap: \"Overall survival by treatment arm.\"\nlibrary(ggplot2)\nggplot(df, aes(Time, Survival, colour = Arm)) +\n  geom_step(linewidth = 1.2) +\n  scale_colour_manual(values = c(\"#7f0000\", \"#2e7d32\")) +\n  theme_minimal()\n```\nChange the dataset, re-render, and the curve redraws itself. The same pattern produces meta-analysis forest plots, gtsummary Table 1s, and regression outputs — the staples of a haematology paper."
   },
   {
-    "objectID": "posts/python-engine/index.html",
-    "href": "posts/python-engine/index.html",
-    "title": "The Python engine — Jupyter under the hood",
+    "objectID": "posts/r-engine/index.html#freedom-from-licences",
+    "href": "posts/r-engine/index.html#freedom-from-licences",
+    "title": "The R engine — knitr, ggplot2 and the tidyverse",
+    "section": "Freedom from licences",
+    "text": "Freedom from licences\nR and its 20,000 packages are open source. For most analyses I run in clinic and research, I am no longer tied to a costly proprietary statistics licence: the computation, the figure and the manuscript now live in one free toolchain.\n\n\n\n\n\n\nTipSee it running live\n\n\n\nThe R engine page renders a survival curve and a forest plot from scratch. The flagship essay also embeds both, side by side with Python, Julia and Observable."
+  },
+  {
+    "objectID": "posts/quarto-book/index.html",
+    "href": "posts/quarto-book/index.html",
+    "title": "A Quarto book — chapters, cross-refs and an index",
     "section": "",
-    "text": "When a document is rendered, Quarto hands every ```{python} block to a Jupyter kernel, executes it, and embeds the result — a figure, a table, a value — back into the page. Nothing is copied and pasted, so nothing can go stale."
+    "text": "A book is more than a long document: it needs numbered chapters, a table of contents, cross-chapter references and a single bibliography. Quarto’s book project type handles all of it."
   },
   {
-    "objectID": "posts/python-engine/index.html#the-idea-in-three-lines",
-    "href": "posts/python-engine/index.html#the-idea-in-three-lines",
-    "title": "The Python engine — Jupyter under the hood",
-    "section": "The idea in three lines",
-    "text": "The idea in three lines\nA Python code cell is written with a {python} engine tag and optional YAML-style options after #|:\n```{python}\n#| label: fig-pk\n#| fig-cap: \"Plasma concentration after a 1000 mg IV bolus.\"\nimport numpy as np, matplotlib.pyplot as plt\nt = np.linspace(0, 48, 400)\nC = (1000/50) * np.exp(-np.log(2)/12 * t)\nplt.plot(t, C, color=\"#B71C1C\", lw=2.2); plt.show()\n```\n#| label: fig-pk makes the figure cross-referenceable — write @fig-pk anywhere and Quarto inserts the correct number and a hyperlink."
+    "objectID": "posts/quarto-book/index.html#the-whole-book-is-a-list-of-chapters",
+    "href": "posts/quarto-book/index.html#the-whole-book-is-a-list-of-chapters",
+    "title": "A Quarto book — chapters, cross-refs and an index",
+    "section": "The whole book is a list of chapters",
+    "text": "The whole book is a list of chapters\nproject:\n  type: book\nbook:\n  title: \"A Short Haematology Handbook\"\n  author: \"Dr Abdul Mannan\"\n  chapters:\n    - index.qmd\n    - intro.qmd\n    - anaemia.qmd\n    - references.qmd\nformat:\n  html: default\n  pdf:  { documentclass: scrreprt }\nquarto render book            # → an HTML book website\nquarto render book --to pdf   # → a typeset PDF\nReference a figure in Chapter 3 from Chapter 1 and the number resolves itself. The output is simultaneously a navigable website and a print-ready PDF — the same content, two finished products.\n\n\n\n\n\n\nTipRead the demo book\n\n\n\nOpen the rendered handbook — a complete multi-chapter Quarto book, built from four .qmd files."
   },
   {
-    "objectID": "posts/python-engine/index.html#why-it-matters-clinically",
-    "href": "posts/python-engine/index.html#why-it-matters-clinically",
-    "title": "The Python engine — Jupyter under the hood",
-    "section": "Why it matters clinically",
-    "text": "Why it matters clinically\nEvery pharmacokinetic curve, every summary table, every p-value is regenerated from the data each time the paper is built. Re-run with new numbers and the prose, figures and tables all move together. That is reproducibility you can defend in front of a reviewer.\n\n\n\n\n\n\nTipSee it running live\n\n\n\nThe Python engine page executes this pharmacokinetic model in full — curve, numerical AUC, and a pandas table — all at render time.\n\n\nThe environment is pinned outside the synced Drive folder (~/.venvs/quarto) so package installs never trigger a cloud-sync storm."
-  },
-  {
-    "objectID": "posts/julia-engine/index.html",
-    "href": "posts/julia-engine/index.html",
-    "title": "The Julia engine — speed for heavy computation",
+    "objectID": "posts/observable-interactive/index.html",
+    "href": "posts/observable-interactive/index.html",
+    "title": "Observable JS — interactivity with no server",
     "section": "",
-    "text": "Some problems — large matrix differential equations, Monte-Carlo simulations, population PK models — are simply slow in interpreted languages. Julia compiles to native code and runs close to C speed, and Quarto speaks it natively."
+    "text": "R, Python and Julia run when the document is built. Observable JS (ojs) runs when the document is read — in the reader’s browser. That means genuine interactivity on a plain static website, with no server to host or maintain."
   },
   {
-    "objectID": "posts/julia-engine/index.html#same-document-a-third-language",
-    "href": "posts/julia-engine/index.html#same-document-a-third-language",
-    "title": "The Julia engine — speed for heavy computation",
-    "section": "Same document, a third language",
-    "text": "Same document, a third language\n```{julia}\nusing Plots\ngr()\nt = 0:0.5:48\nC = 20.0 .* exp.(-(log(2)/12) .* t)\nplot(t, C, lw = 2.4, color = :firebrick, xlabel = \"Time (h)\")\n```\nThe remarkable part is not Julia alone — it is that an R chunk, a Python chunk and a Julia chunk can sit in one source file, each doing what it is best at, and render into one seamless document.\n\n\n\n\n\n\nTipSee it running live\n\n\n\nThe Julia engine page executes a Plots.jl computation at render time. The project’s Julia environment is pinned via Project.toml / Manifest.toml so the result is fully reproducible.\n\n\n\n\n\n\n\n\nNote\n\n\n\nJulia’s first render compiles its packages and can take a minute; Quarto’s freeze then caches the result so subsequent builds are instant."
+    "objectID": "posts/observable-interactive/index.html#a-reactive-cell",
+    "href": "posts/observable-interactive/index.html#a-reactive-cell",
+    "title": "Observable JS — interactivity with no server",
+    "section": "A reactive cell",
+    "text": "A reactive cell\n```{ojs}\nviewof half_life = Inputs.range([2, 48], {value: 12, label: \"t½ (hours)\"})\n```\n```{ojs}\nPlot.plot({ marks: [Plot.lineY(\n  d3.range(0, 48, 0.5).map(t =&gt; ({t, C: 20*Math.exp(-Math.log(2)/half_life*t)})),\n  {x: \"t\", y: \"C\", stroke: \"#B71C1C\"})] })\n```\nDrag the slider and every cell that depends on it recomputes instantly — the reactive model made famous by Observable, built into Quarto and powered by d3 and Observable Plot."
   },
   {
-    "objectID": "posts/epub-apple-books/index.html",
-    "href": "posts/epub-apple-books/index.html",
-    "title": "EPUB e-books — a chapter that opens in Apple Books",
+    "objectID": "posts/observable-interactive/index.html#why-teachers-love-it",
+    "href": "posts/observable-interactive/index.html#why-teachers-love-it",
+    "title": "Observable JS — interactivity with no server",
+    "section": "Why teachers love it",
+    "text": "Why teachers love it\nA trainee can feel how halving a drug’s half-life changes its concentration curve, or how a diagnostic threshold shifts sensitivity and specificity — by moving a control, not by reading a caption.\n\n\n\n\n\n\nTipTry it live\n\n\n\nThe Observable page and the flagship essay both carry a working half-life slider you can drag right now."
+  },
+  {
+    "objectID": "posts/interactive-teaching/index.html",
+    "href": "posts/interactive-teaching/index.html",
+    "title": "Interactive teaching documents — tabsets & callouts",
     "section": "",
-    "text": "Seeing a chapter I had written, coded and published myself appear in Apple Books was a genuinely remarkable moment. Quarto builds the EPUB directly."
+    "text": "A good teaching page reveals detail on demand. Quarto ships the building blocks as simple Markdown fences — no JavaScript to write."
   },
   {
-    "objectID": "posts/epub-apple-books/index.html#from-markdown-to-a-real-e-book",
-    "href": "posts/epub-apple-books/index.html#from-markdown-to-a-real-e-book",
-    "title": "EPUB e-books — a chapter that opens in Apple Books",
-    "section": "From Markdown to a real e-book",
-    "text": "From Markdown to a real e-book\n---\ntitle: \"HbS trait vs β-thalassaemia trait\"\nauthor: \"Dr Abdul Mannan\"\nformat:\n  epub:\n    cover-image: cover.png\n    css: epub-styles.css\n    toc: true\n---\nquarto render explainer.qmd --to epub\nThe result is a reflowable EPUB — a proper cover, styled typography, a linked table of contents and chapters — that opens in Apple Books, Calibre or any reader, and resizes to any screen. A single explainer becomes a distributable e-book.\n\n\n\n\n\n\nTipDownload the e-book\n\n\n\nGrab the HbS vs β-thal EPUB and open it in Apple Books. Source and cover live in outputs/epub-hbs-hba2/."
+    "objectID": "posts/interactive-teaching/index.html#tabsets-one-concept-several-views",
+    "href": "posts/interactive-teaching/index.html#tabsets-one-concept-several-views",
+    "title": "Interactive teaching documents — tabsets & callouts",
+    "section": "Tabsets: one concept, several views",
+    "text": "Tabsets: one concept, several views\n::: {.panel-tabset}\n## Film        …blood-film description…\n## Immunophenotype  …markers…\n## Management   …first-line therapy…\n:::\nReaders click between Film, Immunophenotype and Management without leaving the page — ideal for comparing differentials."
+  },
+  {
+    "objectID": "posts/interactive-teaching/index.html#callouts-carry-the-signal",
+    "href": "posts/interactive-teaching/index.html#callouts-carry-the-signal",
+    "title": "Interactive teaching documents — tabsets & callouts",
+    "section": "Callouts carry the signal",
+    "text": "Callouts carry the signal\n::: {.callout-warning}\n## Red flag\nBlasts + coagulopathy → treat as APL until proven otherwise.\n:::\nFive callout styles (note, tip, important, warning, caution) give teaching material a consistent visual grammar, and collapsible callouts hide a model answer until the learner is ready.\n\n\n\n\n\n\nTipSee it live\n\n\n\nThe interactive teaching demo combines tabsets, callouts and a live Observable widget in one lesson page."
+  },
+  {
+    "objectID": "posts/diagrams-as-code/index.html",
+    "href": "posts/diagrams-as-code/index.html",
+    "title": "Diagrams as code — Mermaid & Graphviz",
+    "section": "",
+    "text": "Drawing a flowchart by hand in PowerPoint is slow, and the moment guidance changes you redraw it. Quarto lets you write diagrams as text and compiles them to scalable vector graphics."
+  },
+  {
+    "objectID": "posts/diagrams-as-code/index.html#a-decision-algorithm-in-plain-text",
+    "href": "posts/diagrams-as-code/index.html#a-decision-algorithm-in-plain-text",
+    "title": "Diagrams as code — Mermaid & Graphviz",
+    "section": "A decision algorithm in plain text",
+    "text": "A decision algorithm in plain text\n```{mermaid}\nflowchart TD\n  A[\"Chromatogram\"] --&gt; B{\"HbS present?\"}\n  B --&gt;|Yes| C[\"Evaluate % HbS\"]\n  B --&gt;|No|  D[\"Evaluate % HbA2\"]\n  C --&gt;|38–45%| E[\"Sickle cell trait\"]\n  D --&gt;|3.5–7%| G[\"β-thalassaemia trait\"]\n```\nThat text renders as a labelled, colour-coded flowchart. Because it is text, it diffs cleanly in git — you can see exactly how a pathway changed between versions, and reviewers can comment on a line.\nMermaid covers flowcharts, sequence diagrams, Gantt charts and mind-maps; Graphviz (dot) handles dense graphs and inheritance trees. Both are built in.\n\n\n\n\n\n\nTipSee the gallery\n\n\n\nThe Diagrams & algorithms page compiles several clinical pathways, including the HbS / HbA2 interpretation tree."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About this blog",
+    "section": "",
+    "text": "I am Dr Abdul Mannan, a Consultant Haematologist and Director of the Bangor Haemophilia Centre. This blog is two things at once: a personal record of learning to publish with code, and a living demonstration of what Quarto can build.\nEvery post here is a genuine, rendered example — not a screenshot. The survival curves are computed in R, the pharmacokinetic models in Python, the interactive sliders in your own browser, and the manuscripts, slides, book, EPUB and dashboard are all built from the same plain-text sources you can read in each post."
+  },
+  {
+    "objectID": "about.html#why-i-built-it",
+    "href": "about.html#why-i-built-it",
+    "title": "About this blog",
+    "section": "Why I built it",
+    "text": "Why I built it\nFor most of my career, turning an idea into a finished scientific product meant depending on a publisher, a statistician or a designer — and on costly proprietary software. Quarto, with R and Python, removed many of those barriers. The analysis, the narrative, the references, the figures and the final publication now live in one reproducible workflow that I control.\nTools do not replace sound statistical judgement, scientific review or good design. But they remove the friction between an idea and its final form.\n\n\n\n\n\n\n\nDo not be embarrassed by your first attempt. Every polished skill begins with an imperfect beginning. Keep learning. Keep building. Keep creating.\n\n\n\n\n\n\n\n\n\n\nImportantCitation integrity\n\n\n\nBibliographic references in these demonstration posts illustrate the mechanism. Before any real publication, every citation is re-verified live against PubMed and Crossref under my Citation Integrity Protocol."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Knowledge has no limits.",
+    "section": "",
+    "text": "A reproducible publishing lab\n\n\n\n\nFrom a badly aligned PowerPoint slide on a hospital laboratory computer in the early 2000s — to coding my own books, reports, websites, dashboards and scientific figures. This blog is that journey, and a live demonstration of everything Quarto can build from a single source file.\nRead the story ↓    Browse the gallery ↓"
+  },
+  {
+    "objectID": "index.html#gallery",
+    "href": "index.html#gallery",
+    "title": "Knowledge has no limits.",
+    "section": "The gallery",
+    "text": "The gallery\nEvery card below is a working example. Each output type — from survival curves to EPUB e-books that open in Apple Books — is built, rendered and reproducible. Filter by category, or open a post to read the code that made it."
   },
   {
     "objectID": "posts/2026-07-22-knowledge-has-no-limits/index.html",
@@ -203,144 +245,109 @@
     "text": "7. Mathematical Equations & Citation Integrity\nMathematical expressions render using LaTeX / MathJax formatting:\n\\[\\text{Hazard Ratio (HR)} = \\frac{h_1(t)}{h_0(t)} = \\exp\\left( \\beta_1 X_1 + \\beta_2 X_2 + \\dots \\right)\\]\n\\[\\text{AUC}_{0 \\to \\infty} = \\int_{0}^{\\infty} C(t) \\, dt = \\frac{C_0}{k_e} = \\frac{Dose}{CL}\\]\nCitations are linked to verified PubMed entries per the Citation Integrity Protocol (Donze et al. 1997; Mrabet et al. 1985)."
   },
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Knowledge has no limits.",
+    "objectID": "posts/epub-apple-books/index.html",
+    "href": "posts/epub-apple-books/index.html",
+    "title": "EPUB e-books — a chapter that opens in Apple Books",
     "section": "",
-    "text": "A reproducible publishing lab\n\n\n\n\nFrom a badly aligned PowerPoint slide on a hospital laboratory computer in the early 2000s — to coding my own books, reports, websites, dashboards and scientific figures. This blog is that journey, and a live demonstration of everything Quarto can build from a single source file.\nRead the story ↓    Browse the gallery ↓"
+    "text": "Seeing a chapter I had written, coded and published myself appear in Apple Books was a genuinely remarkable moment. Quarto builds the EPUB directly."
   },
   {
-    "objectID": "index.html#gallery",
-    "href": "index.html#gallery",
-    "title": "Knowledge has no limits.",
-    "section": "The gallery",
-    "text": "The gallery\nEvery card below is a working example. Each output type — from survival curves to EPUB e-books that open in Apple Books — is built, rendered and reproducible. Filter by category, or open a post to read the code that made it."
+    "objectID": "posts/epub-apple-books/index.html#from-markdown-to-a-real-e-book",
+    "href": "posts/epub-apple-books/index.html#from-markdown-to-a-real-e-book",
+    "title": "EPUB e-books — a chapter that opens in Apple Books",
+    "section": "From Markdown to a real e-book",
+    "text": "From Markdown to a real e-book\n---\ntitle: \"HbS trait vs β-thalassaemia trait\"\nauthor: \"Dr Abdul Mannan\"\nformat:\n  epub:\n    cover-image: cover.png\n    css: epub-styles.css\n    toc: true\n---\nquarto render explainer.qmd --to epub\nThe result is a reflowable EPUB — a proper cover, styled typography, a linked table of contents and chapters — that opens in Apple Books, Calibre or any reader, and resizes to any screen. A single explainer becomes a distributable e-book.\n\n\n\n\n\n\nTipDownload the e-book\n\n\n\nGrab the HbS vs β-thal EPUB and open it in Apple Books. Source and cover live in outputs/epub-hbs-hba2/."
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About this blog",
+    "objectID": "posts/julia-engine/index.html",
+    "href": "posts/julia-engine/index.html",
+    "title": "The Julia engine — speed for heavy computation",
     "section": "",
-    "text": "I am Dr Abdul Mannan, a Consultant Haematologist and Director of the Bangor Haemophilia Centre. This blog is two things at once: a personal record of learning to publish with code, and a living demonstration of what Quarto can build.\nEvery post here is a genuine, rendered example — not a screenshot. The survival curves are computed in R, the pharmacokinetic models in Python, the interactive sliders in your own browser, and the manuscripts, slides, book, EPUB and dashboard are all built from the same plain-text sources you can read in each post."
+    "text": "Some problems — large matrix differential equations, Monte-Carlo simulations, population PK models — are simply slow in interpreted languages. Julia compiles to native code and runs close to C speed, and Quarto speaks it natively."
   },
   {
-    "objectID": "about.html#why-i-built-it",
-    "href": "about.html#why-i-built-it",
-    "title": "About this blog",
-    "section": "Why I built it",
-    "text": "Why I built it\nFor most of my career, turning an idea into a finished scientific product meant depending on a publisher, a statistician or a designer — and on costly proprietary software. Quarto, with R and Python, removed many of those barriers. The analysis, the narrative, the references, the figures and the final publication now live in one reproducible workflow that I control.\nTools do not replace sound statistical judgement, scientific review or good design. But they remove the friction between an idea and its final form.\n\n\n\n\n\n\n\nDo not be embarrassed by your first attempt. Every polished skill begins with an imperfect beginning. Keep learning. Keep building. Keep creating.\n\n\n\n\n\n\n\n\n\n\nImportantCitation integrity\n\n\n\nBibliographic references in these demonstration posts illustrate the mechanism. Before any real publication, every citation is re-verified live against PubMed and Crossref under my Citation Integrity Protocol."
+    "objectID": "posts/julia-engine/index.html#same-document-a-third-language",
+    "href": "posts/julia-engine/index.html#same-document-a-third-language",
+    "title": "The Julia engine — speed for heavy computation",
+    "section": "Same document, a third language",
+    "text": "Same document, a third language\n```{julia}\nusing Plots\ngr()\nt = 0:0.5:48\nC = 20.0 .* exp.(-(log(2)/12) .* t)\nplot(t, C, lw = 2.4, color = :firebrick, xlabel = \"Time (h)\")\n```\nThe remarkable part is not Julia alone — it is that an R chunk, a Python chunk and a Julia chunk can sit in one source file, each doing what it is best at, and render into one seamless document.\n\n\n\n\n\n\nTipSee it running live\n\n\n\nThe Julia engine page executes a Plots.jl computation at render time. The project’s Julia environment is pinned via Project.toml / Manifest.toml so the result is fully reproducible.\n\n\n\n\n\n\n\n\nNote\n\n\n\nJulia’s first render compiles its packages and can take a minute; Quarto’s freeze then caches the result so subsequent builds are instant."
   },
   {
-    "objectID": "posts/diagrams-as-code/index.html",
-    "href": "posts/diagrams-as-code/index.html",
-    "title": "Diagrams as code — Mermaid & Graphviz",
+    "objectID": "posts/python-engine/index.html",
+    "href": "posts/python-engine/index.html",
+    "title": "The Python engine — Jupyter under the hood",
     "section": "",
-    "text": "Drawing a flowchart by hand in PowerPoint is slow, and the moment guidance changes you redraw it. Quarto lets you write diagrams as text and compiles them to scalable vector graphics."
+    "text": "When a document is rendered, Quarto hands every ```{python} block to a Jupyter kernel, executes it, and embeds the result — a figure, a table, a value — back into the page. Nothing is copied and pasted, so nothing can go stale."
   },
   {
-    "objectID": "posts/diagrams-as-code/index.html#a-decision-algorithm-in-plain-text",
-    "href": "posts/diagrams-as-code/index.html#a-decision-algorithm-in-plain-text",
-    "title": "Diagrams as code — Mermaid & Graphviz",
-    "section": "A decision algorithm in plain text",
-    "text": "A decision algorithm in plain text\n```{mermaid}\nflowchart TD\n  A[\"Chromatogram\"] --&gt; B{\"HbS present?\"}\n  B --&gt;|Yes| C[\"Evaluate % HbS\"]\n  B --&gt;|No|  D[\"Evaluate % HbA2\"]\n  C --&gt;|38–45%| E[\"Sickle cell trait\"]\n  D --&gt;|3.5–7%| G[\"β-thalassaemia trait\"]\n```\nThat text renders as a labelled, colour-coded flowchart. Because it is text, it diffs cleanly in git — you can see exactly how a pathway changed between versions, and reviewers can comment on a line.\nMermaid covers flowcharts, sequence diagrams, Gantt charts and mind-maps; Graphviz (dot) handles dense graphs and inheritance trees. Both are built in.\n\n\n\n\n\n\nTipSee the gallery\n\n\n\nThe Diagrams & algorithms page compiles several clinical pathways, including the HbS / HbA2 interpretation tree."
+    "objectID": "posts/python-engine/index.html#the-idea-in-three-lines",
+    "href": "posts/python-engine/index.html#the-idea-in-three-lines",
+    "title": "The Python engine — Jupyter under the hood",
+    "section": "The idea in three lines",
+    "text": "The idea in three lines\nA Python code cell is written with a {python} engine tag and optional YAML-style options after #|:\n```{python}\n#| label: fig-pk\n#| fig-cap: \"Plasma concentration after a 1000 mg IV bolus.\"\nimport numpy as np, matplotlib.pyplot as plt\nt = np.linspace(0, 48, 400)\nC = (1000/50) * np.exp(-np.log(2)/12 * t)\nplt.plot(t, C, color=\"#B71C1C\", lw=2.2); plt.show()\n```\n#| label: fig-pk makes the figure cross-referenceable — write @fig-pk anywhere and Quarto inserts the correct number and a hyperlink."
   },
   {
-    "objectID": "posts/interactive-teaching/index.html",
-    "href": "posts/interactive-teaching/index.html",
-    "title": "Interactive teaching documents — tabsets & callouts",
+    "objectID": "posts/python-engine/index.html#why-it-matters-clinically",
+    "href": "posts/python-engine/index.html#why-it-matters-clinically",
+    "title": "The Python engine — Jupyter under the hood",
+    "section": "Why it matters clinically",
+    "text": "Why it matters clinically\nEvery pharmacokinetic curve, every summary table, every p-value is regenerated from the data each time the paper is built. Re-run with new numbers and the prose, figures and tables all move together. That is reproducibility you can defend in front of a reviewer.\n\n\n\n\n\n\nTipSee it running live\n\n\n\nThe Python engine page executes this pharmacokinetic model in full — curve, numerical AUC, and a pandas table — all at render time.\n\n\nThe environment is pinned outside the synced Drive folder (~/.venvs/quarto) so package installs never trigger a cloud-sync storm."
+  },
+  {
+    "objectID": "posts/quarto-dashboard/index.html",
+    "href": "posts/quarto-dashboard/index.html",
+    "title": "Quarto dashboards — a clinical cockpit from code",
     "section": "",
-    "text": "A good teaching page reveals detail on demand. Quarto ships the building blocks as simple Markdown fences — no JavaScript to write."
+    "text": "Sometimes the output is not a paper but a dashboard — headline numbers, a chart and a table, laid out as a cockpit. Quarto builds these from the same Markdown + code you already know, with format: dashboard."
   },
   {
-    "objectID": "posts/interactive-teaching/index.html#tabsets-one-concept-several-views",
-    "href": "posts/interactive-teaching/index.html#tabsets-one-concept-several-views",
-    "title": "Interactive teaching documents — tabsets & callouts",
-    "section": "Tabsets: one concept, several views",
-    "text": "Tabsets: one concept, several views\n::: {.panel-tabset}\n## Film        …blood-film description…\n## Immunophenotype  …markers…\n## Management   …first-line therapy…\n:::\nReaders click between Film, Immunophenotype and Management without leaving the page — ideal for comparing differentials."
+    "objectID": "posts/quarto-dashboard/index.html#layout-by-headings-content-by-code",
+    "href": "posts/quarto-dashboard/index.html#layout-by-headings-content-by-code",
+    "title": "Quarto dashboards — a clinical cockpit from code",
+    "section": "Layout by headings, content by code",
+    "text": "Layout by headings, content by code\n---\ntitle: \"Anticoagulation Service Dashboard\"\nformat: dashboard\n---\n## Row {height=20%}\n```{python}\n#| content: valuebox\n#| title: \"Patients in range\"\ndict(value=\"78%\", icon=\"heart-pulse\", color=\"success\")\n```\n\n## Row\n```{python}\n# a matplotlib chart fills this card\n```\n```{python}\n# a pandas table fills the next card\n```\nRows and columns come from heading levels; #| content: valuebox turns a cell into a KPI tile. The result is responsive and self-contained — no dashboard framework, no server.\n\n\n\n\n\n\nTipOpen the live dashboard\n\n\n\nSee the anticoagulation dashboard — value boxes, a computed chart and a data table, all from one .qmd."
   },
   {
-    "objectID": "posts/interactive-teaching/index.html#callouts-carry-the-signal",
-    "href": "posts/interactive-teaching/index.html#callouts-carry-the-signal",
-    "title": "Interactive teaching documents — tabsets & callouts",
-    "section": "Callouts carry the signal",
-    "text": "Callouts carry the signal\n::: {.callout-warning}\n## Red flag\nBlasts + coagulopathy → treat as APL until proven otherwise.\n:::\nFive callout styles (note, tip, important, warning, caution) give teaching material a consistent visual grammar, and collapsible callouts hide a model answer until the learner is ready.\n\n\n\n\n\n\nTipSee it live\n\n\n\nThe interactive teaching demo combines tabsets, callouts and a live Observable widget in one lesson page."
-  },
-  {
-    "objectID": "posts/observable-interactive/index.html",
-    "href": "posts/observable-interactive/index.html",
-    "title": "Observable JS — interactivity with no server",
+    "objectID": "posts/revealjs-slides/index.html",
+    "href": "posts/revealjs-slides/index.html",
+    "title": "Reveal.js slides — a deck that runs your code",
     "section": "",
-    "text": "R, Python and Julia run when the document is built. Observable JS (ojs) runs when the document is read — in the reader’s browser. That means genuine interactivity on a plain static website, with no server to host or maintain."
+    "text": "This is where the story began — a badly aligned PowerPoint slide, decades ago. Today the same idea becomes a Reveal.js deck: authored in Markdown, with every figure generated by code at render, and presented full-screen in any browser."
   },
   {
-    "objectID": "posts/observable-interactive/index.html#a-reactive-cell",
-    "href": "posts/observable-interactive/index.html#a-reactive-cell",
-    "title": "Observable JS — interactivity with no server",
-    "section": "A reactive cell",
-    "text": "A reactive cell\n```{ojs}\nviewof half_life = Inputs.range([2, 48], {value: 12, label: \"t½ (hours)\"})\n```\n```{ojs}\nPlot.plot({ marks: [Plot.lineY(\n  d3.range(0, 48, 0.5).map(t =&gt; ({t, C: 20*Math.exp(-Math.log(2)/half_life*t)})),\n  {x: \"t\", y: \"C\", stroke: \"#B71C1C\"})] })\n```\nDrag the slider and every cell that depends on it recomputes instantly — the reactive model made famous by Observable, built into Quarto and powered by d3 and Observable Plot."
+    "objectID": "posts/revealjs-slides/index.html#a-slide-is-a-heading",
+    "href": "posts/revealjs-slides/index.html#a-slide-is-a-heading",
+    "title": "Reveal.js slides — a deck that runs your code",
+    "section": "A slide is a heading",
+    "text": "A slide is a heading\n---\nformat: revealjs\n---\n\n## Why Quarto slides?\n- Author in Markdown\n- **Executable** code makes figures live\n- Export to PDF with one flag\n\n## A computed figure\n```{python}\nimport matplotlib.pyplot as plt\nplt.plot([0,1,2],[0,1,4]); plt.show()\n```\nEach ## starts a new slide. Incremental bullets, speaker notes, fragments, transitions and a logo are all one line of YAML each. Press E in the deck to export to PDF; the same source can also target PowerPoint (pptx) or Beamer for LaTeX purists.\n\n\n\n\n\n\nTipPresent it now\n\n\n\nOpen the live Reveal.js deck — arrow keys to advance, F for full-screen, S for speaker notes."
   },
   {
-    "objectID": "posts/observable-interactive/index.html#why-teachers-love-it",
-    "href": "posts/observable-interactive/index.html#why-teachers-love-it",
-    "title": "Observable JS — interactivity with no server",
-    "section": "Why teachers love it",
-    "text": "Why teachers love it\nA trainee can feel how halving a drug’s half-life changes its concentration curve, or how a diagnostic threshold shifts sensitivity and specificity — by moving a control, not by reading a caption.\n\n\n\n\n\n\nTipTry it live\n\n\n\nThe Observable page and the flagship essay both carry a working half-life slider you can drag right now."
-  },
-  {
-    "objectID": "posts/quarto-book/index.html",
-    "href": "posts/quarto-book/index.html",
-    "title": "A Quarto book — chapters, cross-refs and an index",
+    "objectID": "engines/julia.html",
+    "href": "engines/julia.html",
+    "title": "Julia Engine",
     "section": "",
-    "text": "A book is more than a long document: it needs numbered chapters, a table of contents, cross-chapter references and a single bibliography. Quarto’s book project type handles all of it."
+    "text": "The Julia engine runs Julia via IJulia. Great when an algorithm needs raw numerical speed. Plots use Plots.jl (GR backend). We set GKSwstype=100 so GR renders straight to a file on a headless machine."
   },
   {
-    "objectID": "posts/quarto-book/index.html#the-whole-book-is-a-list-of-chapters",
-    "href": "posts/quarto-book/index.html#the-whole-book-is-a-list-of-chapters",
-    "title": "A Quarto book — chapters, cross-refs and an index",
-    "section": "The whole book is a list of chapters",
-    "text": "The whole book is a list of chapters\nproject:\n  type: book\nbook:\n  title: \"A Short Haematology Handbook\"\n  author: \"Dr Abdul Mannan\"\n  chapters:\n    - index.qmd\n    - intro.qmd\n    - anaemia.qmd\n    - references.qmd\nformat:\n  html: default\n  pdf:  { documentclass: scrreprt }\nquarto render book            # → an HTML book website\nquarto render book --to pdf   # → a typeset PDF\nReference a figure in Chapter 3 from Chapter 1 and the number resolves itself. The output is simultaneously a navigable website and a print-ready PDF — the same content, two finished products.\n\n\n\n\n\n\nTipRead the demo book\n\n\n\nOpen the rendered handbook — a complete multi-chapter Quarto book, built from four .qmd files."
+    "objectID": "engines/julia.html#a-worked-example-iv-bolus-decay",
+    "href": "engines/julia.html#a-worked-example-iv-bolus-decay",
+    "title": "Julia Engine",
+    "section": "A worked example: IV bolus decay",
+    "text": "A worked example: IV bolus decay\n\nusing Plots\nENV[\"GKSwstype\"] = \"100\"   # headless GR: write to file, no display server\ngr()\n\ndose, Vd, thalf = 1000.0, 50.0, 12.0\nke = log(2) / thalf\nt  = 0:0.5:48\nC  = (dose / Vd) .* exp.(-ke .* t)\n\nplot(t, C, lw = 2.4, color = :firebrick, label = \"C(t)\",\n     xlabel = \"Time (h)\", ylabel = \"Concentration (mg/L)\",\n     title = \"Julia — one-compartment IV bolus\", legend = :topright)\nhline!([5], ls = :dash, color = :grey, label = \"MEC\")\n\n\n\n\n\n\nFigure 1: Julia + Plots.jl: concentration–time curve."
   },
   {
-    "objectID": "posts/r-engine/index.html",
-    "href": "posts/r-engine/index.html",
-    "title": "The R engine — knitr, ggplot2 and the tidyverse",
-    "section": "",
-    "text": "Quarto’s R support is the mature knitr engine that powered R Markdown for a decade. Anything you can do in R — ggplot2, survival, gtsummary, meta — you can do inside a document, with the output embedded automatically."
-  },
-  {
-    "objectID": "posts/r-engine/index.html#a-kaplanmeier-curve-from-code",
-    "href": "posts/r-engine/index.html#a-kaplanmeier-curve-from-code",
-    "title": "The R engine — knitr, ggplot2 and the tidyverse",
-    "section": "A Kaplan–Meier curve, from code",
-    "text": "A Kaplan–Meier curve, from code\n```{r}\n#| label: fig-km\n#| fig-cap: \"Overall survival by treatment arm.\"\nlibrary(ggplot2)\nggplot(df, aes(Time, Survival, colour = Arm)) +\n  geom_step(linewidth = 1.2) +\n  scale_colour_manual(values = c(\"#7f0000\", \"#2e7d32\")) +\n  theme_minimal()\n```\nChange the dataset, re-render, and the curve redraws itself. The same pattern produces meta-analysis forest plots, gtsummary Table 1s, and regression outputs — the staples of a haematology paper."
-  },
-  {
-    "objectID": "posts/r-engine/index.html#freedom-from-licences",
-    "href": "posts/r-engine/index.html#freedom-from-licences",
-    "title": "The R engine — knitr, ggplot2 and the tidyverse",
-    "section": "Freedom from licences",
-    "text": "Freedom from licences\nR and its 20,000 packages are open source. For most analyses I run in clinic and research, I am no longer tied to a costly proprietary statistics licence: the computation, the figure and the manuscript now live in one free toolchain.\n\n\n\n\n\n\nTipSee it running live\n\n\n\nThe R engine page renders a survival curve and a forest plot from scratch. The flagship essay also embeds both, side by side with Python, Julia and Observable."
-  },
-  {
-    "objectID": "posts/scientific-manuscript/index.html",
-    "href": "posts/scientific-manuscript/index.html",
-    "title": "One source, three manuscripts — HTML, PDF & Word",
-    "section": "",
-    "text": "The oldest friction in academic writing is format juggling: the journal wants a Word file, your co-author wants a PDF, the pre-print server wants HTML. Quarto produces all three from one source."
-  },
-  {
-    "objectID": "posts/scientific-manuscript/index.html#declare-the-formats-render-once",
-    "href": "posts/scientific-manuscript/index.html#declare-the-formats-render-once",
-    "title": "One source, three manuscripts — HTML, PDF & Word",
-    "section": "Declare the formats, render once",
-    "text": "Declare the formats, render once\n---\ntitle: \"A reproducible haematology manuscript\"\nformat:\n  html:  default\n  pdf:   { documentclass: scrartcl }\n  docx:  default\n---\nThen:\nquarto render manuscript.qmd            # builds every format\nquarto render manuscript.qmd --to docx  # or just one\nCross-references (@fig-, @tbl-), citations from a .bib file, and figure numbering all travel across formats automatically. Send the Word file to a co-author for track-changes; submit the PDF to the journal; post the HTML as a pre-print — never re-formatting by hand.\n\n\n\n\n\n\nTipOpen the rendered outputs\n\n\n\nHTML · PDF · Word (.docx) — all three built from the one file."
+    "objectID": "engines/julia.html#an-algorithm-newtonraphson-root-finding",
+    "href": "engines/julia.html#an-algorithm-newtonraphson-root-finding",
+    "title": "Julia Engine",
+    "section": "An algorithm: Newton–Raphson root finding",
+    "text": "An algorithm: Newton–Raphson root finding\nSolve for the time at which concentration reaches the 5 mg/L threshold. (The cell is self-contained.)\n\ndose, Vd, ke = 1000.0, 50.0, log(2) / 12   # constants\n\nf(x)  = (dose / Vd) * exp(-ke * x) - 5.0\ndf(x) = -ke * (dose / Vd) * exp(-ke * x)\n\nx = 10.0\nfor _ in 1:20\n    x -= f(x) / df(x)\nend\nprintln(\"Threshold crossed at t = \", round(x, digits = 2), \" h\")\nprintln(\"Analytic solution      = \", round(log((dose / Vd) / 5) / ke, digits = 2), \" h\")\n\nThreshold crossed at t = 24.0 h\nAnalytic solution      = 24.0 h"
   },
   {
     "objectID": "engines/observable.html",
     "href": "engines/observable.html",
-    "title": "Observable JS Engine",
+    "title": "Observable JS Engine & Interactive Studio",
     "section": "",
-    "text": "Observable JS (OJS) cells run entirely in the reader’s browser and react to each other automatically. d3 and Plot are built in — nothing to install.\nDrag the slider: the pharmacokinetic curve updates live.\n\nviewof thalf = Inputs.range([2, 48], {value: 12, step: 1, label: \"Half-life t½ (h)\"})\n\n\n\n\n\n\n\nke = Math.log(2) / thalf\ndata = d3.range(0, 48.5, 0.5).map(t =&gt; ({t, C: (1000 / 50) * Math.exp(-ke * t)}))\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPlot.plot({\n  width: 700, height: 340,\n  x: {label: \"Time (h) →\"},\n  y: {label: \"↑ Concentration (mg/L)\", grid: true},\n  marks: [\n    Plot.ruleY([5], {stroke: \"grey\", strokeDasharray: \"4\"}),\n    Plot.areaY(data, {x: \"t\", y: \"C\", fill: \"#B71C1C\", fillOpacity: 0.12}),\n    Plot.lineY(data, {x: \"t\", y: \"C\", stroke: \"#B71C1C\", strokeWidth: 2.2})\n  ]\n})\n\n\n\n\n\n\n\nmd`At **t½ = ${thalf} h**, the elimination rate constant is\n**kₑ = ${ke.toFixed(4)} h⁻¹** and the concentration falls below the\n5 mg/L threshold at about **${(Math.log((1000/50)/5)/ke).toFixed(1)} h**.`\n\n\n\n\n\n\n\n\n\n Back to top"
+    "text": "TipThe Power of Observable JS (OJS) in Quarto\n\n\n\nObservable JS cells run entirely in the reader’s web browser using a topological dataflow graph. When an input widget changes, only cells that depend on that variable re-evaluate automatically. Plot, D3, htl, and Inputs are natively built-in—no installation or server configuration required.\n\n\n\n\n1. Interactive Pharmacokinetic & Clinical Dashboard\nAdjust the parameters below to explore live pharmacokinetic clearance curves and patient cohort simulations in real time:\n\n\nCode\nviewof dose = Inputs.range([250, 2000], {value: 1000, step: 25, label: \"IV Bolus Dose (mg):\"})\nviewof thalf = Inputs.range([4, 48], {value: 12, step: 1, label: \"Half-life t½ (hours):\"})\nviewof Vd = Inputs.range([20, 100], {value: 50, step: 2, label: \"Vol. Distribution Vd (L):\"})\nviewof mec = Inputs.range([1, 25], {value: 5, step: 0.5, label: \"Target MEC (mg/L):\"})\nviewof showThreshold = Inputs.toggle({label: \"Show Threshold Line\", value: true})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCode\nke = Math.log(2) / thalf\nC0 = dose / Vd\nauc = dose / (Vd * ke)\ntimeToMec = C0 &gt; mec ? (Math.log(C0 / mec) / ke) : 0\n\n// Time grid series\npkData = d3.range(0, 72.5, 0.5).map(t =&gt; {\n  const conc = C0 * Math.exp(-ke * t);\n  return {\n    t: t,\n    C: conc,\n    above: conc &gt;= mec ? \"Above Target\" : \"Below Target\"\n  };\n})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCode\nPlot.plot({\n  width: 760,\n  height: 380,\n  marginRight: 40,\n  x: {label: \"Time Post-Dose (hours) →\", grid: true, domain: [0, 72]},\n  y: {label: \"↑ Plasma Concentration (mg/L)\", grid: true, domain: [0, Math.max(C0 * 1.05, mec * 1.2)]},\n  color: {\n    domain: [\"Above Target\", \"Below Target\"],\n    range: [\"#2e7d32\", \"#B71C1C\"],\n    legend: true\n  },\n  marks: [\n    showThreshold ? Plot.ruleY([mec], {stroke: \"#d68b00\", strokeDasharray: \"4,4\", strokeWidth: 1.8}) : null,\n    showThreshold ? Plot.text([{t: 70, C: mec}], {x: \"t\", y: \"C\", text: d =&gt; `MEC: ${mec} mg/L`, dy: -10, fill: \"#d68b00\", textAnchor: \"end\"}) : null,\n    Plot.areaY(pkData, {x: \"t\", y: \"C\", fill: \"#B71C1C\", fillOpacity: 0.12}),\n    Plot.lineY(pkData, {x: \"t\", y: \"C\", stroke: \"#B71C1C\", strokeWidth: 2.5}),\n    Plot.dot(pkData.filter((d, i) =&gt; i % 8 === 0), {x: \"t\", y: \"C\", fill: \"#7f0000\", r: 3, tip: true})\n  ]\n})\n\n\n\n\n\n\n\n\n\nFigure 1: Live-updating pharmacokinetic concentration-time curve with interactive tooltips.\n\n\n\n\n\n\nCode\nmd`\n### Live PK Parameters Summary\n- **Peak Initial Concentration ($C_0$):** **${C0.toFixed(1)} mg/L**\n- **Elimination Rate Constant ($k_e$):** **${ke.toFixed(4)} h⁻¹**\n- **Total AUC ($0 \\to \\infty$):** **${auc.toFixed(1)} mg·h/L**\n- **Time Above Target MEC (${mec} mg/L):** **${timeToMec.toFixed(1)} hours**\n`\n\n\n\n\n\n\n\n\n\n\n2. Interactive Patient Cohort Table & Filtering\nObservable Inputs include Inputs.table() and Inputs.search(), offering spreadsheet-style sorting and filtering right inside the browser:\n\n\nCode\n// Simulated patient cohort dataset\ncohortData = [\n  { id: \"PT-101\", age: 45, sex: \"Female\", genotype: \"HbSS\", hb: 7.2, hbf: 14.5, hydroxyurea: \"Yes\", response: \"Complete\" },\n  { id: \"PT-102\", age: 52, sex: \"Male\", genotype: \"HbS/β0\", hb: 8.1, hbf: 8.2, hydroxyurea: \"Yes\", response: \"Partial\" },\n  { id: \"PT-103\", age: 29, sex: \"Female\", genotype: \"HbAS\", hb: 12.8, hbf: 1.1, hydroxyurea: \"No\", response: \"Carrier\" },\n  { id: \"PT-104\", age: 61, sex: \"Male\", genotype: \"HbSS\", hb: 6.9, hbf: 18.2, hydroxyurea: \"Yes\", response: \"Complete\" },\n  { id: \"PT-105\", age: 38, sex: \"Female\", genotype: \"HbS/β+\", hb: 9.8, hbf: 6.4, hydroxyurea: \"No\", response: \"Partial\" },\n  { id: \"PT-106\", age: 44, sex: \"Male\", genotype: \"HbSC\", hb: 10.4, hbf: 3.5, hydroxyurea: \"No\", response: \"Moderate\" },\n  { id: \"PT-107\", age: 57, sex: \"Female\", genotype: \"HbSS\", hb: 7.5, hbf: 12.1, hydroxyurea: \"Yes\", response: \"Complete\" },\n  { id: \"PT-108\", age: 33, sex: \"Male\", genotype: \"HbS/β0\", hb: 7.8, hbf: 9.0, hydroxyurea: \"Yes\", response: \"Partial\" }\n]\n\n\n\n\n\n\n\n\n\nCode\nviewof selectedGenotype = Inputs.checkbox(\n  [\"HbSS\", \"HbS/β0\", \"HbS/β+\", \"HbSC\", \"HbAS\"],\n  { value: [\"HbSS\", \"HbS/β0\", \"HbS/β+\", \"HbSC\"], label: \"Filter Genotype:\" }\n)\n\n\n\n\n\n\n\n\n\nCode\nfilteredCohort = cohortData.filter(d =&gt; selectedGenotype.includes(d.genotype))\n\n\n\n\n\n\n\n\n\nCode\nInputs.table(filteredCohort, {\n  columns: [\"id\", \"age\", \"sex\", \"genotype\", \"hb\", \"hbf\", \"hydroxyurea\", \"response\"],\n  header: {\n    id: \"Patient ID\",\n    age: \"Age (yrs)\",\n    sex: \"Sex\",\n    genotype: \"Genotype\",\n    hb: \"Hb (g/dL)\",\n    hbf: \"HbF (%)\",\n    hydroxyurea: \"Hydroxyurea\",\n    response: \"Clinical Response\"\n  },\n  layout: \"auto\"\n})\n\n\n\n\n\n\n\n\n\nCode\n// Summary statistics chart based on filtered selection\nPlot.plot({\n  title: \"Hemoglobin Distribution by Genotype in Selected Cohort\",\n  width: 720,\n  height: 280,\n  x: {label: \"Genotype\"},\n  y: {label: \"Hemoglobin Hb (g/dL)\", domain: [0, 15]},\n  marks: [\n    Plot.barY(filteredCohort, {x: \"genotype\", y: \"hb\", fill: \"#7f0000\", opacity: 0.7, tip: true}),\n    Plot.ruleY([0])\n  ]\n})\n\n\n\n\n\n\n\n\n\n\n3. Complete Observable Inputs Reference\nObservable HQ provides a full suite of reactive input primitives for data apps:\n\n\n\n\n\n\n\n\nInput Function\nPurpose\nSyntax Example\n\n\n\n\nInputs.range([min, max], opts)\nNumeric slider\nviewof x = Inputs.range([0, 100], {step: 1})\n\n\nInputs.select(values, opts)\nSingle / Multi dropdown\nviewof drug = Inputs.select([\"Drug A\", \"Drug B\"])\n\n\nInputs.radio(values, opts)\nRadio button group\nviewof arm = Inputs.radio([\"Control\", \"Active\"])\n\n\nInputs.checkbox(values, opts)\nMulti-checkbox selection\nviewof sites = Inputs.checkbox([\"Site 1\", \"Site 2\"])\n\n\nInputs.toggle(opts)\nBoolean switch\nviewof logScale = Inputs.toggle({label: \"Log Scale\"})\n\n\nInputs.text(opts)\nText search input\nviewof query = Inputs.text({placeholder: \"Search...\"})\n\n\nInputs.color(opts)\nColor picker\nviewof color = Inputs.color({value: \"#7f0000\"})\n\n\nInputs.table(data, opts)\nInteractive data table\nInputs.table(data, {columns: [...]})\n\n\nInputs.search(data, opts)\nData search engine\nviewof search = Inputs.search(data)\n\n\n\n\n\n\n4. The reactive model — order does not matter\nIn vanilla JavaScript, code runs top to bottom. In Observable it runs in topological order: a cell runs after the cells it references, regardless of source order — like a spreadsheet. Below, the summary cell is written before the cells that define its inputs, yet it resolves correctly and re-runs the instant the slider moves.\n\n\nCode\nviewof platelets = Inputs.range([0, 450], {value: 250, step: 5, label: \"Platelet count (×10⁹/L):\"})\n\n\n\n\n\n\n\n\n\nThis cell is written FIRST but depends on cells defined below\nmd`**Interpretation:** a count of **${platelets}×10⁹/L** is\n**${bleedRisk}** — ${bleedRisk === \"critical\" ? \"consider prophylactic transfusion\" : bleedRisk === \"low\" ? \"spontaneous bleeding likely\" : \"no specific action on count alone\"}.`\n\n\n\n\n\n\n\n\n\n…its dependency, defined AFTERWARDS\nbleedRisk = platelets &lt; 10 ? \"critical\" : platelets &lt; 20 ? \"low\" : platelets &lt; 50 ? \"moderate\" : \"adequate\"\n\n\n\n\n\n\n\n\n\n\n\n\n\nEach OJS cell is a named declaration, not an assignment. Quarto builds the dependency graph and re-runs only affected cells. Names must be unique across the document, and circular references error — exactly the spreadsheet rules.\n\n\n\n\n\n5. Reactive width\nwidth is a reactive variable from the standard library holding the current column width. Reference it and figures re-lay-out automatically on resize or column change — drag your browser edge and watch this bar re-fit.\n\n\nCode\nPlot.plot({\n  width,                                     // ← reactive: no fixed pixel value\n  height: 90,\n  x: {label: \"Half-life t½ (h) →\"},\n  marks: [Plot.barX([{p:\"SHL FVIII\", h:12}, {p:\"EHL FVIII\", h:19}, {p:\"BHL FVIII\", h:42}],\n    {x: \"h\", y: \"p\", fill: \"#B71C1C\", sort: {y: \"x\"}}), Plot.ruleX([0])]\n})\n\n\n\n\n\n\n\n\n\n6. mutable — opt-in shared state\nNamed cells can’t be reassigned. When you genuinely need shared, writable state (a running log, a tally), Observable’s mutable operator is the escape hatch: one cell declares it, other cells write to it, and every reader updates.\n\n\nCode\nmutable transfusionLog = []\n\n\n\n\n\n\n\n\n\nCode\nviewof addUnit = Inputs.button(\"🩸 Transfuse 1 unit (+30 ×10⁹/L expected)\", {reduce: () =&gt; { mutable transfusionLog = [...transfusionLog, {unit: transfusionLog.length + 1, expectedRise: 30, runningTotal: platelets + 30 * (transfusionLog.length + 1)}]; }})\n\n\n\n\n\n\n\n\n\nCode\ntransfusionLog.length\n  ? Inputs.table(transfusionLog, {header: {unit: \"Unit #\", expectedRise: \"Δ ×10⁹/L\", runningTotal: \"Projected count\"}})\n  : md`*No units logged yet — set the platelet slider in §4, then click the button.*`\n\n\n\n\n\n\n\n\n\n7. Generators, now and animation\nIf a cell yields repeatedly, referencing cells see the latest value, at most once every animation frame. With the reactive now clock and Promises.tick, this drives live simulation — no timers to manage. Here a continuous-infusion model climbs to steady state in real time.\n\n\nCode\nviewof infusionRate = Inputs.range([0.5, 5], {value: 2, step: 0.5, label: \"Infusion rate (× clearance):\"})\n\n\n\n\n\n\n\n\n\nA generator cell that yields ≤ once every 50 ms\nsteadyLevel = {\n  let c = 0;\n  while (true) {\n    c = c + (infusionRate * 10 - c) * 0.04;   // first-order approach to steady state\n    yield Promises.tick(50, c);\n  }\n}\n\n\n\n\n\n\n\n\n\nCode\nhtml`&lt;div style=\"font:600 1rem/1.5 Inter, sans-serif\"&gt;\n  Current level: &lt;span style=\"color:#B71C1C\"&gt;${steadyLevel.toFixed(1)} mg/L&lt;/span&gt;\n  &lt;progress max=\"50\" value=\"${steadyLevel}\" style=\"width:55%;height:14px\"&gt;&lt;/progress&gt;\n&lt;/div&gt;`\n\n\n\n\n\n\n\n\n\n8. Loading data with FileAttachment\nFileAttachment(\"file.csv\").csv({typed: true}) loads a data file lazily and type-infers columns. Piped into Inputs.search (a live query box) and Inputs.table, it becomes an instant data explorer — the pattern behind most Observable dashboards. This reads a real CSV that sits beside this .qmd.\n\n\nCode\nfactorProducts = FileAttachment(\"factor-products.csv\").csv({typed: true})\n\n\n\n\n\n\n\n\n\nCode\nviewof productQuery = Inputs.search(factorProducts, {placeholder: \"Search products — try EHL, FIX, emicizumab…\"})\n\n\n\n\n\n\n\n\n\nCode\nInputs.table(productQuery, {\n  columns: [\"product\", \"factor\", \"technology\", \"half_life_h\", \"dosing_per_week\"],\n  header: {product: \"Product\", factor: \"Factor\", technology: \"Technology\", half_life_h: \"t½ (h)\", dosing_per_week: \"Doses/wk\"},\n  sort: \"half_life_h\", reverse: true\n})\n\n\n\n\n\n\n\n\n\nCode\nPlot.plot({\n  width, height: 300, marginLeft: 100,\n  x: {label: \"Half-life t½ (hours) →\", grid: true},\n  y: {label: null},\n  color: {legend: true, scheme: \"reds\"},\n  marks: [\n    Plot.barX(productQuery, {x: \"half_life_h\", y: \"product\", fill: \"factor\", sort: {y: \"x\", reverse: true}, tip: true}),\n    Plot.ruleX([0])\n  ]\n})\n\n\n\n\n\n\n\n\n\n9. The cross-language bridge — ojs_define()\nThe Quarto superpower that the Observable notebook platform can’t match: compute in R, Python or Julia at render time, then hand the result to the browser with ojs_define(). Here R builds pharmacokinetic decay curves; OJS plots them client-side after transpose().\n\n\nCode\nprods &lt;- data.frame(\n  product = c(\"Advate · t½ 12 h\", \"Elocta · t½ 19 h\", \"Altuviiio · t½ 42 h\"),\n  thalf   = c(12, 19, 42.5)\n)\ngrid  &lt;- seq(0, 168, by = 2)\ndecay &lt;- do.call(rbind, lapply(seq_len(nrow(prods)), function(i) {\n  data.frame(product = prods$product[i], t = grid,\n             level = 100 * exp(-log(2) / prods$thalf[i] * grid))\n}))\nojs_define(decayData = decay)\n\n\n\n\nCode\ndecayCurves = transpose(decayData)     // Quarto helper: R data.frame → array of objects\nPlot.plot({\n  width, height: 320,\n  x: {label: \"Time since dose (h) →\"},\n  y: {label: \"↑ % of peak\", grid: true, domain: [0, 100]},\n  color: {legend: true, scheme: \"reds\"},\n  marks: [\n    Plot.ruleY([1], {stroke: \"#999\", strokeDasharray: \"3\"}),\n    Plot.lineY(decayCurves, {x: \"t\", y: \"level\", stroke: \"product\", strokeWidth: 2.4}),\n    Plot.tip(decayCurves, Plot.pointer({x: \"t\", y: \"level\", stroke: \"product\"}))\n  ]\n})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nThe three curves make the extended-half-life case visually: a single weekly dose of a BHL molecule holds a trough that standard products lose within days.\n\n\n10. Maths and Markdown, interpolated\ntex renders LaTeX (KaTeX) and md renders Markdown; both accept live interpolation, so equations and prose stay in sync with the inputs above.\n\n\nCode\ntex.block`C(t) \\;=\\; \\frac{D}{V_d}\\, e^{-k_e t}, \\qquad k_e = \\frac{\\ln 2}{t_{1/2}} = ${(Math.log(2)/thalf).toFixed(4)}\\ \\text{h}^{-1}`\n\n\n\n\n\n\n\n\n\n11. Importing from Observable notebooks\nBecause OJS is the Observable runtime, Quarto can import any named cell from a public notebook — code, charts or inputs — with live bindings. Here we import Mike Bostock’s Scrubber and use it as a play/scrub control over the PK timeline.\n\n\nCode\nimport {Scrubber} from \"@mbostock/scrubber\"\n\n\n\n\n\n\n\n\n\nCode\nviewof scrubT = Scrubber(d3.range(0, 73), {autoplay: false, loop: true, format: h =&gt; `t = ${h} h`, delay: 120})\n\n\n\n\n\n\n\n\n\nCode\nmd`At the scrubbed time **t = ${scrubT} h**, the §1 model predicts a plasma level of\n**${(C0 * Math.exp(-ke * scrubT)).toFixed(1)} mg/L**.`\n\n\n\n\n\n\n\nThe import {x as y} from … and import {chart} with {myData as data} from … variations rename cells or inject your own data into someone else’s chart — treating any notebook as an extensible template.\n\n\n\n\n\n\nTipThe Observable standard library, at a glance\n\n\n\nAvailable in any {ojs} cell with no import: FileAttachment · Inputs · Plot · d3 · width · now · mutable · viewof · Generators · Promises.tick · invalidation · html / svg / md / tex / dot (Graphviz). Recommended libraries — _ (Lodash), aq (Arquero), L (Leaflet), mermaid, topojson, vl (Vega-Lite) — load on first use.\n\n\n\n\n\n\n Back to top"
   },
   {
     "objectID": "engines/r.html",

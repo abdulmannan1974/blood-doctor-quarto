@@ -13,55 +13,11 @@
     <lastmod>2026-07-22T19:24:06.114Z</lastmod>
   </url>
   <url>
-    <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/engines/julia.html</loc>
-    <lastmod>2026-07-22T19:28:27.332Z</lastmod>
+    <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/engines/observable-plot.html</loc>
+    <lastmod>2026-07-22T22:28:33.082Z</lastmod>
   </url>
   <url>
-    <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/revealjs-slides/index.html</loc>
-    <lastmod>2026-07-22T21:41:09.973Z</lastmod>
-  </url>
-  <url>
-    <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/quarto-dashboard/index.html</loc>
-    <lastmod>2026-07-22T21:41:09.972Z</lastmod>
-  </url>
-  <url>
-    <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/python-engine/index.html</loc>
-    <lastmod>2026-07-22T21:41:09.973Z</lastmod>
-  </url>
-  <url>
-    <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/julia-engine/index.html</loc>
-    <lastmod>2026-07-22T21:41:09.973Z</lastmod>
-  </url>
-  <url>
-    <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/epub-apple-books/index.html</loc>
-    <lastmod>2026-07-22T21:41:09.973Z</lastmod>
-  </url>
-  <url>
-    <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/2026-07-22-knowledge-has-no-limits/index.html</loc>
-    <lastmod>2026-07-22T21:50:47.486Z</lastmod>
-  </url>
-  <url>
-    <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/index.html</loc>
-    <lastmod>2026-07-22T21:35:08.871Z</lastmod>
-  </url>
-  <url>
-    <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/about.html</loc>
-    <lastmod>2026-07-22T21:38:04.941Z</lastmod>
-  </url>
-  <url>
-    <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/diagrams-as-code/index.html</loc>
-    <lastmod>2026-07-22T21:41:09.973Z</lastmod>
-  </url>
-  <url>
-    <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/interactive-teaching/index.html</loc>
-    <lastmod>2026-07-22T21:41:09.974Z</lastmod>
-  </url>
-  <url>
-    <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/observable-interactive/index.html</loc>
-    <lastmod>2026-07-22T21:41:09.974Z</lastmod>
-  </url>
-  <url>
-    <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/quarto-book/index.html</loc>
+    <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/scientific-manuscript/index.html</loc>
     <lastmod>2026-07-22T21:41:09.974Z</lastmod>
   </url>
   <url>
@@ -69,12 +25,60 @@
     <lastmod>2026-07-22T21:41:09.974Z</lastmod>
   </url>
   <url>
-    <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/scientific-manuscript/index.html</loc>
+    <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/quarto-book/index.html</loc>
     <lastmod>2026-07-22T21:41:09.974Z</lastmod>
   </url>
   <url>
+    <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/observable-interactive/index.html</loc>
+    <lastmod>2026-07-22T21:41:09.974Z</lastmod>
+  </url>
+  <url>
+    <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/interactive-teaching/index.html</loc>
+    <lastmod>2026-07-22T21:41:09.974Z</lastmod>
+  </url>
+  <url>
+    <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/diagrams-as-code/index.html</loc>
+    <lastmod>2026-07-22T21:41:09.973Z</lastmod>
+  </url>
+  <url>
+    <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/about.html</loc>
+    <lastmod>2026-07-22T21:38:04.941Z</lastmod>
+  </url>
+  <url>
+    <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/index.html</loc>
+    <lastmod>2026-07-22T21:35:08.871Z</lastmod>
+  </url>
+  <url>
+    <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/2026-07-22-knowledge-has-no-limits/index.html</loc>
+    <lastmod>2026-07-22T21:50:47.486Z</lastmod>
+  </url>
+  <url>
+    <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/epub-apple-books/index.html</loc>
+    <lastmod>2026-07-22T21:41:09.973Z</lastmod>
+  </url>
+  <url>
+    <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/julia-engine/index.html</loc>
+    <lastmod>2026-07-22T21:41:09.973Z</lastmod>
+  </url>
+  <url>
+    <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/python-engine/index.html</loc>
+    <lastmod>2026-07-22T21:41:09.973Z</lastmod>
+  </url>
+  <url>
+    <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/quarto-dashboard/index.html</loc>
+    <lastmod>2026-07-22T21:41:09.972Z</lastmod>
+  </url>
+  <url>
+    <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/revealjs-slides/index.html</loc>
+    <lastmod>2026-07-22T21:41:09.973Z</lastmod>
+  </url>
+  <url>
+    <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/engines/julia.html</loc>
+    <lastmod>2026-07-22T19:28:27.332Z</lastmod>
+  </url>
+  <url>
     <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/engines/observable.html</loc>
-    <lastmod>2026-07-22T19:24:06.117Z</lastmod>
+    <lastmod>2026-07-22T22:25:13.553Z</lastmod>
   </url>
   <url>
     <loc>https://abdulmannan1974.github.io/blood-doctor-quarto/engines/r.html</loc>
