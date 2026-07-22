@@ -1,0 +1,58 @@
+---
+title: "Python Engine — Jupyter"
+subtitle: "Scientific algorithms & publication-quality graphs"
+---
+
+The **Jupyter engine** runs Python code blocks at render time and embeds the
+results. This page uses `numpy`, `scipy` and `matplotlib` from the dedicated
+`~/.venvs/quarto` environment.
+
+## A worked example: one-compartment pharmacokinetics
+
+We model plasma concentration after an IV bolus, $C(t) = \dfrac{D}{V_d}\,e^{-k_e t}$,
+with $k_e = \ln 2 / t_{1/2}$.
+
+```{python}
+#| label: fig-pk
+#| fig-cap: "Plasma concentration–time curve after a 1000 mg IV bolus."
+import numpy as np
+import matplotlib.pyplot as plt
+
+dose, Vd, t_half = 1000.0, 50.0, 12.0     # mg, L, hours
+ke = np.log(2) / t_half
+t  = np.linspace(0, 48, 400)
+C  = (dose / Vd) * np.exp(-ke * t)
+
+fig, ax = plt.subplots(figsize=(7, 4.2))
+ax.plot(t, C, color="#B71C1C", lw=2.2)
+ax.axhline(5, ls="--", color="grey", label="MEC (5 mg/L)")
+ax.fill_between(t, C, 5, where=(C > 5), alpha=0.12, color="#B71C1C")
+ax.set(xlabel="Time (h)", ylabel="Concentration (mg/L)",
+       title="One-compartment IV bolus decay")
+ax.legend(); ax.grid(alpha=.3)
+plt.show()
+```
+
+Figure @fig-pk is cross-referenced automatically.
+
+## Computation: AUC by numerical integration
+
+```{python}
+from scipy.integrate import trapezoid
+auc = trapezoid(C, t)
+above_mec = t[C > 5][-1]
+print(f"AUC(0–48h)      = {auc:8.1f} mg·h/L")
+print(f"Time above MEC  = {above_mec:8.1f} h")
+```
+
+## A computed table
+
+```{python}
+import pandas as pd
+sample_t = [0, 6, 12, 24, 36, 48]
+pd.DataFrame({
+    "Time (h)": sample_t,
+    "Concentration (mg/L)": [round((dose/Vd)*np.exp(-ke*x), 2) for x in sample_t],
+    "Fraction remaining": [round(np.exp(-ke*x), 3) for x in sample_t],
+})
+```

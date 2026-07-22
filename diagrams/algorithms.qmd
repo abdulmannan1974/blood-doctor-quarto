@@ -1,0 +1,55 @@
+---
+title: "Diagrams & Clinical Algorithms"
+subtitle: "Mermaid and Graphviz — rendered natively, no images to maintain"
+---
+
+Quarto renders **Mermaid** and **Graphviz (DOT)** from plain text. Edit the logic,
+re-render, and the diagram updates — ideal for versioned clinical algorithms.
+
+## Mermaid: microcytic anaemia work-up
+
+```{mermaid}
+%%| label: fig-microcytic
+%%| fig-cap: "Simplified diagnostic pathway for microcytic anaemia."
+flowchart TD
+    A[Microcytic anaemia<br/>MCV &lt; 80 fL] --> B{Ferritin}
+    B -->|Low| C[Iron deficiency]
+    B -->|Normal / high| D{Investigate further}
+    C --> C1[Find the source:<br/>GI loss, diet, malabsorption]
+    D --> E[Serum iron / TIBC]
+    D --> F[Haemoglobinopathy screen]
+    F -->|HbA2 raised| G[β-thalassaemia trait]
+    F -->|Normal| H[Anaemia of chronic disease<br/>or sideroblastic]
+    style A fill:#B71C1C,color:#fff
+    style C fill:#ffd5d5
+    style G fill:#ffd5d5
+```
+
+## Graphviz: a simplified coagulation pathway
+
+```{dot}
+//| label: fig-coag
+//| fig-cap: "Convergence of intrinsic and extrinsic pathways on the common pathway."
+digraph coag {
+  rankdir=TB;
+  node [shape=box, style="rounded,filled", fillcolor="#f5f5f5", fontname="Helvetica"];
+  edge [color="#7f0000"];
+
+  subgraph cluster_i { label="Intrinsic (APTT)"; color="#B71C1C";
+    XII -> XI -> IX -> "IXa/VIIIa"; }
+  subgraph cluster_e { label="Extrinsic (PT)"; color="#B71C1C";
+    "TF/VIIa"; }
+
+  "IXa/VIIIa" -> Xa;
+  "TF/VIIa"  -> Xa;
+  Xa [fillcolor="#ffd5d5"];
+  Xa -> "Thrombin (IIa)" -> Fibrin;
+  "Thrombin (IIa)" [fillcolor="#ffd5d5"];
+  Fibrin [fillcolor="#B71C1C", fontcolor="white"];
+}
+```
+
+::: {.callout-tip}
+Because these are text, they diff cleanly in git and never go stale against an
+exported PNG.
+:::

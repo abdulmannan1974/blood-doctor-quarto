@@ -1,0 +1,8 @@
+{
+  "name": "quarto-cli",
+  "version": "1.0.0",
+  "description": "Complete Quarto CLI capability pack — every command, output format, engine (Python/R/Julia/Observable), project type, publishing target, extension mechanism, and authoring feature. Grounded in Quarto 1.9.x.",
+  "author": { "name": "Dr Abdul Mannan" },
+  "keywords": ["quarto", "publishing", "pandoc", "typst", "revealjs", "jupyter", "knitr", "julia", "observable", "scientific-writing"],
+  "license": "MIT"
+}

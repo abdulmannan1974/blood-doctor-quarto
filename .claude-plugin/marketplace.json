@@ -1,0 +1,12 @@
+{
+  "name": "blood-doctor-quarto",
+  "owner": { "name": "Dr Abdul Mannan" },
+  "metadata": { "description": "Local marketplace hosting the Quarto CLI plugin." },
+  "plugins": [
+    {
+      "name": "quarto-cli",
+      "source": "./quarto-cli-plugin",
+      "description": "Complete Quarto CLI capability pack (commands, formats, engines, projects, publishing, extensions, authoring, interactivity)."
+    }
+  ]
+}

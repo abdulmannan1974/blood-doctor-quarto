@@ -1,0 +1,48 @@
+---
+title: "About this blog"
+image: posts/2026-07-22-knowledge-has-no-limits/thumbnail.svg
+about:
+  template: trestles
+  image-shape: rounded
+  links:
+    - icon: globe
+      text: Blood Doctor
+      href: https://dr-abdul-mannan.netlify.app
+    - icon: quarto
+      text: Quarto
+      href: https://quarto.org
+toc: false
+---
+
+I am **Dr Abdul Mannan**, a Consultant Haematologist and Director of the Bangor
+Haemophilia Centre. This blog is two things at once: a personal record of learning
+to publish with code, and a **living demonstration** of what
+[Quarto](https://quarto.org) can build.
+
+Every post here is a genuine, rendered example — not a screenshot. The survival
+curves are computed in R, the pharmacokinetic models in Python, the interactive
+sliders in your own browser, and the manuscripts, slides, book, EPUB and dashboard
+are all built from the same plain-text sources you can read in each post.
+
+## Why I built it
+
+For most of my career, turning an idea into a finished scientific product meant
+depending on a publisher, a statistician or a designer — and on costly proprietary
+software. Quarto, with R and Python, removed many of those barriers. The analysis,
+the narrative, the references, the figures and the final publication now live in
+one reproducible workflow that I control.
+
+Tools do not replace sound statistical judgement, scientific review or good
+design. But they remove the friction between an idea and its final form.
+
+::: {.callout-note appearance="simple"}
+> Do not be embarrassed by your first attempt. Every polished skill begins with an
+> imperfect beginning. Keep learning. Keep building. Keep creating.
+:::
+
+::: {.callout-important}
+## Citation integrity
+Bibliographic references in these demonstration posts illustrate the *mechanism*.
+Before any real publication, every citation is re-verified live against PubMed and
+Crossref under my Citation Integrity Protocol.
+:::

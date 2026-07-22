@@ -1,0 +1,40 @@
+---
+title: "EPUB e-books — a chapter that opens in Apple Books"
+description: "Quarto compiles a reflowable EPUB with a cover, styles and chapters that open natively on Mac, iPad and iPhone."
+image: thumbnail.svg
+image-alt: "EPUB e-books — a chapter that opens in Apple Books — Blood Doctor · Quarto"
+date: "2026-07-12"
+categories: [Documents]
+engine: markdown
+---
+
+Seeing a chapter I had written, coded and published *myself* appear in **Apple
+Books** was a genuinely remarkable moment. Quarto builds the EPUB directly.
+
+## From Markdown to a real e-book
+
+````yaml
+---
+title: "HbS trait vs β-thalassaemia trait"
+author: "Dr Abdul Mannan"
+format:
+  epub:
+    cover-image: cover.png
+    css: epub-styles.css
+    toc: true
+---
+````
+
+````bash
+quarto render explainer.qmd --to epub
+````
+
+The result is a reflowable **EPUB** — a proper cover, styled typography, a linked
+table of contents and chapters — that opens in Apple Books, Calibre or any reader,
+and resizes to any screen. A single explainer becomes a distributable e-book.
+
+::: {.callout-tip}
+## Download the e-book
+Grab the [**HbS vs β-thal EPUB**](/outputs/epub-hbs-hba2/hbs-vs-beta-thal-hba2.epub)
+and open it in Apple Books. Source and cover live in `outputs/epub-hbs-hba2/`.
+:::

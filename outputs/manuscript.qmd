@@ -1,0 +1,69 @@
+---
+title: "A Reproducible Scientific Manuscript"
+subtitle: "One source → HTML, PDF (LaTeX) and Word"
+author:
+  - name: "Dr Abdul Mannan"
+    affiliations:
+      - name: "Bangor Haemophilia Centre, BCUHB"
+abstract: |
+  This template shows a journal-style manuscript authored once in Quarto and
+  rendered to HTML, PDF and DOCX. It demonstrates executable figures, numbered
+  tables, cross-references and citations from a shared BibTeX file.
+keywords: [quarto, reproducibility, haematology]
+date: today
+format:
+  html:
+    toc: true
+  pdf:
+    documentclass: article
+    geometry: margin=1in
+    number-sections: true
+  docx:
+    number-sections: true
+bibliography: ../references.bib
+---
+
+## Introduction
+
+Reproducible reporting keeps the analysis and the narrative in one place.
+Emicizumab prophylaxis, for example, was established by landmark trial evidence
+[@mahlangu2018haven3]. Methods conventions follow @example2025method.
+
+## Methods
+
+We simulate a one-compartment pharmacokinetic model (@fig-decay) and tabulate
+concentrations at fixed times (@tbl-conc).
+
+```{python}
+#| label: fig-decay
+#| fig-cap: "Simulated plasma concentration after a 1000 mg IV bolus."
+#| echo: false
+import numpy as np, matplotlib.pyplot as plt
+ke = np.log(2)/12; t = np.linspace(0,48,300); C = (1000/50)*np.exp(-ke*t)
+fig, ax = plt.subplots(figsize=(6,3.6))
+ax.plot(t, C, color="#B71C1C", lw=2); ax.set_xlabel("Time (h)"); ax.set_ylabel("mg/L")
+ax.grid(alpha=.3); plt.show()
+```
+
+## Results
+
+```{python}
+#| label: tbl-conc
+#| tbl-cap: "Concentration at selected times."
+#| echo: false
+import pandas as pd
+ts=[0,6,12,24,48]
+pd.DataFrame({"Time (h)":ts,"Conc (mg/L)":[round((1000/50)*np.exp(-ke*x),2) for x in ts]})
+```
+
+As shown in @fig-decay and @tbl-conc, concentration halves every 12 hours.
+
+## Discussion
+
+The same `.qmd` produced this HTML page, a typeset PDF and an editable Word file
+with no manual re-formatting.
+
+## References
+
+::: {#refs}
+:::

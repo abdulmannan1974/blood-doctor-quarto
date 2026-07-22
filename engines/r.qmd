@@ -1,0 +1,49 @@
+---
+title: "R Engine — knitr"
+subtitle: "The classic RMarkdown engine with ggplot2"
+---
+
+The **knitr engine** executes R chunks. Packages are loaded from your personal
+library (`~/Library/R/arm64/4.5/library`). Here we use `ggplot2`.
+
+## Simulated platelet recovery after chemotherapy
+
+```{r}
+#| label: fig-platelets
+#| fig-cap: "Modelled platelet recovery; dashed line marks the 100 ×10⁹/L threshold."
+#| fig-width: 7
+#| fig-height: 4.2
+library(ggplot2)
+set.seed(42)
+
+days      <- 0:28
+platelets <- 20 + 380 / (1 + exp(-0.30 * (days - 14)))   # logistic recovery
+obs       <- platelets + rnorm(length(days), 0, 9)
+df        <- data.frame(day = days, platelets = obs)
+
+ggplot(df, aes(day, platelets)) +
+  geom_hline(yintercept = 100, linetype = "dashed", colour = "grey50") +
+  geom_line(colour = "#B71C1C", linewidth = 1.1) +
+  geom_point(colour = "#7f0000", size = 1.8) +
+  labs(title = "Simulated platelet recovery",
+       x = "Day post-chemotherapy",
+       y = expression(Platelets~(10^9/L))) +
+  theme_minimal(base_size = 13)
+```
+
+## A quick summary table
+
+```{r}
+knitr::kable(
+  data.frame(
+    Milestone = c("Nadir", "Threshold crossed", "Day 28"),
+    Day       = c(which.min(platelets) - 1,
+                  days[which(platelets >= 100)[1]],
+                  28),
+    Platelets = round(c(min(platelets),
+                        platelets[which(platelets >= 100)[1]],
+                        tail(platelets, 1)))
+  ),
+  caption = "Key points of the recovery curve."
+)
+```

@@ -1,0 +1,47 @@
+---
+title: ""
+description: "One source file. Every scientific output. A working blog by Dr Abdul Mannan."
+listing:
+  id: capability-posts
+  contents: posts
+  sort: "date desc"
+  type: grid
+  grid-columns: 3
+  categories: true
+  sort-ui: [date, title]
+  filter-ui: true
+  fields: [image, title, description, categories, date, reading-time]
+  feed: true
+page-layout: full
+toc: false
+anchor-sections: false
+---
+
+::: {.blog-hero}
+::: {.blog-hero-inner}
+[A reproducible publishing lab]{.blog-eyebrow}
+
+# Knowledge has no limits. {.blog-title}
+
+### Neither should our willingness to learn. {.blog-tagline}
+
+From a badly aligned PowerPoint slide on a hospital laboratory computer in the
+early 2000s — to coding my own books, reports, websites, dashboards and
+scientific figures. This blog is that journey, and a **live demonstration of
+everything [Quarto](https://quarto.org) can build from a single source file**.
+
+[Read the story ↓](posts/2026-07-22-knowledge-has-no-limits/){.blog-cta}
+&nbsp;&nbsp;
+[Browse the gallery ↓](#capability-posts){.blog-cta .blog-cta-ghost}
+:::
+:::
+
+::: {.blog-strip}
+**Python** · **R** · **Julia** · **Observable JS** · **Pandoc** — one workflow that unifies analysis, narrative, references, figures and the final publication.
+:::
+
+## The gallery {#gallery}
+
+Every card below is a **working example**. Each output type — from survival
+curves to EPUB e-books that open in Apple Books — is built, rendered and
+reproducible. Filter by category, or open a post to read the code that made it.

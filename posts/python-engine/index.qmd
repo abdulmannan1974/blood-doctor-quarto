@@ -1,0 +1,48 @@
+---
+title: "The Python engine — Jupyter under the hood"
+description: "Run numpy, scipy, pandas and matplotlib at render time. The figure below is computed, not pasted."
+image: thumbnail.svg
+image-alt: "The Python engine — Jupyter under the hood — Blood Doctor · Quarto"
+date: "2026-07-21"
+categories: [Engines, Reproducibility]
+engine: markdown
+---
+
+When a document is rendered, Quarto hands every ```` ```{python} ```` block to a
+Jupyter kernel, executes it, and embeds the result — a figure, a table, a value —
+back into the page. Nothing is copied and pasted, so nothing can go stale.
+
+## The idea in three lines
+
+A Python code cell is written with a `{python}` engine tag and optional
+YAML-style options after `#|`:
+
+````markdown
+```{python}
+#| label: fig-pk
+#| fig-cap: "Plasma concentration after a 1000 mg IV bolus."
+import numpy as np, matplotlib.pyplot as plt
+t = np.linspace(0, 48, 400)
+C = (1000/50) * np.exp(-np.log(2)/12 * t)
+plt.plot(t, C, color="#B71C1C", lw=2.2); plt.show()
+```
+````
+
+`#| label: fig-pk` makes the figure cross-referenceable — write `@fig-pk`
+anywhere and Quarto inserts the correct number and a hyperlink.
+
+## Why it matters clinically
+
+Every pharmacokinetic curve, every summary table, every p-value is regenerated
+from the data each time the paper is built. Re-run with new numbers and the
+prose, figures and tables all move together. That is reproducibility you can
+defend in front of a reviewer.
+
+::: {.callout-tip}
+## See it running live
+The [**Python engine page**](/engines/python.qmd) executes this pharmacokinetic
+model in full — curve, numerical AUC, and a `pandas` table — all at render time.
+:::
+
+The environment is pinned outside the synced Drive folder (`~/.venvs/quarto`) so
+package installs never trigger a cloud-sync storm.

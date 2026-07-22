@@ -1,0 +1,44 @@
+---
+title: "Interactive teaching documents — tabsets & callouts"
+description: "Layered teaching material: tabsets, collapsible answers, coloured callouts and cross-references — pure Markdown."
+image: thumbnail.svg
+image-alt: "Interactive teaching documents — tabsets & callouts — Blood Doctor · Quarto"
+date: "2026-07-16"
+categories: [Teaching, Interactive]
+engine: markdown
+---
+
+A good teaching page reveals detail on demand. Quarto ships the building blocks as
+simple Markdown fences — no JavaScript to write.
+
+## Tabsets: one concept, several views
+
+````markdown
+::: {.panel-tabset}
+## Film        …blood-film description…
+## Immunophenotype  …markers…
+## Management   …first-line therapy…
+:::
+````
+
+Readers click between **Film**, **Immunophenotype** and **Management** without
+leaving the page — ideal for comparing differentials.
+
+## Callouts carry the signal
+
+````markdown
+::: {.callout-warning}
+## Red flag
+Blasts + coagulopathy → treat as APL until proven otherwise.
+:::
+````
+
+Five callout styles (`note`, `tip`, `important`, `warning`, `caution`) give
+teaching material a consistent visual grammar, and collapsible callouts hide a
+model answer until the learner is ready.
+
+::: {.callout-tip}
+## See it live
+The [**interactive teaching demo**](/outputs/interactive.qmd) combines tabsets,
+callouts and a live Observable widget in one lesson page.
+:::

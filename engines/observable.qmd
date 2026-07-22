@@ -1,0 +1,41 @@
+---
+title: "Observable JS Engine"
+subtitle: "Reactive, client-side interactivity — no server required"
+---
+
+**Observable JS (OJS)** cells run entirely in the reader's browser and react to
+each other automatically. `d3` and `Plot` are built in — nothing to install.
+
+Drag the slider: the pharmacokinetic curve updates live.
+
+```{ojs}
+//| echo: false
+viewof thalf = Inputs.range([2, 48], {value: 12, step: 1, label: "Half-life t½ (h)"})
+```
+
+```{ojs}
+//| echo: false
+ke = Math.log(2) / thalf
+data = d3.range(0, 48.5, 0.5).map(t => ({t, C: (1000 / 50) * Math.exp(-ke * t)}))
+```
+
+```{ojs}
+//| echo: false
+Plot.plot({
+  width: 700, height: 340,
+  x: {label: "Time (h) →"},
+  y: {label: "↑ Concentration (mg/L)", grid: true},
+  marks: [
+    Plot.ruleY([5], {stroke: "grey", strokeDasharray: "4"}),
+    Plot.areaY(data, {x: "t", y: "C", fill: "#B71C1C", fillOpacity: 0.12}),
+    Plot.lineY(data, {x: "t", y: "C", stroke: "#B71C1C", strokeWidth: 2.2})
+  ]
+})
+```
+
+```{ojs}
+//| echo: false
+md`At **t½ = ${thalf} h**, the elimination rate constant is
+**kₑ = ${ke.toFixed(4)} h⁻¹** and the concentration falls below the
+5 mg/L threshold at about **${(Math.log((1000/50)/5)/ke).toFixed(1)} h**.`
+```

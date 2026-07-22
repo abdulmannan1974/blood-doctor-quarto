@@ -1,0 +1,137 @@
+/* ============================================================
+   Blood Doctor Teaching Series — EPUB stylesheet
+   HbS Trait vs β-Thalassaemia Trait
+   Neutral, reader-theme-friendly typography with crimson accent.
+   ============================================================ */
+
+:root {
+  --crimson: #a4161a;
+  --crimson-deep: #7f0000;
+  --ink: #1a1a1a;
+  --muted: #555;
+  --rule: #d8d2d2;
+  --panel: #faf7f7;
+}
+
+body {
+  font-family: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+  line-height: 1.6;
+  color: var(--ink);
+  hyphens: auto;
+}
+
+/* ---- Headings ---- */
+h1, h2, h3, h4 {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1.2;
+  color: var(--crimson-deep);
+  font-weight: 700;
+  page-break-after: avoid;
+}
+
+h1 { font-size: 1.9em; margin-top: 1.2em; }
+
+h2 {
+  font-size: 1.4em;
+  margin-top: 2em;
+  padding-bottom: 0.25em;
+  border-bottom: 2px solid var(--crimson);
+  color: var(--ink);
+}
+
+h3 {
+  font-size: 1.12em;
+  color: var(--crimson);
+  margin-top: 1.6em;
+}
+
+/* section numbers a touch lighter */
+.header-section-number { color: var(--crimson); font-weight: 700; }
+
+/* ---- Body text ---- */
+p { margin: 0.65em 0; text-align: justify; }
+
+strong { color: var(--crimson-deep); }
+
+/* ---- Citation blockquotes (the "> quote — source" pattern) ---- */
+blockquote {
+  margin: 1.1em 0;
+  padding: 0.5em 1em;
+  border-left: 3px solid var(--crimson);
+  background: var(--panel);
+  color: #333;
+  font-size: 0.95em;
+}
+blockquote em { color: #2a2a2a; }
+
+/* ---- Tables ---- */
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.2em 0;
+  font-size: 0.86em;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+th {
+  background: var(--crimson-deep);
+  color: #fff;
+  text-align: left;
+  padding: 0.5em 0.6em;
+  font-weight: 600;
+}
+td {
+  padding: 0.45em 0.6em;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+tr:nth-child(even) td { background: var(--panel); }
+
+/* ---- Callouts (Quarto emits div.callout-*) ---- */
+div[class*="callout"] {
+  margin: 1.3em 0;
+  border: 1px solid var(--rule);
+  border-left-width: 5px;
+  border-radius: 4px;
+  padding: 0.2em 0.9em 0.6em;
+  background: #fbfbfb;
+  page-break-inside: avoid;
+}
+.callout-title, .callout-caption {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  margin: 0.5em 0 0.2em;
+}
+.callout-important { border-left-color: var(--crimson); background: #fdf3f3; }
+.callout-important .callout-title { color: var(--crimson-deep); }
+.callout-warning   { border-left-color: #b26a00; background: #fdf7ee; }
+.callout-warning .callout-title { color: #8a5200; }
+.callout-tip       { border-left-color: #2e7d32; background: #f1f8f1; }
+.callout-tip .callout-title { color: #1f5c22; }
+.callout-note      { border-left-color: #4a6fa5; background: #f2f5fa; }
+.callout-note .callout-title { color: #35507a; }
+
+/* ---- Horizontal rules ---- */
+hr {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 2em 0;
+}
+
+/* ---- Subscript / scientific notation kept crisp ---- */
+sub, sup { line-height: 0; }
+
+/* ============================================================
+   Dark-mode readers: keep panels/tables legible.
+   ============================================================ */
+@media (prefers-color-scheme: dark) {
+  body { color: #e6e6e6; }
+  h2 { color: #f0e6e6; }
+  h3 { color: #e08a8a; }
+  strong { color: #e69a9a; }
+  blockquote { background: #241d1e; color: #d8d8d8; border-left-color: #a4161a; }
+  blockquote em { color: #e8e8e8; }
+  div[class*="callout"] { background: #201b1c; border-color: #3a3030; }
+  td { border-bottom-color: #3a3030; }
+  tr:nth-child(even) td { background: #241d1e; }
+  hr { border-top-color: #3a3030; }
+}

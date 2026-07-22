@@ -1,0 +1,43 @@
+---
+title: "One source, three manuscripts — HTML, PDF & Word"
+description: "The same .qmd renders to a web page, a typeset LaTeX PDF and a Microsoft Word document a co-author can track-change."
+image: thumbnail.svg
+image-alt: "One source, three manuscripts — HTML, PDF & Word — Blood Doctor · Quarto"
+date: "2026-07-15"
+categories: [Documents]
+engine: markdown
+---
+
+The oldest friction in academic writing is format juggling: the journal wants a
+Word file, your co-author wants a PDF, the pre-print server wants HTML. Quarto
+produces **all three from one source**.
+
+## Declare the formats, render once
+
+````yaml
+---
+title: "A reproducible haematology manuscript"
+format:
+  html:  default
+  pdf:   { documentclass: scrartcl }
+  docx:  default
+---
+````
+
+Then:
+
+````bash
+quarto render manuscript.qmd            # builds every format
+quarto render manuscript.qmd --to docx  # or just one
+````
+
+Cross-references (`@fig-`, `@tbl-`), citations from a `.bib` file, and figure
+numbering all travel across formats automatically. Send the **Word** file to a
+co-author for track-changes; submit the **PDF** to the journal; post the **HTML**
+as a pre-print — never re-formatting by hand.
+
+::: {.callout-tip}
+## Open the rendered outputs
+[HTML](/outputs/manuscript.html) · [**PDF**](/outputs/manuscript.pdf) ·
+[**Word (.docx)**](/outputs/manuscript.docx) — all three built from the one file.
+:::

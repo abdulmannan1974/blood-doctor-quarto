@@ -1,0 +1,41 @@
+---
+title: "The Julia engine — speed for heavy computation"
+description: "When a model is numerically expensive, Julia runs it fast — inside the same document, beside R and Python."
+image: thumbnail.svg
+image-alt: "The Julia engine — speed for heavy computation — Blood Doctor · Quarto"
+date: "2026-07-19"
+categories: [Engines, Reproducibility]
+engine: markdown
+---
+
+Some problems — large matrix differential equations, Monte-Carlo simulations,
+population PK models — are simply slow in interpreted languages. **Julia** compiles
+to native code and runs close to C speed, and Quarto speaks it natively.
+
+## Same document, a third language
+
+````markdown
+```{julia}
+using Plots
+gr()
+t = 0:0.5:48
+C = 20.0 .* exp.(-(log(2)/12) .* t)
+plot(t, C, lw = 2.4, color = :firebrick, xlabel = "Time (h)")
+```
+````
+
+The remarkable part is not Julia alone — it is that an R chunk, a Python chunk and
+a Julia chunk can sit in **one source file**, each doing what it is best at, and
+render into one seamless document.
+
+::: {.callout-tip}
+## See it running live
+The [**Julia engine page**](/engines/julia.qmd) executes a `Plots.jl` computation
+at render time. The project's Julia environment is pinned via `Project.toml` /
+`Manifest.toml` so the result is fully reproducible.
+:::
+
+::: {.callout-note}
+Julia's first render compiles its packages and can take a minute; Quarto's
+`freeze` then caches the result so subsequent builds are instant.
+:::

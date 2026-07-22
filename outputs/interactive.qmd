@@ -1,0 +1,52 @@
+---
+title: "Interactive Teaching Document"
+subtitle: "Tabsets, callouts and live widgets — the pattern behind your learning apps"
+---
+
+This mirrors your single-file HTML learning apps, but authored in Markdown and
+fully reproducible.
+
+## Layered content with tabsets
+
+::: {.panel-tabset}
+
+### Concept
+Emicizumab is a bispecific antibody bridging activated factor IX and factor X,
+mimicking the cofactor function of **factor VIII**.
+
+### Mechanism
+It does **not** require activation and is not affected by FVIII inhibitors —
+hence its role in haemophilia A with inhibitors.
+
+### Monitoring
+Standard APTT-based assays are unreliable on emicizumab. Use a
+**bovine-based chromogenic** FVIII assay to monitor.
+
+:::
+
+## Callouts for emphasis
+
+::: {.callout-warning}
+## Assay pitfall
+Emicizumab shortens the APTT dramatically and invalidates one-stage FVIII assays.
+:::
+
+::: {.callout-note collapse="true"}
+## Expand: dosing summary
+Loading 3 mg/kg weekly ×4, then a maintenance schedule (weekly / fortnightly /
+four-weekly). *Verify against the current SmPC before clinical use.*
+:::
+
+## A live interactive: dose–exposure explorer
+
+```{ojs}
+//| echo: false
+viewof weight = Inputs.range([10, 120], {value: 70, step: 1, label: "Body weight (kg)"})
+```
+
+```{ojs}
+//| echo: false
+loading = 3.0 * weight
+md`A **3 mg/kg** loading dose for a **${weight} kg** patient is
+**${loading.toFixed(0)} mg** per weekly dose during the 4-week loading phase.`
+```

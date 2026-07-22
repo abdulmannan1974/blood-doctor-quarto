@@ -1,0 +1,28 @@
+# Quarto's generated project state and rendered website
+/.quarto/
+/_site/
+
+# Rendered standalone publications (keep the .qmd sources)
+/outputs/*.html
+/outputs/*.pdf
+/outputs/*.docx
+/outputs/*_files/
+/outputs/.jupyter_cache/
+
+# Book render artefacts
+/book/.quarto/
+/book/_book/
+/book/*.pdf
+/book/*.tex
+
+# Do not ignore _freeze/: it holds committed computational results when a site
+# is rendered locally and deployed reproducibly by continuous publishing.
+
+**/*.quarto_ipynb
+
+# Large installers, OS cruft, dropped review page, backups
+*.pkg
+.DS_Store
+/reviews/
+*.bak
+_quarto_internal_scss_error.scss

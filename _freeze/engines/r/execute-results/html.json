@@ -1,0 +1,17 @@
+{
+  "hash": "dcce574c16183a2910e84870cc1bb276",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"R Engine — knitr\"\nsubtitle: \"The classic RMarkdown engine with ggplot2\"\n---\n\nThe **knitr engine** executes R chunks. Packages are loaded from your personal\nlibrary (`~/Library/R/arm64/4.5/library`). Here we use `ggplot2`.\n\n## Simulated platelet recovery after chemotherapy\n\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(ggplot2)\nset.seed(42)\n\ndays      <- 0:28\nplatelets <- 20 + 380 / (1 + exp(-0.30 * (days - 14)))   # logistic recovery\nobs       <- platelets + rnorm(length(days), 0, 9)\ndf        <- data.frame(day = days, platelets = obs)\n\nggplot(df, aes(day, platelets)) +\n  geom_hline(yintercept = 100, linetype = \"dashed\", colour = \"grey50\") +\n  geom_line(colour = \"#B71C1C\", linewidth = 1.1) +\n  geom_point(colour = \"#7f0000\", size = 1.8) +\n  labs(title = \"Simulated platelet recovery\",\n       x = \"Day post-chemotherapy\",\n       y = expression(Platelets~(10^9/L))) +\n  theme_minimal(base_size = 13)\n```\n\n::: {.cell-output-display}\n![Modelled platelet recovery; dashed line marks the 100 ×10⁹/L threshold.](r_files/figure-html/fig-platelets-1.png){#fig-platelets width=672}\n:::\n:::\n\n\n## A quick summary table\n\n\n::: {.cell}\n\n```{.r .cell-code}\nknitr::kable(\n  data.frame(\n    Milestone = c(\"Nadir\", \"Threshold crossed\", \"Day 28\"),\n    Day       = c(which.min(platelets) - 1,\n                  days[which(platelets >= 100)[1]],\n                  28),\n    Platelets = round(c(min(platelets),\n                        platelets[which(platelets >= 100)[1]],\n                        tail(platelets, 1)))\n  ),\n  caption = \"Key points of the recovery curve.\"\n)\n```\n\n::: {.cell-output-display}\n\n\nTable: Key points of the recovery curve.\n\n|Milestone         | Day| Platelets|\n|:-----------------|---:|---------:|\n|Nadir             |   0|        26|\n|Threshold crossed |  10|       108|\n|Day 28            |  28|       394|\n\n\n:::\n:::\n\n",
+    "supporting": [
+      "r_files"
+    ],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

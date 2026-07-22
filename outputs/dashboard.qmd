@@ -1,0 +1,96 @@
+---
+title: "Anticoagulation Service Dashboard"
+author: "Dr Abdul Mannan"
+date: today
+format:
+  dashboard:
+    theme: [cosmo, ../styles.scss]
+    nav-buttons:
+      - icon: house
+        href: ../index.html
+logo: ""
+---
+
+```{python}
+#| label: data
+import numpy as np, pandas as pd
+import matplotlib.pyplot as plt
+rng = np.random.default_rng(2026)
+months = pd.period_range("2025-08", periods=12, freq="M").astype(str)
+ttr = np.clip(68 + np.cumsum(rng.normal(0.8, 2.5, 12)), 55, 88)      # time-in-range %
+inr = np.clip(rng.normal(2.5, 0.6, 600), 0.8, 5.5)                    # INR readings
+n_patients = 412
+critical = int((inr > 5).sum() + (inr < 1.5).sum())
+```
+
+## Row {height=26%}
+
+```{python}
+#| content: valuebox
+#| title: "Patients enrolled"
+dict(value=f"{n_patients:,}", icon="people-fill", color="primary")
+```
+
+```{python}
+#| content: valuebox
+#| title: "Mean time-in-range"
+dict(value=f"{ttr.mean():.1f}%", icon="bullseye",
+     color="success" if ttr.mean() >= 65 else "warning")
+```
+
+```{python}
+#| content: valuebox
+#| title: "Median INR"
+dict(value=f"{np.median(inr):.1f}", icon="droplet-half", color="secondary")
+```
+
+```{python}
+#| content: valuebox
+#| title: "Critical INRs (30d)"
+dict(value=f"{critical}", icon="exclamation-triangle-fill",
+     color="danger" if critical > 25 else "warning")
+```
+
+## Row {height=46%}
+
+### Column {width=58%}
+
+```{python}
+#| title: "Time-in-therapeutic-range trend"
+def draw():
+    fig, ax = plt.subplots(figsize=(7, 3.4))
+    ax.plot(months, ttr, color="#B71C1C", lw=2.4, marker="o", ms=4)
+    ax.axhspan(65, 100, color="#2e7d32", alpha=0.08)
+    ax.axhline(65, ls="--", color="#2e7d32", lw=1, label="65% target (BSH)")
+    ax.set_ylabel("TTR (%)"); ax.set_ylim(50, 90)
+    ax.tick_params(axis="x", rotation=45); ax.legend(); ax.grid(alpha=.3)
+    fig.tight_layout()
+draw(); plt.show()
+```
+
+### Column {width=42%}
+
+```{python}
+#| title: "Distribution of INR readings"
+def draw():
+    fig, ax = plt.subplots(figsize=(5, 3.4))
+    ax.hist(inr, bins=30, color="#B71C1C", alpha=0.85, edgecolor="white")
+    ax.axvspan(2, 3, color="#2e7d32", alpha=0.12)
+    ax.axvline(2, ls="--", color="#2e7d32"); ax.axvline(3, ls="--", color="#2e7d32")
+    ax.set_xlabel("INR"); ax.set_ylabel("Readings"); ax.grid(alpha=.3)
+    fig.tight_layout()
+draw(); plt.show()
+```
+
+## Row {height=28%}
+
+```{python}
+#| title: "Patients flagged for review"
+pd.DataFrame({
+    "Patient": [f"AC-{i:04d}" for i in rng.integers(1000, 9999, 6)],
+    "Indication": ["AF", "Mechanical valve", "VTE", "AF", "VTE", "AF"],
+    "Latest INR": np.round(rng.uniform(1.1, 5.2, 6), 1),
+    "Target range": ["2.0–3.0", "2.5–3.5", "2.0–3.0", "2.0–3.0", "2.0–3.0", "2.0–3.0"],
+    "Action": ["Recall 48h", "Urgent review", "Dose ↑", "Stable", "Dose ↓", "Recall 1wk"],
+})
+```

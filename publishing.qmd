@@ -1,0 +1,115 @@
+---
+title: "Publication Studio"
+subtitle: "Choose one source of truth, then render and publish with confidence"
+toc: true
+---
+
+## The Quarto publishing model
+
+Every publication begins as a plain-text `.qmd` source file. That source can
+contain narrative, citations, equations, figures, tables, diagrams and executable
+code. Quarto turns it into the formats the audience needs, without maintaining
+separate Word, PDF and website versions.
+
+::: {.callout-tip}
+## Default rule
+Use **HTML** for a living, interactive or web-first publication; use **PDF** for
+a typeset, fixed-layout record; use **DOCX** when collaborators or a journal
+need an editable Word document.
+:::
+
+## Pick the right starting point
+
+| Goal | Start with | Render command | Best use |
+|---|---|---|---|
+| Scientific paper / report | `outputs/manuscript.qmd` | `quarto render outputs/manuscript.qmd --to pdf` | One source to HTML, PDF and Word |
+| Teaching handout / clinical explainer | `outputs/interactive.qmd` | `quarto render outputs/interactive.qmd` | Browser-based interaction with no server |
+| Conference talk | `outputs/slides.qmd` | `quarto render outputs/slides.qmd --to revealjs` | Reveal.js, speaker notes and PDF export |
+| Website / knowledge hub | project root | `quarto render` | Linked, searchable, versioned content |
+| Handbook / course | `book/` | `quarto render book --to pdf` | Multi-chapter HTML and PDF |
+| Fresh manuscript | `templates/manuscript-starter.qmd` | Copy it into `outputs/` first | A clean, publication-safe scaffold |
+
+## Authoring standards
+
+### Scientific Markdown
+
+- Put title, authorship, abstract, keywords, bibliography and output choices in
+  the YAML front matter at the top of a `.qmd` file.
+- Cite with `[@citation-key]`; use `@fig-label`, `@tbl-label` and `@sec-label`
+  to cross-reference material that may move while you edit.
+- Give every figure and table a descriptive caption and explain its clinical or
+  scientific meaning in the surrounding text.
+- Treat `references.bib` as a data source, not a source of truth: verify every
+  DOI, PMID, author list and journal record before publishing.
+
+### Dynamic and interactive content
+
+Choose the execution engine by the work being done, not by the output format:
+
+- **Python / Jupyter** for scientific Python, notebooks and analysis pipelines.
+- **R / knitr** for R statistics, `ggplot2`, tables and established R workflows.
+- **Julia / IJulia** for numerical or performance-intensive work.
+- **Observable JS** for lightweight, client-side interactivity; the reader's
+  browser runs it, so no application server is required.
+
+The engine examples in this site are executable smoke tests, not just snippets.
+
+## Reliable daily workflow
+
+```bash
+# Start a fresh paper; the relative bibliography path is then correct.
+cp templates/manuscript-starter.qmd outputs/my-study.qmd
+
+# Work interactively; the browser refreshes whenever you save.
+quarto preview
+
+# Rebuild the public site, executing changed computational documents.
+quarto render
+
+# Render an individual publication in the deliverable format required.
+quarto render outputs/manuscript.qmd --to pdf
+quarto render outputs/manuscript.qmd --to docx
+quarto render outputs/slides.qmd --to revealjs
+quarto render book --to pdf
+```
+
+`freeze: auto` is enabled for the website. Quarto records the computed results
+under `_freeze/`, so a repeat render and a future GitHub Pages build can reuse
+the evidence-generating computation rather than silently rerunning it in a
+different environment.
+
+## Publication gate
+
+Before distributing a scientific output, check the following:
+
+1. **Evidence** — citations and identifiers have been retrieved and verified in
+   the current project, and any clinical claim is appropriate for its audience.
+2. **Reproducibility** — render from a clean session; inspect figures, tables,
+   labels and numerical values in the target format.
+3. **Accessibility** — use informative headings, alt text for meaningful images,
+   readable colour contrast, and a table summary where needed.
+4. **Audience output** — inspect the actual PDF, DOCX, slides or deployed page;
+   a successful command alone is not editorial approval.
+
+## Publishing a website
+
+When this folder lives in its own Git repository, use GitHub Pages or Netlify as
+the deployment target. The included `.gitignore` excludes rendered artefacts but
+keeps `_freeze/` available for reproducible continuous publishing.
+
+```bash
+# First publish to a GitHub repository with Pages enabled.
+quarto publish gh-pages
+```
+
+Quarto creates and publishes a `gh-pages` branch for a typical project site.
+For a custom domain or Netlify site, configure that hosting target once and keep
+the source and publication history in the same repository.
+
+## Further reference
+
+The official [Quarto guide](https://quarto.org/docs/guide/) is the primary
+reference. The next most useful sections are [citations](https://quarto.org/docs/authoring/citations.html),
+[books](https://quarto.org/docs/books/), [manuscripts](https://quarto.org/docs/manuscripts/),
+[Observable JS](https://quarto.org/docs/interactive/ojs/) and
+[GitHub Pages publishing](https://quarto.org/docs/publishing/github-pages.html).

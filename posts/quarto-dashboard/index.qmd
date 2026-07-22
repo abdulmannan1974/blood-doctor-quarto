@@ -1,0 +1,48 @@
+---
+title: "Quarto dashboards — a clinical cockpit from code"
+description: "Value boxes, a live plot and a sortable table arranged into a responsive dashboard — declared with format: dashboard."
+image: thumbnail.svg
+image-alt: "Quarto dashboards — a clinical cockpit from code — Blood Doctor · Quarto"
+date: "2026-07-11"
+categories: [Visualisation, Interactive]
+engine: markdown
+---
+
+Sometimes the output is not a paper but a **dashboard** — headline numbers, a
+chart and a table, laid out as a cockpit. Quarto builds these from the same
+Markdown + code you already know, with `format: dashboard`.
+
+## Layout by headings, content by code
+
+````yaml
+---
+title: "Anticoagulation Service Dashboard"
+format: dashboard
+---
+````
+````markdown
+## Row {height=20%}
+```{python}
+#| content: valuebox
+#| title: "Patients in range"
+dict(value="78%", icon="heart-pulse", color="success")
+```
+
+## Row
+```{python}
+# a matplotlib chart fills this card
+```
+```{python}
+# a pandas table fills the next card
+```
+````
+
+Rows and columns come from heading levels; `#| content: valuebox` turns a cell
+into a KPI tile. The result is responsive and self-contained — no dashboard
+framework, no server.
+
+::: {.callout-tip}
+## Open the live dashboard
+See the [**anticoagulation dashboard**](/outputs/dashboard.html) — value boxes, a
+computed chart and a data table, all from one `.qmd`.
+:::

@@ -1,0 +1,46 @@
+---
+title: "A Quarto book — chapters, cross-refs and an index"
+description: "Multi-chapter projects with automatic numbering, a cross-referenced index, and both an HTML website and a typeset PDF."
+image: thumbnail.svg
+image-alt: "A Quarto book — chapters, cross-refs and an index — Blood Doctor · Quarto"
+date: "2026-07-13"
+categories: [Documents]
+engine: markdown
+---
+
+A book is more than a long document: it needs numbered chapters, a table of
+contents, cross-chapter references and a single bibliography. Quarto's **book**
+project type handles all of it.
+
+## The whole book is a list of chapters
+
+````yaml
+project:
+  type: book
+book:
+  title: "A Short Haematology Handbook"
+  author: "Dr Abdul Mannan"
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - anaemia.qmd
+    - references.qmd
+format:
+  html: default
+  pdf:  { documentclass: scrreprt }
+````
+
+````bash
+quarto render book            # → an HTML book website
+quarto render book --to pdf   # → a typeset PDF
+````
+
+Reference a figure in Chapter 3 from Chapter 1 and the number resolves itself.
+The output is simultaneously a navigable **website** and a print-ready **PDF** —
+the same content, two finished products.
+
+::: {.callout-tip}
+## Read the demo book
+Open the [**rendered handbook**](/book/_book/index.html) — a complete multi-chapter
+Quarto book, built from four `.qmd` files.
+:::

@@ -1,0 +1,19 @@
+# Anaemia {#sec-anaemia}
+
+Anaemia is classified by mean cell volume (MCV) into microcytic, normocytic and
+macrocytic categories.
+
+```{r}
+#| label: fig-mcv
+#| fig-cap: "Illustrative distribution of MCV in a mixed clinic population."
+#| echo: false
+set.seed(1)
+mcv <- c(rnorm(120, 72, 5), rnorm(200, 90, 6), rnorm(80, 104, 5))
+hist(mcv, breaks = 30, col = "#B71C1C", border = "white",
+     main = "", xlab = "MCV (fL)")
+abline(v = c(80, 100), lty = 2, col = "grey30")
+```
+
+@fig-mcv shows the three classes separated at 80 and 100 fL. Management of
+iron-deficiency anaemia and the wider evidence base are reviewed elsewhere
+[@example2025method].

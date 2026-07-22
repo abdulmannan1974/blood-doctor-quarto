@@ -1,0 +1,297 @@
+---
+title: "Knowledge Has No Limits: From a Misaligned PowerPoint to a Complete Quarto Publishing System"
+subtitle: "26 years of learning, academic independence, and the open-source scientific publishing revolution"
+description: "The flagship story — one source file with live R survival & forest plots, an interactive Observable slider, a Mermaid pathway and rendered maths, plus Python & Julia running live on their own pages."
+image: thumbnail.svg
+image-alt: "Knowledge has no limits — Blood Doctor · Quarto"
+author:
+  - name: "Dr Abdul Mannan"
+    affiliation: "Consultant Haematologist"
+date: "2026-07-22"
+categories: [Reflection, Engines, Haematology]
+toc: true
+toc-depth: 3
+code-fold: show
+code-tools: true
+bibliography: ../../references.bib
+---
+
+::: {.callout-note appearance="simple"}
+## Author's Reflection
+> *"Knowledge has no limits, and learning has no finishing line."*  
+> — Dr Abdul Mannan
+:::
+
+---
+
+# The Journey: 26 Years of Learning
+
+When I look back, I remember creating my first PowerPoint presentation in the early 2000s on a hospital laboratory computer. It was full of mistakes, with poor formatting and probably the worst alignment imaginable. But it was a beginning.
+
+Nearly 26 years later, I have completed my training in **Quarto**, an open-source scientific publishing system that brings writing, coding, data analysis, and publication into one reproducible workflow.
+
+Using Quarto with **R, Python, Jupyter, Julia, Node.js, and Pandoc**, I can now create statistical figures myself—from survival curves and forest plots to publication-ready tables, mathematical equations, and interactive visualisations.
+
+---
+
+# A Single Source, Unlimited Possibilities
+
+From a single `.qmd` source file, I can produce:
+
+::: {.grid}
+
+::: {.g-col-6}
+::: {.card .h-100 .shadow-sm .p-3}
+### 📄 Scientific Manuscripts & Reports
+Journal-ready papers, technical reports, and PDF/Word documents with automated cross-referencing and live citations.
+:::
+:::
+
+::: {.g-col-6}
+::: {.card .h-100 .shadow-sm .p-3}
+### 📖 EPUB E-Books
+Typeset digital books that compile cleanly and open natively in **Apple Books** on Mac, iPad, and iPhone.
+:::
+:::
+
+::: {.g-col-6}
+::: {.card .h-100 .shadow-sm .p-3}
+### 🌐 Websites, Blogs & Teaching Hubs
+Interactive web platforms and searchable learning resources hosted on Netlify or GitHub Pages.
+:::
+:::
+
+::: {.g-col-6}
+::: {.card .h-100 .shadow-sm .p-3}
+### 📽️ Presentations & Dashboards
+Reveal.js HTML slide decks, PowerPoint presentations, Beamer decks, and real-time clinical dashboards.
+:::
+:::
+
+:::
+
+Seeing a chapter that I wrote, coded, and published myself appear in **Apple Books** was a remarkable moment.
+
+---
+
+# Demonstrating the Quarto Multi-Engine Toolset
+
+R, Observable, Mermaid and mathematics execute **right here on this page**; Python and Julia are shown below and run live on their own dedicated pages.
+
+## 1. R Engine (`{r}`): Kaplan-Meier Survival Curve
+
+Using R and `ggplot2`, we generate a publication-ready Kaplan-Meier survival curve for clinical trials:
+
+```{r}
+#| label: fig-survival
+#| fig-cap: "Kaplan-Meier overall survival curve generated dynamically with R and ggplot2."
+#| fig-width: 7
+#| fig-height: 4.2
+library(ggplot2)
+
+set.seed(2026)
+time <- seq(0, 36, by=1)
+surv_control <- exp(-0.06 * time) + rnorm(length(time), 0, 0.01)
+surv_treated <- exp(-0.025 * time) + rnorm(length(time), 0, 0.01)
+
+df <- data.frame(
+  Time = rep(time, 2),
+  Survival = c(pmax(0, surv_control), pmax(0, surv_treated)),
+  Arm = factor(rep(c("Standard Care", "Targeted Therapy"), each=length(time)))
+)
+
+ggplot(df, aes(x=Time, y=Survival, color=Arm, linetype=Arm)) +
+  geom_line(linewidth=1.2) +
+  scale_color_manual(values=c("#7f0000", "#2e7d32")) +
+  scale_y_continuous(labels=scales::percent, limits=c(0, 1)) +
+  labs(title="Overall Survival in Relapsed/Refractory Disease",
+       subtitle="Kaplan-Meier Survival Estimates by Treatment Arm",
+       x="Follow-up Duration (Months)", y="Overall Survival (%)") +
+  theme_minimal(base_size=12) +
+  theme(legend.position="bottom", plot.title=element_text(face="bold", color="#7f0000"))
+```
+
+As demonstrated in @fig-survival, targeted therapy significantly extends overall survival compared to standard care.
+
+---
+
+## 2. R Engine (`{r}`): Meta-Analysis Forest Plot
+
+Forest plots synthesize relative risk or hazard ratios across clinical studies:
+
+```{r}
+#| label: fig-forest
+#| fig-cap: "Clinical Trial Forest Plot showing Hazard Ratios (HR) and 95% Confidence Intervals."
+#| fig-width: 7.5
+#| fig-height: 3.8
+
+trials <- data.frame(
+  Study = c("UK Haem Study (2022)", "EHA Registry (2024)", "ASH Consortium (2025)", "Blood Doctor Cohort (2026)", "Pooled Meta-Analysis"),
+  HR = c(0.68, 0.72, 0.61, 0.58, 0.65),
+  Lower = c(0.51, 0.58, 0.45, 0.42, 0.54),
+  Upper = c(0.91, 0.89, 0.82, 0.80, 0.78),
+  Summary = c(FALSE, FALSE, FALSE, FALSE, TRUE)
+)
+
+ggplot(trials, aes(x=HR, y=reorder(Study, c(5,4,3,2,1)))) +
+  geom_vline(xintercept=1, linetype="dashed", color="grey40") +
+  geom_errorbarh(aes(xmin=Lower, xmax=Upper), height=0.25, color="#7f0000", linewidth=1) +
+  geom_point(aes(shape=Summary, size=Summary, fill=Summary), color="#7f0000") +
+  scale_shape_manual(values=c(21, 23)) +
+  scale_size_manual(values=c(3.5, 5)) +
+  scale_fill_manual(values=c("#7f0000", "#ffd5d5")) +
+  labs(title="Forest Plot of Treatment Hazard Ratios",
+       x="Hazard Ratio (95% CI)", y=NULL) +
+  theme_minimal(base_size=12) +
+  theme(legend.position="none", axis.text.y=element_text(face="bold"))
+```
+
+---
+
+## 3. Python engine (`{python}`) — pharmacokinetics & a `pandas` table
+
+The same workflow speaks Python. This is the source that models one-compartment
+IV-bolus kinetics and builds a `pandas` summary table:
+
+```python
+import numpy as np, matplotlib.pyplot as plt, pandas as pd
+
+dose, Vd, t_half = 1000.0, 50.0, 12.0
+ke = np.log(2) / t_half
+t  = np.linspace(0, 48, 200)
+C  = (dose / Vd) * np.exp(-ke * t)
+
+fig, ax = plt.subplots(figsize=(7, 3.8))
+ax.plot(t, C, color="#B71C1C", lw=2.2, label="Concentration C(t)")
+ax.axhline(5, ls="--", color="grey", label="MEC (5 mg/L)")
+ax.fill_between(t, C, 5, where=(C > 5), alpha=0.15, color="#B71C1C")
+ax.set(xlabel="Time (h)", ylabel="Plasma concentration (mg/L)")
+ax.legend(); ax.grid(alpha=0.3); plt.show()
+```
+
+::: {.callout-tip}
+## Why the Python figure isn't drawn *here*
+A Quarto document runs **one execution engine at a time**. This page is driven by
+R's **knitr** — which is why the survival curve and forest plot above are live.
+The identical Python model **runs live on its own page**: watch it compute the
+curve, the numerical AUC and the table on the
+[**Python engine page**](/engines/python.qmd), and drive the
+[**clinical dashboard**](/outputs/dashboard.html).
+:::
+
+## 4. Julia engine (`{julia}`) — speed for heavy computation
+
+For numerically expensive models, Julia compiles to near-C speed:
+
+```julia
+using Plots
+gr()
+t = 0:0.5:48
+C = 20.0 .* exp.(-(log(2)/12) .* t)
+
+plot(t, C, lw=2.4, color=:firebrick, xlabel="Time (h)",
+     ylabel="Concentration (mg/L)", legend=:topright)
+```
+
+::: {.callout-tip}
+## See the Julia engine execute
+The [**Julia engine page**](/engines/julia.qmd) runs this `Plots.jl` code live at
+render, with the environment pinned by `Project.toml` / `Manifest.toml`.
+:::
+
+## 5. Observable JS Engine (`{ojs}`): Client-Side Interactivity
+
+Observable JS (`ojs`) runs natively in the reader's browser with **zero backend server requirement**:
+
+```{ojs}
+//| echo: false
+viewof half_life = Inputs.range([2, 48], {value: 12, step: 1, label: "Adjust Half-life t½ (hours):"})
+```
+
+```{ojs}
+//| echo: false
+ke_ojs = Math.log(2) / half_life
+data_ojs = d3.range(0, 48.5, 0.5).map(t => ({t, C: (1000 / 50) * Math.exp(-ke_ojs * t)}))
+
+Plot.plot({
+  width: 700, height: 320,
+  x: {label: "Time (hours) →"},
+  y: {label: "↑ Concentration (mg/L)", grid: true},
+  marks: [
+    Plot.ruleY([5], {stroke: "grey", strokeDasharray: "4"}),
+    Plot.areaY(data_ojs, {x: "t", y: "C", fill: "#B71C1C", fillOpacity: 0.15}),
+    Plot.lineY(data_ojs, {x: "t", y: "C", stroke: "#B71C1C", strokeWidth: 2.2})
+  ]
+})
+```
+
+```{ojs}
+//| echo: false
+md`Dynamic Calculation: At **t½ = ${half_life} hours**, the elimination rate constant is **kₑ = ${ke_ojs.toFixed(4)} h⁻¹**.`
+```
+
+---
+
+## 6. Diagrams & Algorithms (`{mermaid}`)
+
+Quarto compiles plain-text Mermaid code blocks into static, vector SVG diagrams:
+
+```{mermaid}
+%%| label: fig-diag-pathway
+%%| fig-cap: "Clinical decision algorithm compiled directly from plain text."
+flowchart TD
+    A["Patient Chromatogram Evaluation"] --> B{"HbS Present?"}
+    B -->|Yes| C["Evaluate % HbS"]
+    B -->|No| D["Evaluate % HbA2"]
+    
+    C -->|HbS 38–45%| E["Sickle Cell Trait (HbAS)"]
+    C -->|HbS < 35%| F["HbAS + Concurrent α-Thal Trait"]
+    D -->|HbA2 3.5–7.0%| G["β-Thalassaemia Trait"]
+
+    style E fill:#edf8f0,stroke:#2e7d32,stroke-width:2px
+    style F fill:#fff8e1,stroke:#d68b00,stroke-width:2px
+    style G fill:#fff0f0,stroke:#b71c1c,stroke-width:2px
+```
+
+---
+
+## 7. Mathematical Equations & Citation Integrity
+
+Mathematical expressions render using LaTeX / MathJax formatting:
+
+$$\text{Hazard Ratio (HR)} = \frac{h_1(t)}{h_0(t)} = \exp\left( \beta_1 X_1 + \beta_2 X_2 + \dots \right)$$
+
+$$\text{AUC}_{0 \to \infty} = \int_{0}^{\infty} C(t) \, dt = \frac{C_0}{k_e} = \frac{Dose}{CL}$$
+
+Citations are linked to verified PubMed entries per the Citation Integrity Protocol [@donze1997; @mrabet1985].
+
+---
+
+# Creative & Academic Independence
+
+This learning has given me something greater than another technical skill: **creative and academic independence**.
+
+I no longer need to depend entirely on a publisher, statistician, or graphic designer to turn an idea into a professional scientific product. For many analyses, I am also no longer tied to costly proprietary statistical packages. R and Python perform the computation, while Quarto brings the analysis, narrative, references, figures, and final publication together.
+
+Of course, tools do not replace sound statistical judgement, scientific review, or good design. But they remove many of the barriers between an idea and its final form.
+
+---
+
+# Summary Reflection
+
+From a badly aligned PowerPoint slide on a laboratory computer to coding my own books, reports, websites, dashboards, and scientific figures, the lesson is simple:
+
+> **Do not be embarrassed by your first attempt.**  
+> **Every polished skill begins with an imperfect beginning.**  
+> **Keep learning. Keep building. Keep creating.**  
+
+At any age and at any stage of a career, we can begin again.
+
+**Knowledge has no limits. Neither should our willingness to learn.**
+
+---
+
+# References
+
+::: {#refs}
+:::

@@ -1,0 +1,78 @@
+---
+title: "Descriptive title of the study"
+subtitle: "Optional concise subtitle"
+author:
+  - name: "Dr Abdul Mannan"
+    affiliations:
+      - name: "Bangor Haemophilia Centre, BCUHB"
+date: today
+abstract: |
+  State the clinical or scientific question, methods, principal results and
+  interpretation in the word limit required by the intended venue.
+keywords: [haematology, reproducibility]
+bibliography: ../references.bib
+format:
+  html:
+    toc: true
+  pdf:
+    documentclass: article
+    geometry: margin=1in
+    number-sections: true
+  docx:
+    number-sections: true
+execute:
+  echo: false
+  warning: false
+  message: false
+---
+
+::: {.callout-warning}
+## Before you start
+Replace all illustrative text and verify every bibliography record live. A
+citation key is not evidence that its corresponding DOI, journal details or
+clinical claim is correct.
+:::
+
+## Introduction
+
+Define the decision or knowledge gap, what is already known, and the precise
+objective of this work. Cite verified sources with `[@citation-key]`.
+
+## Methods
+
+Describe design, setting, participants or data source, outcomes, analysis,
+ethics/governance and reproducibility materials.
+
+```{python}
+#| label: fig-example
+#| fig-cap: "Replace with a descriptive, publication-ready figure caption."
+#| eval: false
+# Place reproducible analysis code here. Use labels so text can refer to
+# figures and tables automatically, for example: @fig-example.
+```
+
+## Results
+
+Report findings in an order that matches the objective. Put interpretation in
+the Discussion, and refer to numbered outputs rather than duplicating values.
+
+## Discussion
+
+Explain the principal findings, strengths, limitations, implications and the
+next question. Distinguish data-supported conclusions from informed inference.
+
+## Declarations
+
+### Ethics approval
+
+State the relevant approval, service evaluation / audit determination, or why it
+was not required.
+
+### Data and code availability
+
+State what can be shared, where it is deposited, and any justified restrictions.
+
+## References
+
+::: {#refs}
+:::

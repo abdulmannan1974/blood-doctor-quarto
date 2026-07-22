@@ -1,0 +1,12 @@
+{
+  "hash": "e6f24cb0510fae5010d4fd85983a0bb5",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"Quarto dashboards — a clinical cockpit from code\"\ndescription: \"Value boxes, a live plot and a sortable table arranged into a responsive dashboard — declared with format: dashboard.\"\nimage: thumbnail.svg\nimage-alt: \"Quarto dashboards — a clinical cockpit from code — Blood Doctor · Quarto\"\ndate: \"2026-07-11\"\ncategories: [Visualisation, Interactive]\n---\n\nSometimes the output is not a paper but a **dashboard** — headline numbers, a\nchart and a table, laid out as a cockpit. Quarto builds these from the same\nMarkdown + code you already know, with `format: dashboard`.\n\n## Layout by headings, content by code\n\n````yaml\n---\ntitle: \"Anticoagulation Service Dashboard\"\nformat: dashboard\n---\n````\n````markdown\n## Row {height=20%}\n\n::: {#c72fe07e .cell content='valuebox' title='Patients in range' execution_count=1}\n``` {.python .cell-code}\ndict(value=\"78%\", icon=\"heart-pulse\", color=\"success\")\n```\n\n::: {.cell-output .cell-output-display execution_count=1}\n```\n{'value': '78%', 'icon': 'heart-pulse', 'color': 'success'}\n```\n:::\n:::\n\n\n## Row\n\n::: {#723111b0 .cell execution_count=2}\n``` {.python .cell-code}\n# a matplotlib chart fills this card\n```\n:::\n\n\n::: {#16e15180 .cell execution_count=3}\n``` {.python .cell-code}\n# a pandas table fills the next card\n```\n:::\n\n\n````\n\nRows and columns come from heading levels; `#| content: valuebox` turns a cell\ninto a KPI tile. The result is responsive and self-contained — no dashboard\nframework, no server.\n\n::: {.callout-tip}\n## Open the live dashboard\nSee the [**anticoagulation dashboard**](/outputs/dashboard.html) — value boxes, a\ncomputed chart and a data table, all from one `.qmd`.\n:::\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

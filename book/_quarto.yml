@@ -1,0 +1,23 @@
+project:
+  type: book
+
+book:
+  title: "A Short Haematology Handbook"
+  subtitle: "A Quarto book demonstrator"
+  author: "Dr Abdul Mannan"
+  date: today
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - anaemia.qmd
+    - references.qmd
+
+format:
+  html:
+    theme:
+      - cosmo
+      - ../styles.scss
+  pdf:
+    documentclass: scrreprt
+
+bibliography: ../references.bib

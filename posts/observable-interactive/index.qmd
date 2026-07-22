@@ -1,0 +1,43 @@
+---
+title: "Observable JS — interactivity with no server"
+description: "A slider the reader can drag, recomputing a curve in their own browser. Zero backend, zero install."
+image: thumbnail.svg
+image-alt: "Observable JS — interactivity with no server — Blood Doctor · Quarto"
+date: "2026-07-18"
+categories: [Engines, Interactive]
+engine: markdown
+---
+
+R, Python and Julia run when the document is **built**. **Observable JS** (`ojs`)
+runs when the document is **read** — in the reader's browser. That means genuine
+interactivity on a plain static website, with no server to host or maintain.
+
+## A reactive cell
+
+````markdown
+```{ojs}
+viewof half_life = Inputs.range([2, 48], {value: 12, label: "t½ (hours)"})
+```
+```{ojs}
+Plot.plot({ marks: [Plot.lineY(
+  d3.range(0, 48, 0.5).map(t => ({t, C: 20*Math.exp(-Math.log(2)/half_life*t)})),
+  {x: "t", y: "C", stroke: "#B71C1C"})] })
+```
+````
+
+Drag the slider and every cell that depends on it recomputes instantly — the
+reactive model made famous by [Observable](https://observablehq.com), built into
+Quarto and powered by `d3` and `Observable Plot`.
+
+## Why teachers love it
+
+A trainee can *feel* how halving a drug's half-life changes its concentration
+curve, or how a diagnostic threshold shifts sensitivity and specificity — by
+moving a control, not by reading a caption.
+
+::: {.callout-tip}
+## Try it live
+The [**Observable page**](/engines/observable.qmd) and the
+[**flagship essay**](/posts/2026-07-22-knowledge-has-no-limits/) both carry a
+working half-life slider you can drag right now.
+:::

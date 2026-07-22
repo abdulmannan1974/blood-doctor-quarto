@@ -1,0 +1,7 @@
+# Preface {.unnumbered}
+
+This short book demonstrates Quarto's **book** project type: multiple chapters,
+automatic numbering, cross-chapter references, a shared bibliography, and output
+to both a navigable website and a single typeset PDF.
+
+Render it with `quarto render book`.

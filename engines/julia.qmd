@@ -1,0 +1,47 @@
+---
+title: "Julia Engine"
+subtitle: "High-performance numerical computing with native plots"
+---
+
+The **Julia engine** runs Julia via `IJulia`. Great when an algorithm needs raw
+numerical speed. Plots use `Plots.jl` (GR backend). We set `GKSwstype=100` so GR
+renders straight to a file on a headless machine.
+
+## A worked example: IV bolus decay
+
+```{julia}
+#| label: fig-julia-pk
+#| fig-cap: "Julia + Plots.jl: concentration–time curve."
+using Plots
+ENV["GKSwstype"] = "100"   # headless GR: write to file, no display server
+gr()
+
+dose, Vd, thalf = 1000.0, 50.0, 12.0
+ke = log(2) / thalf
+t  = 0:0.5:48
+C  = (dose / Vd) .* exp.(-ke .* t)
+
+plot(t, C, lw = 2.4, color = :firebrick, label = "C(t)",
+     xlabel = "Time (h)", ylabel = "Concentration (mg/L)",
+     title = "Julia — one-compartment IV bolus", legend = :topright)
+hline!([5], ls = :dash, color = :grey, label = "MEC")
+```
+
+## An algorithm: Newton–Raphson root finding
+
+Solve for the time at which concentration reaches the 5 mg/L threshold.
+(The cell is self-contained.)
+
+```{julia}
+dose, Vd, ke = 1000.0, 50.0, log(2) / 12   # constants
+
+f(x)  = (dose / Vd) * exp(-ke * x) - 5.0
+df(x) = -ke * (dose / Vd) * exp(-ke * x)
+
+x = 10.0
+for _ in 1:20
+    x -= f(x) / df(x)
+end
+println("Threshold crossed at t = ", round(x, digits = 2), " h")
+println("Analytic solution      = ", round(log((dose / Vd) / 5) / ke, digits = 2), " h")
+```

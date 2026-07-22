@@ -1,0 +1,5 @@
+# Introduction
+
+Haematology spans red cells, white cells, platelets and coagulation. This book
+uses **anaemia** (@sec-anaemia) as a worked chapter to show cross-references,
+figures and citations working across a multi-file project.

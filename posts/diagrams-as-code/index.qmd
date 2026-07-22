@@ -1,0 +1,39 @@
+---
+title: "Diagrams as code — Mermaid & Graphviz"
+description: "Clinical decision algorithms written as plain text and compiled to crisp vector SVG. Version-control your flowcharts."
+image: thumbnail.svg
+image-alt: "Diagrams as code — Mermaid & Graphviz — Blood Doctor · Quarto"
+date: "2026-07-17"
+categories: [Visualisation]
+engine: markdown
+---
+
+Drawing a flowchart by hand in PowerPoint is slow, and the moment guidance
+changes you redraw it. Quarto lets you *write* diagrams as text and compiles them
+to scalable vector graphics.
+
+## A decision algorithm in plain text
+
+````markdown
+```{mermaid}
+flowchart TD
+  A["Chromatogram"] --> B{"HbS present?"}
+  B -->|Yes| C["Evaluate % HbS"]
+  B -->|No|  D["Evaluate % HbA2"]
+  C -->|38–45%| E["Sickle cell trait"]
+  D -->|3.5–7%| G["β-thalassaemia trait"]
+```
+````
+
+That text renders as a labelled, colour-coded flowchart. Because it is text, it
+**diffs** cleanly in git — you can see exactly how a pathway changed between
+versions, and reviewers can comment on a line.
+
+**Mermaid** covers flowcharts, sequence diagrams, Gantt charts and mind-maps;
+**Graphviz** (`dot`) handles dense graphs and inheritance trees. Both are built in.
+
+::: {.callout-tip}
+## See the gallery
+The [**Diagrams & algorithms page**](/diagrams/algorithms.qmd) compiles several
+clinical pathways, including the HbS / HbA2 interpretation tree.
+:::

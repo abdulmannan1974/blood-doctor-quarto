@@ -1,0 +1,44 @@
+---
+title: "The R engine — knitr, ggplot2 and the tidyverse"
+description: "Survival curves and forest plots, drawn from data by R at render time — no proprietary stats package required."
+image: thumbnail.svg
+image-alt: "The R engine — knitr, ggplot2 and the tidyverse — Blood Doctor · Quarto"
+date: "2026-07-20"
+categories: [Engines, Reproducibility]
+engine: markdown
+---
+
+Quarto's R support is the mature **knitr** engine that powered R Markdown for a
+decade. Anything you can do in R — `ggplot2`, `survival`, `gtsummary`,
+`meta` — you can do inside a document, with the output embedded automatically.
+
+## A Kaplan–Meier curve, from code
+
+````markdown
+```{r}
+#| label: fig-km
+#| fig-cap: "Overall survival by treatment arm."
+library(ggplot2)
+ggplot(df, aes(Time, Survival, colour = Arm)) +
+  geom_step(linewidth = 1.2) +
+  scale_colour_manual(values = c("#7f0000", "#2e7d32")) +
+  theme_minimal()
+```
+````
+
+Change the dataset, re-render, and the curve redraws itself. The same pattern
+produces meta-analysis **forest plots**, `gtsummary` **Table 1**s, and regression
+outputs — the staples of a haematology paper.
+
+## Freedom from licences
+
+R and its 20,000 packages are open source. For most analyses I run in clinic and
+research, I am no longer tied to a costly proprietary statistics licence: the
+computation, the figure and the manuscript now live in one free toolchain.
+
+::: {.callout-tip}
+## See it running live
+The [**R engine page**](/engines/r.qmd) renders a survival curve and a forest
+plot from scratch. The [**flagship essay**](/posts/2026-07-22-knowledge-has-no-limits/)
+also embeds both, side by side with Python, Julia and Observable.
+:::

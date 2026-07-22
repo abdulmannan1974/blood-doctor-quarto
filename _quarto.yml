@@ -1,0 +1,94 @@
+project:
+  type: website
+  output-dir: _site
+  render:
+    - index.qmd
+    - about.qmd
+    - posts/*/index.qmd
+    - engines/*.qmd
+    - diagrams/*.qmd
+    - outputs/interactive.qmd
+    - outputs/dashboard.qmd
+  resources:
+    - outputs/manuscript.html
+    - outputs/manuscript.pdf
+    - outputs/manuscript.docx
+    - outputs/manuscript_files/**
+    - outputs/slides.html
+    - outputs/slides_files/**
+    - outputs/epub-hbs-hba2/hbs-vs-beta-thal-hba2.epub
+    - book/_book/**
+  preview:
+    port: 4321
+    browser: false
+
+website:
+  title: "Blood Doctor · Quarto"
+  site-url: "https://abdulmannan1974.github.io/blood-doctor-quarto/"
+  description: "A working blog by Dr Abdul Mannan — one source file, every scientific output."
+  page-navigation: true
+  reader-mode: true
+  back-to-top-navigation: true
+  navbar:
+    background: dark
+    pinned: true
+    logo: ""
+    left:
+      - text: "Home"
+        href: index.qmd
+      - text: "The gallery"
+        href: index.qmd
+      - text: "About"
+        href: about.qmd
+    right:
+      - text: "Live outputs"
+        menu:
+          - text: "Python engine"
+            href: engines/python.qmd
+          - text: "R engine"
+            href: engines/r.qmd
+          - text: "Julia engine"
+            href: engines/julia.qmd
+          - text: "Observable (interactive)"
+            href: engines/observable.qmd
+          - text: "Diagrams & algorithms"
+            href: diagrams/algorithms.qmd
+          - text: "Interactive teaching"
+            href: outputs/interactive.qmd
+          - text: "Dashboard"
+            href: outputs/dashboard.qmd
+          - text: "---"
+          - text: "Manuscript (PDF)"
+            href: outputs/manuscript.pdf
+          - text: "Reveal.js slides"
+            href: outputs/slides.html
+          - text: "Book"
+            href: book/_book/index.html
+      - icon: quarto
+        href: https://quarto.org
+        aria-label: Quarto
+  page-footer:
+    background: dark
+    left: "© 2026 Dr Abdul Mannan · Built with [Quarto](https://quarto.org)"
+    right: "Knowledge has no limits. Neither should our willingness to learn."
+
+format:
+  html:
+    theme:
+      - cosmo
+      - styles.scss
+    toc: true
+    toc-depth: 3
+    code-copy: true
+    code-overflow: wrap
+    fig-align: center
+    df-print: kable
+    smooth-scroll: true
+    link-external-newwindow: true
+
+bibliography: references.bib
+
+execute:
+  freeze: auto
+  warning: false
+  message: false

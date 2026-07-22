@@ -1,0 +1,12 @@
+{
+  "hash": "4f02e00a4df24a20ae2b140db10fe071",
+  "result": {
+    "engine": "jupyter",
+    "markdown": "---\ntitle: \"The Python engine — Jupyter under the hood\"\ndescription: \"Run numpy, scipy, pandas and matplotlib at render time. The figure below is computed, not pasted.\"\nimage: thumbnail.svg\nimage-alt: \"The Python engine — Jupyter under the hood — Blood Doctor · Quarto\"\ndate: \"2026-07-21\"\ncategories: [Engines, Reproducibility]\n---\n\nWhen a document is rendered, Quarto hands every ```` ```{python} ```` block to a\nJupyter kernel, executes it, and embeds the result — a figure, a table, a value —\nback into the page. Nothing is copied and pasted, so nothing can go stale.\n\n## The idea in three lines\n\nA Python code cell is written with a `{python}` engine tag and optional\nYAML-style options after `#|`:\n\n````markdown\n\n::: {#cell-fig-pk .cell execution_count=1}\n``` {.python .cell-code}\nimport numpy as np, matplotlib.pyplot as plt\nt = np.linspace(0, 48, 400)\nC = (1000/50) * np.exp(-np.log(2)/12 * t)\nplt.plot(t, C, color=\"#B71C1C\", lw=2.2); plt.show()\n```\n\n::: {.cell-output .cell-output-display}\n![Plasma concentration after a 1000 mg IV bolus.](index_files/figure-html/fig-pk-output-1.png){#fig-pk width=584 height=411}\n:::\n:::\n\n\n````\n\n`#| label: fig-pk` makes the figure cross-referenceable — write `@fig-pk`\nanywhere and Quarto inserts the correct number and a hyperlink.\n\n## Why it matters clinically\n\nEvery pharmacokinetic curve, every summary table, every p-value is regenerated\nfrom the data each time the paper is built. Re-run with new numbers and the\nprose, figures and tables all move together. That is reproducibility you can\ndefend in front of a reviewer.\n\n::: {.callout-tip}\n## See it running live\nThe [**Python engine page**](/engines/python.qmd) executes this pharmacokinetic\nmodel in full — curve, numerical AUC, and a `pandas` table — all at render time.\n:::\n\nThe environment is pinned outside the synced Drive folder (`~/.venvs/quarto`) so\npackage installs never trigger a cloud-sync storm.\n\n",
+    "supporting": [
+      "index_files"
+    ],
+    "filters": [],
+    "includes": {}
+  }
+}

@@ -1,0 +1,5 @@
+QUARTO_PYTHON=/Users/abdulmannan/.venvs/quarto/bin/python
+RETICULATE_PYTHON=/Users/abdulmannan/.venvs/quarto/bin/python
+QUARTO_JULIA=/Users/abdulmannan/.juliaup/bin/julia
+JULIA_PROJECT=/Users/abdulmannan/Library/CloudStorage/GoogleDrive-drabdulmannan1974@gmail.com/My Drive/10_TOOLS_AND_APPLICATIONS/Quarto
+

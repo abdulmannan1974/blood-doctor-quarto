@@ -1,0 +1,12 @@
+# Shared front-matter for every blog post
+author: "Dr Abdul Mannan"
+date-format: "D MMMM YYYY"
+freeze: auto
+title-block-banner: "#7f0000"
+title-block-banner-color: "white"
+toc: true
+toc-depth: 2
+code-fold: show
+code-tools: true
+code-copy: true
+comments: false

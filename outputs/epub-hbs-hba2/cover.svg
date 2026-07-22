@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="2560" viewBox="0 0 1600 2560">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#141414"/>
+      <stop offset="0.55" stop-color="#1c1516"/>
+      <stop offset="1" stop-color="#0d0d0d"/>
+    </linearGradient>
+    <linearGradient id="crimson" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#b71c1c"/>
+      <stop offset="1" stop-color="#7f0000"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#b71c1c" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#b71c1c" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <rect width="1600" height="2560" fill="url(#bg)"/>
+  <circle cx="800" cy="1180" r="760" fill="url(#glow)"/>
+
+  <!-- top rule + series -->
+  <rect x="180" y="230" width="120" height="8" fill="url(#crimson)"/>
+  <text x="320" y="248" font-family="Georgia, 'Times New Roman', serif" font-size="34" letter-spacing="6" fill="#c9c9c9">BLOOD DOCTOR TEACHING SERIES</text>
+
+  <!-- molecular motif: two haemoglobin nodes contrasting size -->
+  <g transform="translate(0,60)">
+    <circle cx="470" cy="760" r="150" fill="none" stroke="url(#crimson)" stroke-width="6"/>
+    <circle cx="470" cy="760" r="150" fill="#b71c1c" fill-opacity="0.10"/>
+    <text x="470" y="748" text-anchor="middle" font-family="Georgia, serif" font-size="88" fill="#f2e9e9">45%</text>
+    <text x="470" y="812" text-anchor="middle" font-family="Georgia, serif" font-size="40" fill="#d59a9a">HbS</text>
+    <circle cx="1120" cy="760" r="62" fill="none" stroke="#8a8a8a" stroke-width="5"/>
+    <circle cx="1120" cy="760" r="62" fill="#ffffff" fill-opacity="0.05"/>
+    <text x="1120" y="752" text-anchor="middle" font-family="Georgia, serif" font-size="40" fill="#eaeaea">5%</text>
+    <text x="1120" y="796" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#9a9a9a">HbA&#8322;</text>
+    <line x1="632" y1="760" x2="1046" y2="760" stroke="#5a4a4a" stroke-width="3" stroke-dasharray="10 12"/>
+  </g>
+
+  <!-- title -->
+  <text x="180" y="1330" font-family="Georgia, 'Times New Roman', serif" font-size="112" font-weight="bold" fill="#f5f5f5">HbS Trait</text>
+  <text x="180" y="1452" font-family="Georgia, serif" font-size="60" fill="#b0b0b0">vs</text>
+  <text x="180" y="1574" font-family="Georgia, 'Times New Roman', serif" font-size="112" font-weight="bold" fill="#f5f5f5">&#946;-Thalassaemia Trait</text>
+
+  <rect x="184" y="1650" width="220" height="6" fill="url(#crimson)"/>
+
+  <!-- subtitle -->
+  <text x="180" y="1748" font-family="Georgia, serif" font-size="46" fill="#d8d8d8">Why 45% HbS but only 5% HbA&#8322;</text>
+  <text x="180" y="1818" font-family="Georgia, serif" font-size="40" font-style="italic" fill="#9c9c9c">The qualitative variant against</text>
+  <text x="180" y="1874" font-family="Georgia, serif" font-size="40" font-style="italic" fill="#9c9c9c">the quantitative shortfall</text>
+
+  <!-- author block -->
+  <rect x="180" y="2320" width="1240" height="2" fill="#3a3a3a"/>
+  <text x="180" y="2404" font-family="Georgia, 'Times New Roman', serif" font-size="52" fill="#f0f0f0">Dr Abdul Mannan</text>
+  <text x="180" y="2456" font-family="Georgia, serif" font-size="32" letter-spacing="3" fill="#a88">FRCPath &#183; FCPS &#183; Consultant Haematologist</text>
+</svg>

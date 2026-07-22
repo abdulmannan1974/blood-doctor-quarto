@@ -1,0 +1,62 @@
+---
+title: "Quarto for Slides"
+subtitle: "Reveal.js decks with executable code"
+author: "Blood Doctor"
+format:
+  revealjs:
+    theme: simple
+    slide-number: true
+    incremental: true
+    transition: fade
+    code-line-numbers: false
+    logo: ""
+    footer: "Blood Doctor · Quarto"
+---
+
+## Why Quarto slides?
+
+- Author in Markdown, present in the browser
+- **Executable** code produces figures live at render
+- Export to PDF with one flag
+
+## Fragments reveal one by one
+
+- First this point…
+- …then this one…
+- …and finally this.
+
+## Live figure from Python {.smaller}
+
+```{python}
+#| echo: false
+#| fig-align: center
+import numpy as np, matplotlib.pyplot as plt
+x = np.linspace(0, 24, 200)
+plt.figure(figsize=(6,3))
+plt.plot(x, 100*np.exp(-np.log(2)/6*x), color="#B71C1C", lw=2)
+plt.xlabel("Hours"); plt.ylabel("Activity (%)"); plt.title("Factor decay (t½ = 6 h)")
+plt.grid(alpha=.3); plt.show()
+```
+
+## Two-column layout
+
+:::: {.columns}
+::: {.column width="50%"}
+### Intrinsic
+- FXII, FXI, FIX, FVIII
+- Measured by **APTT**
+:::
+::: {.column width="50%"}
+### Extrinsic
+- Tissue factor, FVII
+- Measured by **PT**
+:::
+::::
+
+## Speaker notes & thanks
+
+Press **S** for the speaker view.
+
+::: {.notes}
+Remind the audience that emicizumab invalidates one-stage FVIII assays.
+:::
