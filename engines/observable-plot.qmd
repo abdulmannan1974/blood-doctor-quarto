@@ -1,0 +1,669 @@
+---
+title: "Observable Plot Master Showcase"
+subtitle: "Comprehensive exploratory data visualization — every mark, transform, facet, and interaction"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: show
+---
+
+::: {.callout-tip}
+## The Grammar of Graphics in the Browser
+**Observable Plot** (`Plot`) is a declarative JavaScript library for exploratory data visualization. It combines **composable marks**, **data transforms** (binning, grouping, stacking, dodging, density), **faceted small multiples**, and **interactive tooltips (`Plot.tip()`)** into a concise grammar of graphics interface that executes natively in Quarto without server reliance.
+:::
+
+---
+
+# 1. Scatterplots & Beeswarm Dodge (`Plot.dot`, `Plot.dodgeX`)
+
+Scatterplots assign numerical attributes to $X$ and $Y$ dimensions. When overplotting occurs, `Plot.dodgeX()` or `Plot.dodgeY()` arranges points into beeswarm distributions without overlap.
+
+```{ojs}
+//| echo: false
+// Simulated patient sample dataset
+patients = d3.range(120).map(i => {
+  const genotype = ["HbSS", "HbS/β0", "HbS/β+", "HbSC"][i % 4];
+  const sex = i % 2 === 0 ? "Female" : "Male";
+  const hb = genotype === "HbSS" ? 6.5 + Math.random() * 2.5 :
+             genotype === "HbS/β0" ? 7.2 + Math.random() * 2.2 :
+             genotype === "HbS/β+" ? 9.0 + Math.random() * 2.5 :
+             10.5 + Math.random() * 2.5;
+  const hbf = genotype === "HbSS" ? 8 + Math.random() * 14 :
+              genotype === "HbS/β0" ? 5 + Math.random() * 10 :
+              1 + Math.random() * 5;
+  const retic = 120 + (15 - hb) * 25 + (Math.random() - 0.5) * 40;
+  return { id: `P-${100+i}`, genotype, sex, hb, hbf, retic };
+})
+```
+
+```{ojs}
+//| label: fig-plot-scatter
+//| fig-cap: "Scatterplot of Hemoglobin vs HbF with interactive tooltips and color encoding."
+Plot.plot({
+  title: "Hemoglobin (Hb) vs Fetal Hemoglobin (HbF) by Genotype",
+  width: 760,
+  height: 380,
+  grid: true,
+  x: {label: "Hemoglobin Hb (g/dL) →"},
+  y: {label: "↑ Fetal Hemoglobin HbF (%)"},
+  color: {legend: true},
+  marks: [
+    Plot.ruleY([0]),
+    Plot.dot(patients, {
+      x: "hb",
+      y: "hbf",
+      fill: "genotype",
+      r: 4.5,
+      fillOpacity: 0.8,
+      tip: true
+    })
+  ]
+})
+```
+
+```{ojs}
+//| label: fig-plot-beeswarm
+//| fig-cap: "Beeswarm plot arranged via Plot.dodgeX() transform."
+Plot.plot({
+  title: "Beeswarm Distribution of Reticulocyte Count across Genotypes",
+  width: 760,
+  height: 280,
+  x: {label: "Genotype"},
+  y: {label: "Reticulocyte Count (x10⁹/L)", grid: true},
+  color: {legend: true},
+  marks: [
+    Plot.dot(patients, Plot.dodgeX("dot", {
+      x: "genotype",
+      y: "retic",
+      fill: "genotype",
+      r: 4,
+      tip: true
+    }))
+  ]
+})
+```
+
+---
+
+# 2. Histograms & Automated Binning (`Plot.rectY`, `Plot.binX`)
+
+The `Plot.binX()` transform automatically bins continuous numerical data and counts occurrences:
+
+```{ojs}
+//| label: fig-plot-histogram
+//| fig-cap: "Binned histogram of patient hemoglobin distribution stacked by sex."
+Plot.plot({
+  title: "Hemoglobin Frequency Histogram",
+  width: 760,
+  height: 320,
+  grid: true,
+  x: {label: "Hemoglobin Hb (g/dL)"},
+  y: {label: "↑ Patient Count"},
+  color: {legend: true},
+  marks: [
+    Plot.rectY(patients, Plot.binX({y: "count"}, {x: "hb", fill: "sex", thresholds: 15})),
+    Plot.ruleY([0])
+  ]
+})
+```
+
+---
+
+# 3. 2D Density Contours (`Plot.density`, `Plot.contour`)
+
+Density contours visualize bivariate continuous distributions without clutter:
+
+```{ojs}
+//| label: fig-plot-density
+//| fig-cap: "Kernel Density Contours of Hemoglobin vs Reticulocytes."
+Plot.plot({
+  title: "2D Density Estimation (Hb vs Reticulocytes)",
+  width: 760,
+  height: 360,
+  grid: true,
+  x: {label: "Hemoglobin Hb (g/dL)"},
+  y: {label: "Reticulocytes (x10⁹/L)"},
+  marks: [
+    Plot.density(patients, {x: "hb", y: "retic", stroke: "genotype", strokeWidth: 1.5}),
+    Plot.dot(patients, {x: "hb", y: "retic", fill: "genotype", r: 2, opacity: 0.5})
+  ]
+})
+```
+
+---
+
+# 4. Grouped & Stacked Bar Charts (`Plot.barY`, `Plot.groupX`)
+
+Categorical summaries aggregated using `Plot.groupX()`:
+
+```{ojs}
+//| label: fig-plot-barchart
+//| fig-cap: "Mean Hemoglobin by Genotype and Sex."
+Plot.plot({
+  title: "Mean Hemoglobin Level by Genotype & Sex",
+  width: 760,
+  height: 320,
+  x: {label: "Genotype"},
+  y: {label: "Mean Hb (g/dL)", grid: true},
+  color: {legend: true},
+  marks: [
+    Plot.barY(patients, Plot.groupX({y: "mean"}, {x: "genotype", y: "hb", fill: "sex", fx: "sex"})),
+    Plot.ruleY([0])
+  ]
+})
+```
+
+---
+
+# 5. Linear Regression & Trend Lines (`Plot.linearRegressionY`)
+
+Statistical trendlines with automatically calculated confidence bands:
+
+```{ojs}
+//| label: fig-plot-regression
+//| fig-cap: "Linear regression fit with confidence intervals."
+Plot.plot({
+  title: "Linear Regression: Reticulocytes vs Hemoglobin",
+  width: 760,
+  height: 340,
+  grid: true,
+  x: {label: "Hemoglobin Hb (g/dL)"},
+  y: {label: "Reticulocytes (x10⁹/L)"},
+  marks: [
+    Plot.dot(patients, {x: "hb", y: "retic", fill: "genotype", opacity: 0.6}),
+    Plot.linearRegressionY(patients, {x: "hb", y: "retic", stroke: "#b71c1c", strokeWidth: 2.5, ci: 0.95})
+  ]
+})
+```
+
+---
+
+# 6. Boxplots & Statistical Ranges (`Plot.boxY`)
+
+Boxplots displaying median, interquartile range ($IQR$), whiskers, and outlier points:
+
+```{ojs}
+//| label: fig-plot-boxplot
+//| fig-cap: "Hemoglobin distribution boxplots across sickle genotypes."
+Plot.plot({
+  title: "Sickle Cell Genotype Hemoglobin Distribution",
+  width: 760,
+  height: 320,
+  x: {label: "Genotype"},
+  y: {label: "Hemoglobin Hb (g/dL)", grid: true},
+  marks: [
+    Plot.boxY(patients, {x: "genotype", y: "hb", fill: "genotype", tip: true})
+  ]
+})
+```
+
+---
+
+# 7. Faceted Small Multiples (`fx`, `fy`)
+
+Faceting creates sub-plots across multiple dimensions for deep cohort comparison:
+
+```{ojs}
+//| label: fig-plot-faceted
+//| fig-cap: "Faceted grid comparing Hb vs HbF across Genotypes and Sex."
+Plot.plot({
+  title: "Faceted Sub-plots: Hemoglobin vs HbF by Sex and Genotype",
+  width: 760,
+  height: 420,
+  grid: true,
+  x: {label: "Hb (g/dL)"},
+  y: {label: "HbF (%)"},
+  marks: [
+    Plot.dot(patients, {
+      x: "hb",
+      y: "hbf",
+      fill: "genotype",
+      fx: "sex",
+      fy: "genotype",
+      r: 3.5,
+      tip: true
+    })
+  ]
+})
+```
+
+---
+
+# 8. Matrix Heatmaps (`Plot.cell`)
+
+Heatmaps for multi-variable correlation matrix or grid summaries:
+
+```{ojs}
+//| echo: false
+// Binned matrix aggregated for cell mark
+matrixData = [
+  { group: "HbSS", metric: "Anemia Severity", value: 95 },
+  { group: "HbSS", metric: "Vaso-occlusion Rate", value: 85 },
+  { group: "HbSS", metric: "HbF Protection", value: 40 },
+  { group: "HbS/β0", metric: "Anemia Severity", value: 80 },
+  { group: "HbS/β0", metric: "Vaso-occlusion Rate", value: 75 },
+  { group: "HbS/β0", metric: "HbF Protection", value: 30 },
+  { group: "HbS/β+", metric: "Anemia Severity", value: 50 },
+  { group: "HbS/β+", metric: "Vaso-occlusion Rate", value: 40 },
+  { group: "HbS/β+", metric: "HbF Protection", value: 20 },
+  { group: "HbSC", metric: "Anemia Severity", value: 45 },
+  { group: "HbSC", metric: "Vaso-occlusion Rate", value: 60 },
+  { group: "HbSC", metric: "HbF Protection", value: 15 }
+]
+```
+
+```{ojs}
+//| label: fig-plot-heatmap
+//| fig-cap: "Matrix heatmap showing clinical severity index."
+Plot.plot({
+  title: "Clinical Severity Heatmap Matrix",
+  width: 720,
+  height: 280,
+  padding: 0.05,
+  x: {label: "Genotype"},
+  y: {label: "Clinical Parameter"},
+  color: {scheme: "Reds", legend: true, label: "Severity Score (0-100)"},
+  marks: [
+    Plot.cell(matrixData, {x: "group", y: "metric", fill: "value", tip: true}),
+    Plot.text(matrixData, {x: "group", y: "metric", text: d => d.value, fill: d => d.value > 60 ? "white" : "black"})
+  ]
+})
+```
+
+---
+
+# 9. Layered marks & curve interpolation (`Plot.areaY`, `lineY`, `curve`)
+
+Plot has **no chart types** — you *layer marks*. A time-series below layers a
+translucent area, a line, and a `ruleY` baseline; a second panel shows how the
+`curve` option changes interpolation (linear vs. `catmull-rom` vs. `step`).
+
+```{ojs}
+//| echo: false
+// Synthetic ferritin trajectory over 24 weeks of iron chelation
+series = d3.range(0, 25).map(w => ({
+  week: w,
+  ferritin: 2400 * Math.exp(-0.06 * w) + 120 * Math.sin(w / 2) + (d3.randomNormal(0, 60)())
+}))
+```
+
+```{ojs}
+//| label: fig-plot-layered
+//| fig-cap: "Layered area + line + baseline — serum ferritin during chelation."
+Plot.plot({
+  title: "Serum ferritin during iron chelation",
+  width: 760, height: 320, grid: true,
+  x: {label: "Weeks on chelation →"},
+  y: {label: "↑ Ferritin (µg/L)"},
+  marks: [
+    Plot.ruleY([500], {stroke: "#2e7d32", strokeDasharray: "4"}),
+    Plot.areaY(series, {x: "week", y: "ferritin", fill: "#B71C1C", fillOpacity: 0.12}),
+    Plot.lineY(series, {x: "week", y: "ferritin", stroke: "#B71C1C", strokeWidth: 2.2, tip: true})
+  ]
+})
+```
+
+```{ojs}
+//| echo: false
+viewof curveType = Inputs.radio(["linear", "catmull-rom", "step", "basis"], {value: "catmull-rom", label: "Curve interpolation:"})
+```
+
+```{ojs}
+//| echo: false
+Plot.plot({
+  width: 760, height: 220, grid: true,
+  x: {label: "Weeks →"}, y: {label: "Ferritin (µg/L)"},
+  marks: [
+    Plot.lineY(series, {x: "week", y: "ferritin", curve: curveType, stroke: "#7f0000", strokeWidth: 2.4}),
+    Plot.dot(series, {x: "week", y: "ferritin", r: 2, fill: "#7f0000"})
+  ]
+})
+```
+
+# 10. Stacked areas & streamgraphs (`stack`, `offset`)
+
+The `areaY`/`barY` marks apply an implicit **stack** transform. Setting
+`offset: "wiggle"` produces a streamgraph — ideal for cohort composition over
+time.
+
+```{ojs}
+//| echo: false
+composition = d3.range(0, 25).flatMap(m =>
+  ["HbSS", "HbS/β0", "HbS/β+", "HbSC"].map((g, i) => ({
+    month: m, genotype: g,
+    n: 20 + 8 * Math.sin(m / 4 + i) + i * 6 + d3.randomNormal(0, 3)()
+  })))
+```
+
+```{ojs}
+//| label: fig-plot-stream
+//| fig-cap: "Streamgraph of clinic cohort composition by genotype."
+Plot.plot({
+  title: "Clinic cohort composition over time (streamgraph)",
+  width: 760, height: 300,
+  x: {label: "Month →"}, y: {label: null},
+  color: {legend: true, scheme: "Reds"},
+  marks: [
+    Plot.areaY(composition, {x: "month", y: "n", fill: "genotype", offset: "wiggle", curve: "basis", tip: true})
+  ]
+})
+```
+
+# 11. Rolling averages & normalisation (`Plot.windowY`, `Plot.normalizeY`)
+
+The **window** transform smooths a noisy signal (moving average); the
+**normalize** transform re-indexes series to a common baseline for fair
+comparison.
+
+```{ojs}
+//| label: fig-plot-window
+//| fig-cap: "Raw signal with a 5-point moving average overlaid."
+Plot.plot({
+  title: "Reticulocyte signal: raw vs 5-week moving average",
+  width: 760, height: 300, grid: true,
+  x: {label: "Weeks →"}, y: {label: "Reticulocytes"},
+  marks: [
+    Plot.lineY(series, {x: "week", y: "ferritin", stroke: "#ccc", strokeWidth: 1}),
+    Plot.lineY(series, Plot.windowY({k: 5, reduce: "mean"}, {x: "week", y: "ferritin", stroke: "#B71C1C", strokeWidth: 2.5}))
+  ]
+})
+```
+
+# 12. Parts of a whole (`Plot.waffleY`)
+
+The waffle mark renders counts as unit squares — a friendlier alternative to pie
+charts for treatment allocation.
+
+```{ojs}
+//| echo: false
+allocation = [
+  {arm: "Emicizumab prophylaxis", n: 63},
+  {arm: "Factor VIII prophylaxis", n: 41},
+  {arm: "On-demand", n: 18}
+]
+```
+
+```{ojs}
+//| label: fig-plot-waffle
+//| fig-cap: "Waffle chart of trial arm allocation."
+Plot.plot({
+  title: "Trial arm allocation (1 square = 1 patient)",
+  width: 760, height: 220,
+  color: {legend: true, scheme: "Reds"},
+  marks: [Plot.waffleY(allocation, {x: "arm", y: "n", fill: "arm"})]
+})
+```
+
+# 13. Hexbin density (`Plot.hexbin`)
+
+The **hexbin** transform aggregates 2-D points into hexagonal bins — a scalable
+alternative to overplotted scatterplots.
+
+```{ojs}
+//| label: fig-plot-hexbin
+//| fig-cap: "Hexbin density of Hb vs reticulocytes; colour = count."
+Plot.plot({
+  title: "Hexbin density (Hb vs reticulocytes)",
+  width: 760, height: 360, grid: true,
+  x: {label: "Hemoglobin (g/dL) →"}, y: {label: "↑ Reticulocytes"},
+  color: {scheme: "Reds", legend: true, label: "count"},
+  marks: [
+    Plot.dot(patients, Plot.hexbin({r: "count", fill: "count"}, {x: "hb", y: "retic"})),
+    Plot.frame()
+  ]
+})
+```
+
+# 14. Change & fields (`Plot.arrow`, `Plot.vector`)
+
+The **arrow** mark connects a start and end point (e.g. before/after treatment);
+the **vector** mark draws little arrows for magnitude + direction fields.
+
+```{ojs}
+//| echo: false
+prePost = ["HbSS", "HbS/β0", "HbS/β+", "HbSC"].map((g, i) => ({
+  genotype: g, hbfBefore: [8, 5, 3, 2][i], hbfAfter: [22, 16, 9, 6][i]
+}))
+```
+
+```{ojs}
+//| label: fig-plot-arrow
+//| fig-cap: "Arrow mark: rise in HbF after hydroxycarbamide, by genotype."
+Plot.plot({
+  title: "HbF response to hydroxycarbamide (before → after)",
+  width: 760, height: 280, grid: true, marginLeft: 80,
+  x: {label: "Fetal haemoglobin HbF (%) →"}, y: {label: null},
+  marks: [
+    Plot.arrow(prePost, {x1: "hbfBefore", x2: "hbfAfter", y: "genotype", stroke: "#B71C1C", strokeWidth: 2, bend: true}),
+    Plot.dot(prePost, {x: "hbfBefore", y: "genotype", fill: "#ccc", r: 4}),
+    Plot.dot(prePost, {x: "hbfAfter", y: "genotype", fill: "#7f0000", r: 5, tip: true})
+  ]
+})
+```
+
+# 15. Ridgeline small multiples (facets + `Plot.areaY`)
+
+Faceting on `fy` with a density-like area produces a ridgeline plot — comparing
+distributions across genotypes.
+
+```{ojs}
+//| label: fig-plot-ridgeline
+//| fig-cap: "Ridgeline of hemoglobin distribution by genotype."
+Plot.plot({
+  title: "Hemoglobin distribution by genotype (ridgeline)",
+  width: 760, height: 300, marginLeft: 70,
+  x: {label: "Hemoglobin (g/dL) →"},
+  fy: {label: null},
+  color: {scheme: "Reds"},
+  marks: [
+    Plot.areaY(patients, Plot.binX({y: "count"}, {x: "hb", fy: "genotype", fill: "genotype", curve: "basis", thresholds: 20})),
+    Plot.ruleY([0])
+  ]
+})
+```
+
+# 16. Comparison (`Plot.differenceY`)
+
+The **difference** mark fills the gap between two series, colouring gains and
+shortfalls differently — a natural fit for observed vs target trough levels.
+
+```{ojs}
+//| echo: false
+troughs = d3.range(0, 25).map(w => ({
+  week: w, observed: 45 + 15 * Math.sin(w / 3) + d3.randomNormal(0, 4)(), target: 50
+}))
+```
+
+```{ojs}
+//| label: fig-plot-difference
+//| fig-cap: "Difference mark: observed factor trough vs 50% target."
+Plot.plot({
+  title: "Observed trough vs 50% target",
+  width: 760, height: 300, grid: true,
+  x: {label: "Weeks →"}, y: {label: "Factor level (%)"},
+  marks: [
+    Plot.differenceY(troughs, {x: "week", y1: "target", y2: "observed", positiveFill: "#2e7d32", negativeFill: "#B71C1C"}),
+    Plot.lineY(troughs, {x: "week", y: "observed", stroke: "black", strokeWidth: 1.2})
+  ]
+})
+```
+
+# 17. Hierarchies (`Plot.tree`)
+
+The **tree** mark lays out hierarchical data from a delimited `path` — here a
+mini classification of bleeding disorders.
+
+```{ojs}
+//| echo: false
+taxonomy = [
+  "Bleeding/Coagulation factor/Haemophilia A (FVIII)",
+  "Bleeding/Coagulation factor/Haemophilia B (FIX)",
+  "Bleeding/Coagulation factor/Rare factor deficiency",
+  "Bleeding/Von Willebrand/Type 1",
+  "Bleeding/Von Willebrand/Type 2",
+  "Bleeding/Von Willebrand/Type 3",
+  "Bleeding/Platelet/Glanzmann",
+  "Bleeding/Platelet/Bernard-Soulier"
+].map(path => ({path}))
+```
+
+```{ojs}
+//| label: fig-plot-tree
+//| fig-cap: "Tree layout of a bleeding-disorder classification."
+Plot.plot({
+  width: 760, height: 320, axis: null, margin: 10, marginLeft: 40, marginRight: 200,
+  marks: Plot.tree(taxonomy, {path: "path", delimiter: "/", stroke: "#B71C1C", strokeWidth: 1.5})
+})
+```
+
+# 18. Maps & projections (`Plot.geo`, `Plot.sphere`, `Plot.graticule`)
+
+Plot speaks GeoJSON and D3 projections natively. This self-contained globe uses
+an orthographic projection with a sphere, graticule, and plotted centres — no
+external shapefiles required.
+
+```{ojs}
+//| echo: false
+centres = [
+  {name: "Bangor", lon: -4.13, lat: 53.23},
+  {name: "London", lon: -0.13, lat: 51.51},
+  {name: "Paris (ISTH)", lon: 2.35, lat: 48.86},
+  {name: "New York", lon: -74.0, lat: 40.71}
+]
+```
+
+```{ojs}
+//| label: fig-plot-geo
+//| fig-cap: "Orthographic globe with graticule and haemophilia-centre markers."
+Plot.plot({
+  width: 480, height: 480,
+  projection: {type: "orthographic", rotate: [10, -40]},
+  marks: [
+    Plot.sphere({fill: "#f7f3f3", stroke: "#ddd"}),
+    Plot.graticule({stroke: "#e2c9c9"}),
+    Plot.dot(centres, {x: "lon", y: "lat", fill: "#B71C1C", r: 5}),
+    Plot.text(centres, {x: "lon", y: "lat", text: "name", dy: -10, fontWeight: 600, fill: "#7f0000"})
+  ]
+})
+```
+
+# 19. Continuous fields (`Plot.raster`, `Plot.contour`)
+
+The **raster** and **contour** marks visualise a scalar field over a 2-D domain —
+here an illustrative "risk surface" as a function of two lab values.
+
+```{ojs}
+//| label: fig-plot-raster
+//| fig-cap: "Raster + contour of an illustrative risk surface."
+Plot.plot({
+  title: "Illustrative risk surface f(Hb, platelets)",
+  width: 760, height: 340,
+  x: {label: "Hemoglobin (g/dL) →"}, y: {label: "↑ Platelets (×10⁹/L)"},
+  color: {scheme: "Reds", legend: true, label: "risk"},
+  marks: [
+    Plot.raster({
+      x1: 4, x2: 16, y1: 0, y2: 400,
+      fill: (x, y) => Math.max(0, (14 - x) / 10) + Math.max(0, (50 - y) / 50)
+    }),
+    Plot.contour({
+      x1: 4, x2: 16, y1: 0, y2: 400,
+      fill: (x, y) => Math.max(0, (14 - x) / 10) + Math.max(0, (50 - y) / 50),
+      stroke: "white", strokeOpacity: 0.4
+    })
+  ]
+})
+```
+
+# 20. The auto mark (`Plot.auto`)
+
+`Plot.auto` inspects your data and picks a sensible mark and transform — the
+fastest way to "just show me the data".
+
+```{ojs}
+//| label: fig-plot-auto
+//| fig-cap: "Plot.auto chooses the encoding automatically."
+Plot.plot({
+  height: 300,
+  marks: [Plot.auto(patients, {x: "hb", y: "retic", color: "genotype"})]
+})
+```
+
+# 21. Interaction: crosshair, and a reactive Plot
+
+The **crosshair** mark reads out the nearest value on the axes without obscuring
+the data. And because a Plot is just a value, a `viewof` input can rebuild it
+live — the pattern behind interactive dashboards.
+
+```{ojs}
+//| echo: false
+viewof minHbF = Inputs.range([0, 20], {value: 0, step: 1, label: "Show patients with HbF ≥ (%)"})
+```
+
+```{ojs}
+//| label: fig-plot-crosshair
+//| fig-cap: "Reactive scatter with a live crosshair; filter with the slider."
+Plot.plot({
+  width: 760, height: 360, grid: true,
+  x: {label: "Hemoglobin (g/dL) →"}, y: {label: "↑ Reticulocytes"},
+  color: {legend: true},
+  marks: [
+    Plot.dot(patients.filter(d => d.hbf >= minHbF), {x: "hb", y: "retic", stroke: "genotype"}),
+    Plot.crosshair(patients.filter(d => d.hbf >= minHbF), {x: "hb", y: "retic"})
+  ]
+})
+```
+
+# 22. The complete Plot vocabulary
+
+Everything below runs natively in Quarto OJS. This one page exercises the full
+grammar — **marks × transforms × scales × facets × projections × interactions**.
+
+::: {.panel-tabset}
+
+### Marks
+| Category | Marks |
+|---|---|
+| Points | `dot` · `image` · `text` · `vector` · `spike` |
+| Lines & areas | `line` · `area` · `link` · `arrow` · `difference` · `bollinger` |
+| Bars & rects | `barX` / `barY` · `rectX` / `rectY` · `cell` · `waffle` · `tick` |
+| Distribution | `boxX` / `boxY` · `density` · `contour` · `raster` · `hexgrid` |
+| Statistical | `linearRegressionX` / `Y` · `bollinger` |
+| Spatial | `geo` · `sphere` · `graticule` · `delaunay` · `voronoi` |
+| Structure | `tree` · `frame` · `grid` · `axis` · `rule` |
+| Meta | `auto` (chooses for you) · `tip` · `crosshair` |
+
+### Transforms
+| Category | Transforms |
+|---|---|
+| Aggregate | `binX` / `binY` / `bin` · `group` · `hexbin` |
+| Layout | `stack` (offset: wiggle / center) · `dodge` (beeswarm) |
+| Smoothing | `window` (rolling mean) · `map` · `normalize` |
+| Selection | `filter` · `select` · `sort` · `shift` · `interval` |
+| Hierarchy | `tree` · `centroid` |
+
+### Scales & facets
+| Feature | Options |
+|---|---|
+| Position | `linear` · `log` · `pow` · `sqrt` · `symlog` · `time` · `band` · `point` |
+| Colour | `scheme` (Reds, YlGnBu…) · `sequential` · `diverging` · `ordinal` · `legend` |
+| Facets | `fx` · `fy` — small multiples across rows/columns |
+| Curves | `linear` · `basis` · `catmull-rom` · `step` · `natural` · `monotone` |
+
+### Interaction
+| Feature | Use |
+|---|---|
+| `tip: true` | details-on-demand tooltip via the pointer transform |
+| `Plot.crosshair` | axis read-out of the nearest datum |
+| `Plot.pointer` | filter to the nearest point |
+| `viewof` + Plot | rebuild the plot reactively from an input |
+
+:::
+
+::: {.callout-tip}
+## One grammar, every figure
+Plot has **no chart types** — you compose *marks* over *scales*, reshape with
+*transforms*, split with *facets*, and add *interaction* declaratively. Master
+these primitives and the entire chart universe above is reachable from a single
+`Plot.plot({...})` call, right inside your `.qmd`.
+:::

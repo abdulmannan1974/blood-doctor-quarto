@@ -51,6 +51,10 @@ website:
             href: engines/julia.qmd
           - text: "Observable (interactive)"
             href: engines/observable.qmd
+          - text: "Observable Plot (gallery)"
+            href: engines/observable-plot.qmd
+          - text: "Observable Plot (all marks)"
+            href: engines/observable-plot.qmd
           - text: "Diagrams & algorithms"
             href: diagrams/algorithms.qmd
           - text: "Interactive teaching"
