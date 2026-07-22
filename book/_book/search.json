@@ -1,0 +1,42 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "A Short Haematology Handbook",
+    "section": "",
+    "text": "Preface\nThis short book demonstrates Quarto’s book project type: multiple chapters, automatic numbering, cross-chapter references, a shared bibliography, and output to both a navigable website and a single typeset PDF.\nRender it with quarto render book.",
+    "crumbs": [
+      "Preface"
+    ]
+  },
+  {
+    "objectID": "intro.html",
+    "href": "intro.html",
+    "title": "1  Introduction",
+    "section": "",
+    "text": "Haematology spans red cells, white cells, platelets and coagulation. This book uses anaemia (Chapter 2) as a worked chapter to show cross-references, figures and citations working across a multi-file project.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+    ]
+  },
+  {
+    "objectID": "anaemia.html",
+    "href": "anaemia.html",
+    "title": "2  Anaemia",
+    "section": "",
+    "text": "Anaemia is classified by mean cell volume (MCV) into microcytic, normocytic and macrocytic categories.\n\n\n\n\n\n\n\n\nFigure 2.1: Illustrative distribution of MCV in a mixed clinic population.\n\n\n\n\n\nFigure 2.1 shows the three classes separated at 80 and 100 fL. Management of iron-deficiency anaemia and the wider evidence base are reviewed elsewhere (Example and Sample 2025).\n\n\n\n\nExample, Alex, and Sam Sample. 2025. “An Illustrative Method Reference (Placeholder).” Journal of Reproducible Publishing 1 (1): 1–10.",
+    "crumbs": [
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Anaemia</span>"
+    ]
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "References",
+    "section": "",
+    "text": "Example, Alex, and Sam Sample. 2025. “An Illustrative Method\nReference (Placeholder).” Journal of Reproducible\nPublishing 1 (1): 1–10.",
+    "crumbs": [
+      "References"
+    ]
+  }
+]

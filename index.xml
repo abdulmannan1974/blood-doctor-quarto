@@ -1,0 +1,2498 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Blood Doctor · Quarto</title>
+<link>https://abdulmannan1974.github.io/blood-doctor-quarto/</link>
+<atom:link href="https://abdulmannan1974.github.io/blood-doctor-quarto/index.xml" rel="self" type="application/rss+xml"/>
+<description>One source file. Every scientific output. A working blog by Dr Abdul Mannan.</description>
+<generator>quarto-1.9.38</generator>
+<lastBuildDate>Tue, 21 Jul 2026 23:00:00 GMT</lastBuildDate>
+<item>
+  <title>Knowledge Has No Limits: From a Misaligned PowerPoint to a Complete Quarto Publishing System</title>
+  <dc:creator>Dr Abdul Mannan</dc:creator>
+  <link>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/2026-07-22-knowledge-has-no-limits/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Author’s Reflection
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<blockquote class="blockquote">
+<p><em>“Knowledge has no limits, and learning has no finishing line.”</em><br>
+— Dr Abdul Mannan</p>
+</blockquote>
+</div>
+</div>
+<hr>
+<section id="the-journey-26-years-of-learning" class="level1">
+<h1>The Journey: 26 Years of Learning</h1>
+<p>When I look back, I remember creating my first PowerPoint presentation in the early 2000s on a hospital laboratory computer. It was full of mistakes, with poor formatting and probably the worst alignment imaginable. But it was a beginning.</p>
+<p>Nearly 26 years later, I have completed my training in <strong>Quarto</strong>, an open-source scientific publishing system that brings writing, coding, data analysis, and publication into one reproducible workflow.</p>
+<p>Using Quarto with <strong>R, Python, Jupyter, Julia, Node.js, and Pandoc</strong>, I can now create statistical figures myself—from survival curves and forest plots to publication-ready tables, mathematical equations, and interactive visualisations.</p>
+<hr>
+</section>
+<section id="a-single-source-unlimited-possibilities" class="level1">
+<h1>A Single Source, Unlimited Possibilities</h1>
+<p>From a single <code>.qmd</code> source file, I can produce:</p>
+<div class="grid">
+<div class="g-col-6">
+<section id="scientific-manuscripts-reports" class="level3 card h-100 shadow-sm p-3">
+<h3 class="anchored" data-anchor-id="scientific-manuscripts-reports">📄 Scientific Manuscripts &amp; Reports</h3>
+<p>Journal-ready papers, technical reports, and PDF/Word documents with automated cross-referencing and live citations.</p>
+</section>
+</div>
+<div class="g-col-6">
+<section id="epub-e-books" class="level3 card h-100 shadow-sm p-3">
+<h3 class="anchored" data-anchor-id="epub-e-books">📖 EPUB E-Books</h3>
+<p>Typeset digital books that compile cleanly and open natively in <strong>Apple Books</strong> on Mac, iPad, and iPhone.</p>
+</section>
+</div>
+<div class="g-col-6">
+<section id="websites-blogs-teaching-hubs" class="level3 card h-100 shadow-sm p-3">
+<h3 class="anchored" data-anchor-id="websites-blogs-teaching-hubs">🌐 Websites, Blogs &amp; Teaching Hubs</h3>
+<p>Interactive web platforms and searchable learning resources hosted on Netlify or GitHub Pages.</p>
+</section>
+</div>
+<div class="g-col-6">
+<section id="presentations-dashboards" class="level3 card h-100 shadow-sm p-3">
+<h3 class="anchored" data-anchor-id="presentations-dashboards">📽️ Presentations &amp; Dashboards</h3>
+<p>Reveal.js HTML slide decks, PowerPoint presentations, Beamer decks, and real-time clinical dashboards.</p>
+</section>
+</div>
+</div>
+<p>Seeing a chapter that I wrote, coded, and published myself appear in <strong>Apple Books</strong> was a remarkable moment.</p>
+<hr>
+</section>
+<section id="demonstrating-the-quarto-multi-engine-toolset" class="level1">
+<h1>Demonstrating the Quarto Multi-Engine Toolset</h1>
+<p>R, Observable, Mermaid and mathematics execute <strong>right here on this page</strong>; Python and Julia are shown below and run live on their own dedicated pages.</p>
+<section id="r-engine-r-kaplan-meier-survival-curve" class="level2">
+<h2 class="anchored" data-anchor-id="r-engine-r-kaplan-meier-survival-curve">1. R Engine (<code>{r}</code>): Kaplan-Meier Survival Curve</h2>
+<p>Using R and <code>ggplot2</code>, we generate a publication-ready Kaplan-Meier survival curve for clinical trials:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">library</span>(ggplot2)</span>
+<span id="cb1-2"></span>
+<span id="cb1-3"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">set.seed</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2026</span>)</span>
+<span id="cb1-4">time <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">seq</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">36</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">by=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)</span>
+<span id="cb1-5">surv_control <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">exp</span>(<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.06</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> time) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">rnorm</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">length</span>(time), <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.01</span>)</span>
+<span id="cb1-6">surv_treated <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">exp</span>(<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.025</span> <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> time) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">rnorm</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">length</span>(time), <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.01</span>)</span>
+<span id="cb1-7"></span>
+<span id="cb1-8">df <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">data.frame</span>(</span>
+<span id="cb1-9">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">Time =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">rep</span>(time, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>),</span>
+<span id="cb1-10">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">Survival =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">pmax</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, surv_control), <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">pmax</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, surv_treated)),</span>
+<span id="cb1-11">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">Arm =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">factor</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">rep</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Standard Care"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Targeted Therapy"</span>), <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">each=</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">length</span>(time)))</span>
+<span id="cb1-12">)</span>
+<span id="cb1-13"></span>
+<span id="cb1-14"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ggplot</span>(df, <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">aes</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">x=</span>Time, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">y=</span>Survival, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">color=</span>Arm, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">linetype=</span>Arm)) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb1-15">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">geom_line</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">linewidth=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.2</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb1-16">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">scale_color_manual</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">values=</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#7f0000"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#2e7d32"</span>)) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb1-17">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">scale_y_continuous</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">labels=</span>scales<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">::</span>percent, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">limits=</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb1-18">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">labs</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">title=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Overall Survival in Relapsed/Refractory Disease"</span>,</span>
+<span id="cb1-19">       <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">subtitle=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Kaplan-Meier Survival Estimates by Treatment Arm"</span>,</span>
+<span id="cb1-20">       <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">x=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Follow-up Duration (Months)"</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">y=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Overall Survival (%)"</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb1-21">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">theme_minimal</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">base_size=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb1-22">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">theme</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">legend.position=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"bottom"</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">plot.title=</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">element_text</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">face=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"bold"</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">color=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#7f0000"</span>))</span></code></pre></div></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-survival" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-survival-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="https://abdulmannan1974.github.io/blood-doctor-quarto/posts/2026-07-22-knowledge-has-no-limits/index_files/figure-html/fig-survival-1.png" class="img-fluid figure-img" width="672">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-survival-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1: Kaplan-Meier overall survival curve generated dynamically with R and ggplot2.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>As demonstrated in Figure&nbsp;1, targeted therapy significantly extends overall survival compared to standard care.</p>
+<hr>
+</section>
+<section id="r-engine-r-meta-analysis-forest-plot" class="level2">
+<h2 class="anchored" data-anchor-id="r-engine-r-meta-analysis-forest-plot">2. R Engine (<code>{r}</code>): Meta-Analysis Forest Plot</h2>
+<p>Forest plots synthesize relative risk or hazard ratios across clinical studies:</p>
+<div class="cell">
+<details open="" class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1">trials <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">data.frame</span>(</span>
+<span id="cb2-2">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">Study =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"UK Haem Study (2022)"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"EHA Registry (2024)"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"ASH Consortium (2025)"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Blood Doctor Cohort (2026)"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Pooled Meta-Analysis"</span>),</span>
+<span id="cb2-3">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">HR =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.68</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.72</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.61</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.58</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.65</span>),</span>
+<span id="cb2-4">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">Lower =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.51</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.58</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.45</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.42</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.54</span>),</span>
+<span id="cb2-5">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">Upper =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.91</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.89</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.82</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.80</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.78</span>),</span>
+<span id="cb2-6">  <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">Summary =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">FALSE</span>, <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">FALSE</span>, <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">FALSE</span>, <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">FALSE</span>, <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">TRUE</span>)</span>
+<span id="cb2-7">)</span>
+<span id="cb2-8"></span>
+<span id="cb2-9"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ggplot</span>(trials, <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">aes</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">x=</span>HR, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">y=</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">reorder</span>(Study, <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)))) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb2-10">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">geom_vline</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">xintercept=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">linetype=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"dashed"</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">color=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"grey40"</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb2-11">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">geom_errorbarh</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">aes</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">xmin=</span>Lower, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">xmax=</span>Upper), <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">height=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.25</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">color=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#7f0000"</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">linewidth=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb2-12">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">geom_point</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">aes</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">shape=</span>Summary, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">size=</span>Summary, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">fill=</span>Summary), <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">color=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#7f0000"</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb2-13">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">scale_shape_manual</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">values=</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">21</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">23</span>)) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb2-14">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">scale_size_manual</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">values=</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3.5</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>)) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb2-15">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">scale_fill_manual</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">values=</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#7f0000"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#ffd5d5"</span>)) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb2-16">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">labs</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">title=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Forest Plot of Treatment Hazard Ratios"</span>,</span>
+<span id="cb2-17">       <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">x=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Hazard Ratio (95% CI)"</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">y=</span><span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">NULL</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb2-18">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">theme_minimal</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">base_size=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb2-19">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">theme</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">legend.position=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"none"</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">axis.text.y=</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">element_text</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">face=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"bold"</span>))</span></code></pre></div></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-forest" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-forest-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="https://abdulmannan1974.github.io/blood-doctor-quarto/posts/2026-07-22-knowledge-has-no-limits/index_files/figure-html/fig-forest-1.png" class="img-fluid figure-img" width="720">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-forest-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Clinical Trial Forest Plot showing Hazard Ratios (HR) and 95% Confidence Intervals.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="python-engine-python-pharmacokinetics-a-pandas-table" class="level2">
+<h2 class="anchored" data-anchor-id="python-engine-python-pharmacokinetics-a-pandas-table">3. Python engine (<code>{python}</code>) — pharmacokinetics &amp; a <code>pandas</code> table</h2>
+<p>The same workflow speaks Python. This is the source that models one-compartment IV-bolus kinetics and builds a <code>pandas</code> summary table:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> numpy <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> np, matplotlib.pyplot <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> plt, pandas <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> pd</span>
+<span id="cb3-2"></span>
+<span id="cb3-3">dose, Vd, t_half <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1000.0</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">50.0</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12.0</span></span>
+<span id="cb3-4">ke <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> np.log(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> t_half</span>
+<span id="cb3-5">t  <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> np.linspace(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">48</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">200</span>)</span>
+<span id="cb3-6">C  <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (dose <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> Vd) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.exp(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>ke <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> t)</span>
+<span id="cb3-7"></span>
+<span id="cb3-8">fig, ax <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> plt.subplots(figsize<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">7</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3.8</span>))</span>
+<span id="cb3-9">ax.plot(t, C, color<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#B71C1C"</span>, lw<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.2</span>, label<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Concentration C(t)"</span>)</span>
+<span id="cb3-10">ax.axhline(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>, ls<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"--"</span>, color<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"grey"</span>, label<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"MEC (5 mg/L)"</span>)</span>
+<span id="cb3-11">ax.fill_between(t, C, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>, where<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>(C <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>), alpha<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.15</span>, color<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#B71C1C"</span>)</span>
+<span id="cb3-12">ax.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">set</span>(xlabel<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Time (h)"</span>, ylabel<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Plasma concentration (mg/L)"</span>)</span>
+<span id="cb3-13">ax.legend()<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span> ax.grid(alpha<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.3</span>)<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span> plt.show()</span></code></pre></div></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Why the Python figure isn’t drawn <em>here</em>
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>A Quarto document runs <strong>one execution engine at a time</strong>. This page is driven by R’s <strong>knitr</strong> — which is why the survival curve and forest plot above are live. The identical Python model <strong>runs live on its own page</strong>: watch it compute the curve, the numerical AUC and the table on the <a href="../../engines/python.html"><strong>Python engine page</strong></a>, and drive the <a href="../../outputs/dashboard.html"><strong>clinical dashboard</strong></a>.</p>
+</div>
+</div>
+</section>
+<section id="julia-engine-julia-speed-for-heavy-computation" class="level2">
+<h2 class="anchored" data-anchor-id="julia-engine-julia-speed-for-heavy-computation">4. Julia engine (<code>{julia}</code>) — speed for heavy computation</h2>
+<p>For numerically expensive models, Julia compiles to near-C speed:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">using</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">Plots</span></span>
+<span id="cb4-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">gr</span>()</span>
+<span id="cb4-3">t <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.5</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">48</span></span>
+<span id="cb4-4">C <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">20.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.*</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">exp</span>.(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">-</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">log</span>(<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>)<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span>) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.*</span> t)</span>
+<span id="cb4-5"></span>
+<span id="cb4-6"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">plot</span>(t, C, lw<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.4</span>, color<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=:</span>firebrick, xlabel<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Time (h)"</span>,</span>
+<span id="cb4-7">     ylabel<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Concentration (mg/L)"</span>, legend<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=:</span>topright)</span></code></pre></div></div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>See the Julia engine execute
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <a href="../../engines/julia.html"><strong>Julia engine page</strong></a> runs this <code>Plots.jl</code> code live at render, with the environment pinned by <code>Project.toml</code> / <code>Manifest.toml</code>.</p>
+</div>
+</div>
+</section>
+<section id="observable-js-engine-ojs-client-side-interactivity" class="level2">
+<h2 class="anchored" data-anchor-id="observable-js-engine-ojs-client-side-interactivity">5. Observable JS Engine (<code>{ojs}</code>): Client-Side Interactivity</h2>
+<p>Observable JS (<code>ojs</code>) runs natively in the reader’s browser with <strong>zero backend server requirement</strong>:</p>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb5" data-startfrom="207" data-source-offset="0" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 206;"><span id="cb5-207">viewof half_life <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Inputs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">range</span>([<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">48</span>]<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> {<span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">value</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">step</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">label</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Adjust Half-life t½ (hours):"</span>})</span></code></pre></div></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb6" data-startfrom="213" data-source-offset="-0" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 212;"><span id="cb6-213">ke_ojs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">Math</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">log</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> half_life</span>
+<span id="cb6-214">data_ojs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> d3<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">range</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">48.5</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.5</span>)<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">map</span>(t <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">=&gt;</span> ({t<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">C</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> (<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1000</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">50</span>) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">Math</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">exp</span>(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>ke_ojs <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> t)}))</span>
+<span id="cb6-215"></span>
+<span id="cb6-216">Plot<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">plot</span>({</span>
+<span id="cb6-217">  <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">width</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">700</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">height</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">320</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb6-218">  <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">x</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> {<span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">label</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Time (hours) →"</span>}<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb6-219">  <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">y</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> {<span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">label</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"↑ Concentration (mg/L)"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">grid</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">true</span>}<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb6-220">  <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">marks</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> [</span>
+<span id="cb6-221">    Plot<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ruleY</span>([<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>]<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> {<span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">stroke</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"grey"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">strokeDasharray</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"4"</span>})<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb6-222">    Plot<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">areaY</span>(data_ojs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> {<span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">x</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"t"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">y</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"C"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">fill</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#B71C1C"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">fillOpacity</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.15</span>})<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb6-223">    Plot<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">lineY</span>(data_ojs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> {<span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">x</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"t"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">y</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"C"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">stroke</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#B71C1C"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">strokeWidth</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.2</span>})</span>
+<span id="cb6-224">  ]</span>
+<span id="cb6-225">})</span></code></pre></div></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-2-3" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb7" data-startfrom="229" data-source-offset="0" style="background: #f1f3f5;"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 228;"><span id="cb7-229"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">md</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">`Dynamic Calculation: At **t½ = </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">${</span>half_life<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> hours**, the elimination rate constant is **kₑ = </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">${</span>ke_ojs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">toFixed</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>)<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;"> h⁻¹**.`</span></span></code></pre></div></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-3" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="diagrams-algorithms-mermaid" class="level2">
+<h2 class="anchored" data-anchor-id="diagrams-algorithms-mermaid">6. Diagrams &amp; Algorithms (<code>{mermaid}</code>)</h2>
+<p>Quarto compiles plain-text Mermaid code blocks into static, vector SVG diagrams:</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-diag-pathway" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-diag-pathway-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div>
+<pre class="mermaid mermaid-js" data-label="fig-diag-pathway">flowchart TD
+    A["Patient Chromatogram Evaluation"] --&gt; B{"HbS Present?"}
+    B --&gt;|Yes| C["Evaluate % HbS"]
+    B --&gt;|No| D["Evaluate % HbA2"]
+    
+    C --&gt;|HbS 38–45%| E["Sickle Cell Trait (HbAS)"]
+    C --&gt;|HbS &lt; 35%| F["HbAS + Concurrent α-Thal Trait"]
+    D --&gt;|HbA2 3.5–7.0%| G["β-Thalassaemia Trait"]
+
+    style E fill:#edf8f0,stroke:#2e7d32,stroke-width:2px
+    style F fill:#fff8e1,stroke:#d68b00,stroke-width:2px
+    style G fill:#fff0f0,stroke:#b71c1c,stroke-width:2px
+</pre>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-diag-pathway-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Clinical decision algorithm compiled directly from plain text.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<hr>
+</section>
+<section id="mathematical-equations-citation-integrity" class="level2">
+<h2 class="anchored" data-anchor-id="mathematical-equations-citation-integrity">7. Mathematical Equations &amp; Citation Integrity</h2>
+<p>Mathematical expressions render using LaTeX / MathJax formatting:</p>
+<p><img src="https://latex.codecogs.com/png.latex?%5Ctext%7BHazard%20Ratio%20(HR)%7D%20=%20%5Cfrac%7Bh_1(t)%7D%7Bh_0(t)%7D%20=%20%5Cexp%5Cleft(%20%5Cbeta_1%20X_1%20+%20%5Cbeta_2%20X_2%20+%20%5Cdots%20%5Cright)"></p>
+<p><img src="https://latex.codecogs.com/png.latex?%5Ctext%7BAUC%7D_%7B0%20%5Cto%20%5Cinfty%7D%20=%20%5Cint_%7B0%7D%5E%7B%5Cinfty%7D%20C(t)%20%5C,%20dt%20=%20%5Cfrac%7BC_0%7D%7Bk_e%7D%20=%20%5Cfrac%7BDose%7D%7BCL%7D"></p>
+<p>Citations are linked to verified PubMed entries per the Citation Integrity Protocol <span class="citation" data-cites="donze1997 mrabet1985">(Donze et al. 1997; <span class="nocase">Mrabet et al.</span> 1985)</span>.</p>
+<hr>
+</section>
+</section>
+<section id="creative-academic-independence" class="level1">
+<h1>Creative &amp; Academic Independence</h1>
+<p>This learning has given me something greater than another technical skill: <strong>creative and academic independence</strong>.</p>
+<p>I no longer need to depend entirely on a publisher, statistician, or graphic designer to turn an idea into a professional scientific product. For many analyses, I am also no longer tied to costly proprietary statistical packages. R and Python perform the computation, while Quarto brings the analysis, narrative, references, figures, and final publication together.</p>
+<p>Of course, tools do not replace sound statistical judgement, scientific review, or good design. But they remove many of the barriers between an idea and its final form.</p>
+<hr>
+</section>
+<section id="summary-reflection" class="level1">
+<h1>Summary Reflection</h1>
+<p>From a badly aligned PowerPoint slide on a laboratory computer to coding my own books, reports, websites, dashboards, and scientific figures, the lesson is simple:</p>
+<blockquote class="blockquote">
+<p><strong>Do not be embarrassed by your first attempt.</strong><br>
+<strong>Every polished skill begins with an imperfect beginning.</strong><br>
+<strong>Keep learning. Keep building. Keep creating.</strong></p>
+</blockquote>
+<p>At any age and at any stage of a career, we can begin again.</p>
+<p><strong>Knowledge has no limits. Neither should our willingness to learn.</strong></p>
+<hr>
+</section>
+<section id="references" class="level1">
+<h1>References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-donze1997" class="csl-entry">
+Donze, J. R., P. H. Jeancake, and T. M. Townes. 1997. <span>“<a href="https://www.ncbi.nlm.nih.gov/pubmed/9207479">Restoration of the <span>CCAAT</span> Box or Insertion of the <span>CACCC</span> Motif Activates Delta-Globin Gene Expression</a>.”</span> <em>Blood</em> 90 (1): 409–15.
+</div>
+<div id="ref-mrabet1985" class="csl-entry">
+<span class="nocase">Mrabet, N. T., M. J. McDonald, H. E. Broxmeyer, et al.</span> 1985. <span>“<a href="https://www.ncbi.nlm.nih.gov/pubmed/3957922">Electrostatic Attraction Governs the Dimer Assembly of Human Hemoglobin</a>.”</span> <em>Journal of Biological Chemistry</em> 260 (24): 13125–33.
+</div>
+</div>
+
+
+<!-- -->
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
+  <category>Reflection</category>
+  <category>Engines</category>
+  <category>Haematology</category>
+  <guid>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/2026-07-22-knowledge-has-no-limits/</guid>
+  <pubDate>Tue, 21 Jul 2026 23:00:00 GMT</pubDate>
+  <media:content url="https://abdulmannan1974.github.io/blood-doctor-quarto/posts/2026-07-22-knowledge-has-no-limits/thumbnail.svg" medium="image" type="image/svg+xml"/>
+</item>
+<item>
+  <title>The Python engine — Jupyter under the hood</title>
+  <dc:creator>Dr Abdul Mannan</dc:creator>
+  <link>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/python-engine/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>When a document is rendered, Quarto hands every <code>```{python}</code> block to a Jupyter kernel, executes it, and embeds the result — a figure, a table, a value — back into the page. Nothing is copied and pasted, so nothing can go stale.</p>
+<section id="the-idea-in-three-lines" class="level2">
+<h2 class="anchored" data-anchor-id="the-idea-in-three-lines">The idea in three lines</h2>
+<p>A Python code cell is written with a <code>{python}</code> engine tag and optional YAML-style options after <code>#|</code>:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">```{python}</span></span>
+<span id="cb1-2"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#| label: fig-pk</span></span>
+<span id="cb1-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#| fig-cap: "Plasma concentration after a 1000 mg IV bolus."</span></span>
+<span id="cb1-4"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> numpy <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> np, matplotlib.pyplot <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> plt</span>
+<span id="cb1-5">t <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> np.linspace(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">48</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">400</span>)</span>
+<span id="cb1-6">C <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> (<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1000</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">50</span>) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> np.exp(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>np.log(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>)<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span> t)</span>
+<span id="cb1-7">plt.plot(t, C, color<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#B71C1C"</span>, lw<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.2</span>)<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span> plt.show()</span>
+<span id="cb1-8"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">```</span></span></code></pre></div></div>
+<p><code>#| label: fig-pk</code> makes the figure cross-referenceable — write <code>@fig-pk</code> anywhere and Quarto inserts the correct number and a hyperlink.</p>
+</section>
+<section id="why-it-matters-clinically" class="level2">
+<h2 class="anchored" data-anchor-id="why-it-matters-clinically">Why it matters clinically</h2>
+<p>Every pharmacokinetic curve, every summary table, every p-value is regenerated from the data each time the paper is built. Re-run with new numbers and the prose, figures and tables all move together. That is reproducibility you can defend in front of a reviewer.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>See it running live
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <a href="../../engines/python.html"><strong>Python engine page</strong></a> executes this pharmacokinetic model in full — curve, numerical AUC, and a <code>pandas</code> table — all at render time.</p>
+</div>
+</div>
+<p>The environment is pinned outside the synced Drive folder (<code>~/.venvs/quarto</code>) so package installs never trigger a cloud-sync storm.</p>
+
+
+<!-- -->
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
+  <category>Engines</category>
+  <category>Reproducibility</category>
+  <guid>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/python-engine/</guid>
+  <pubDate>Mon, 20 Jul 2026 23:00:00 GMT</pubDate>
+  <media:content url="https://abdulmannan1974.github.io/blood-doctor-quarto/posts/python-engine/thumbnail.svg" medium="image" type="image/svg+xml"/>
+</item>
+<item>
+  <title>The R engine — knitr, ggplot2 and the tidyverse</title>
+  <dc:creator>Dr Abdul Mannan</dc:creator>
+  <link>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/r-engine/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>Quarto’s R support is the mature <strong>knitr</strong> engine that powered R Markdown for a decade. Anything you can do in R — <code>ggplot2</code>, <code>survival</code>, <code>gtsummary</code>, <code>meta</code> — you can do inside a document, with the output embedded automatically.</p>
+<section id="a-kaplanmeier-curve-from-code" class="level2">
+<h2 class="anchored" data-anchor-id="a-kaplanmeier-curve-from-code">A Kaplan–Meier curve, from code</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">```{r}</span></span>
+<span id="cb1-2"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#| label: fig-km</span></span>
+<span id="cb1-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#| fig-cap: "Overall survival by treatment arm."</span></span>
+<span id="cb1-4"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">library</span>(ggplot2)</span>
+<span id="cb1-5"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ggplot</span>(df, <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">aes</span>(Time, Survival, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">colour =</span> Arm)) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb1-6">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">geom_step</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">linewidth =</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.2</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb1-7">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">scale_colour_manual</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">values =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#7f0000"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#2e7d32"</span>)) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb1-8">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">theme_minimal</span>()</span>
+<span id="cb1-9"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">```</span></span></code></pre></div></div>
+<p>Change the dataset, re-render, and the curve redraws itself. The same pattern produces meta-analysis <strong>forest plots</strong>, <code>gtsummary</code> <strong>Table 1</strong>s, and regression outputs — the staples of a haematology paper.</p>
+</section>
+<section id="freedom-from-licences" class="level2">
+<h2 class="anchored" data-anchor-id="freedom-from-licences">Freedom from licences</h2>
+<p>R and its 20,000 packages are open source. For most analyses I run in clinic and research, I am no longer tied to a costly proprietary statistics licence: the computation, the figure and the manuscript now live in one free toolchain.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>See it running live
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <a href="../../engines/r.html"><strong>R engine page</strong></a> renders a survival curve and a forest plot from scratch. The <a href="../../posts/2026-07-22-knowledge-has-no-limits/"><strong>flagship essay</strong></a> also embeds both, side by side with Python, Julia and Observable.</p>
+</div>
+</div>
+
+
+<!-- -->
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
+  <category>Engines</category>
+  <category>Reproducibility</category>
+  <guid>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/r-engine/</guid>
+  <pubDate>Sun, 19 Jul 2026 23:00:00 GMT</pubDate>
+  <media:content url="https://abdulmannan1974.github.io/blood-doctor-quarto/posts/r-engine/thumbnail.svg" medium="image" type="image/svg+xml"/>
+</item>
+<item>
+  <title>The Julia engine — speed for heavy computation</title>
+  <dc:creator>Dr Abdul Mannan</dc:creator>
+  <link>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/julia-engine/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>Some problems — large matrix differential equations, Monte-Carlo simulations, population PK models — are simply slow in interpreted languages. <strong>Julia</strong> compiles to native code and runs close to C speed, and Quarto speaks it natively.</p>
+<section id="same-document-a-third-language" class="level2">
+<h2 class="anchored" data-anchor-id="same-document-a-third-language">Same document, a third language</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">```{julia}</span></span>
+<span id="cb1-2"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">using</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">Plots</span></span>
+<span id="cb1-3"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">gr</span>()</span>
+<span id="cb1-4">t <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.5</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">48</span></span>
+<span id="cb1-5">C <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">20.0</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.*</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">exp</span>.(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">-</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">log</span>(<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>)<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span>) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.*</span> t)</span>
+<span id="cb1-6"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">plot</span>(t, C, lw <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2.4</span>, color <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span>firebrick, xlabel <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Time (h)"</span>)</span>
+<span id="cb1-7"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">```</span></span></code></pre></div></div>
+<p>The remarkable part is not Julia alone — it is that an R chunk, a Python chunk and a Julia chunk can sit in <strong>one source file</strong>, each doing what it is best at, and render into one seamless document.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>See it running live
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <a href="../../engines/julia.html"><strong>Julia engine page</strong></a> executes a <code>Plots.jl</code> computation at render time. The project’s Julia environment is pinned via <code>Project.toml</code> / <code>Manifest.toml</code> so the result is fully reproducible.</p>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Julia’s first render compiles its packages and can take a minute; Quarto’s <code>freeze</code> then caches the result so subsequent builds are instant.</p>
+</div>
+</div>
+
+
+<!-- -->
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
+  <category>Engines</category>
+  <category>Reproducibility</category>
+  <guid>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/julia-engine/</guid>
+  <pubDate>Sat, 18 Jul 2026 23:00:00 GMT</pubDate>
+  <media:content url="https://abdulmannan1974.github.io/blood-doctor-quarto/posts/julia-engine/thumbnail.svg" medium="image" type="image/svg+xml"/>
+</item>
+<item>
+  <title>Observable JS — interactivity with no server</title>
+  <dc:creator>Dr Abdul Mannan</dc:creator>
+  <link>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/observable-interactive/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>R, Python and Julia run when the document is <strong>built</strong>. <strong>Observable JS</strong> (<code>ojs</code>) runs when the document is <strong>read</strong> — in the reader’s browser. That means genuine interactivity on a plain static website, with no server to host or maintain.</p>
+<section id="a-reactive-cell" class="level2">
+<h2 class="anchored" data-anchor-id="a-reactive-cell">A reactive cell</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">```{ojs}</span></span>
+<span id="cb1-2">viewof half_life <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Inputs<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">range</span>([<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">48</span>]<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> {<span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">value</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">label</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"t½ (hours)"</span>})</span>
+<span id="cb1-3"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">```</span></span>
+<span id="cb1-4"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">```{ojs}</span></span>
+<span id="cb1-5">Plot<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">plot</span>({ <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">marks</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> [Plot<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">lineY</span>(</span>
+<span id="cb1-6">  d3<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">range</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">48</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0.5</span>)<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">map</span>(t <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">=&gt;</span> ({t<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">C</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">20</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">Math</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">exp</span>(<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">Math</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">log</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>)<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span>half_life<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span>t)}))<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span></span>
+<span id="cb1-7">  {<span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">x</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"t"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">y</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"C"</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">,</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">stroke</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"#B71C1C"</span>})] })</span>
+<span id="cb1-8"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">```</span></span></code></pre></div></div>
+<p>Drag the slider and every cell that depends on it recomputes instantly — the reactive model made famous by <a href="https://observablehq.com">Observable</a>, built into Quarto and powered by <code>d3</code> and <code>Observable Plot</code>.</p>
+</section>
+<section id="why-teachers-love-it" class="level2">
+<h2 class="anchored" data-anchor-id="why-teachers-love-it">Why teachers love it</h2>
+<p>A trainee can <em>feel</em> how halving a drug’s half-life changes its concentration curve, or how a diagnostic threshold shifts sensitivity and specificity — by moving a control, not by reading a caption.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Try it live
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <a href="../../engines/observable.html"><strong>Observable page</strong></a> and the <a href="../../posts/2026-07-22-knowledge-has-no-limits/"><strong>flagship essay</strong></a> both carry a working half-life slider you can drag right now.</p>
+</div>
+</div>
+
+
+<!-- -->
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
+  <category>Engines</category>
+  <category>Interactive</category>
+  <guid>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/observable-interactive/</guid>
+  <pubDate>Fri, 17 Jul 2026 23:00:00 GMT</pubDate>
+  <media:content url="https://abdulmannan1974.github.io/blood-doctor-quarto/posts/observable-interactive/thumbnail.svg" medium="image" type="image/svg+xml"/>
+</item>
+<item>
+  <title>Diagrams as code — Mermaid &amp; Graphviz</title>
+  <dc:creator>Dr Abdul Mannan</dc:creator>
+  <link>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/diagrams-as-code/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>Drawing a flowchart by hand in PowerPoint is slow, and the moment guidance changes you redraw it. Quarto lets you <em>write</em> diagrams as text and compiles them to scalable vector graphics.</p>
+<section id="a-decision-algorithm-in-plain-text" class="level2">
+<h2 class="anchored" data-anchor-id="a-decision-algorithm-in-plain-text">A decision algorithm in plain text</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">```{mermaid}</span></span>
+<span id="cb1-2">flowchart TD</span>
+<span id="cb1-3">  A[<span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">"</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">Chromatogram</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">"</span>] --&gt; B{<span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">"</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">HbS present?</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">"</span>}</span>
+<span id="cb1-4">  B --&gt;|Yes| C[<span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">"</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">Evaluate % HbS</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">"</span>]</span>
+<span id="cb1-5">  B --&gt;|No|  D[<span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">"</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">Evaluate % HbA2</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">"</span>]</span>
+<span id="cb1-6">  C --&gt;|<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">38</span>–<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">45</span>%| E[<span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">"</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">Sickle cell trait</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">"</span>]</span>
+<span id="cb1-7">  D --&gt;|<span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3.5</span>–<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">7</span>%| G[<span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">"</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">β-thalassaemia trait</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">"</span>]</span>
+<span id="cb1-8"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">```</span></span></code></pre></div></div>
+<p>That text renders as a labelled, colour-coded flowchart. Because it is text, it <strong>diffs</strong> cleanly in git — you can see exactly how a pathway changed between versions, and reviewers can comment on a line.</p>
+<p><strong>Mermaid</strong> covers flowcharts, sequence diagrams, Gantt charts and mind-maps; <strong>Graphviz</strong> (<code>dot</code>) handles dense graphs and inheritance trees. Both are built in.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>See the gallery
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <a href="../../diagrams/algorithms.html"><strong>Diagrams &amp; algorithms page</strong></a> compiles several clinical pathways, including the HbS / HbA2 interpretation tree.</p>
+</div>
+</div>
+
+
+<!-- -->
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
+  <category>Visualisation</category>
+  <guid>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/diagrams-as-code/</guid>
+  <pubDate>Thu, 16 Jul 2026 23:00:00 GMT</pubDate>
+  <media:content url="https://abdulmannan1974.github.io/blood-doctor-quarto/posts/diagrams-as-code/thumbnail.svg" medium="image" type="image/svg+xml"/>
+</item>
+<item>
+  <title>Interactive teaching documents — tabsets &amp; callouts</title>
+  <dc:creator>Dr Abdul Mannan</dc:creator>
+  <link>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/interactive-teaching/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>A good teaching page reveals detail on demand. Quarto ships the building blocks as simple Markdown fences — no JavaScript to write.</p>
+<section id="tabsets-one-concept-several-views" class="level2">
+<h2 class="anchored" data-anchor-id="tabsets-one-concept-several-views">Tabsets: one concept, several views</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1">::: {.panel-tabset}</span>
+<span id="cb1-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">## Film        …blood-film description…</span></span>
+<span id="cb1-3"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">## Immunophenotype  …markers…</span></span>
+<span id="cb1-4"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">## Management   …first-line therapy…</span></span>
+<span id="cb1-5">:::</span></code></pre></div></div>
+<p>Readers click between <strong>Film</strong>, <strong>Immunophenotype</strong> and <strong>Management</strong> without leaving the page — ideal for comparing differentials.</p>
+</section>
+<section id="callouts-carry-the-signal" class="level2">
+<h2 class="anchored" data-anchor-id="callouts-carry-the-signal">Callouts carry the signal</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1">::: {.callout-warning}</span>
+<span id="cb2-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">## Red flag</span></span>
+<span id="cb2-3">Blasts + coagulopathy → treat as APL until proven otherwise.</span>
+<span id="cb2-4">:::</span></code></pre></div></div>
+<p>Five callout styles (<code>note</code>, <code>tip</code>, <code>important</code>, <code>warning</code>, <code>caution</code>) give teaching material a consistent visual grammar, and collapsible callouts hide a model answer until the learner is ready.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>See it live
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The <a href="../../outputs/interactive.html"><strong>interactive teaching demo</strong></a> combines tabsets, callouts and a live Observable widget in one lesson page.</p>
+</div>
+</div>
+
+
+<!-- -->
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
+  <category>Teaching</category>
+  <category>Interactive</category>
+  <guid>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/interactive-teaching/</guid>
+  <pubDate>Wed, 15 Jul 2026 23:00:00 GMT</pubDate>
+  <media:content url="https://abdulmannan1974.github.io/blood-doctor-quarto/posts/interactive-teaching/thumbnail.svg" medium="image" type="image/svg+xml"/>
+</item>
+<item>
+  <title>One source, three manuscripts — HTML, PDF &amp; Word</title>
+  <dc:creator>Dr Abdul Mannan</dc:creator>
+  <link>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/scientific-manuscript/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>The oldest friction in academic writing is format juggling: the journal wants a Word file, your co-author wants a PDF, the pre-print server wants HTML. Quarto produces <strong>all three from one source</strong>.</p>
+<section id="declare-the-formats-render-once" class="level2">
+<h2 class="anchored" data-anchor-id="declare-the-formats-render-once">Declare the formats, render once</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">---</span></span>
+<span id="cb1-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">title</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"A reproducible haematology manuscript"</span></span>
+<span id="cb1-3"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">format</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb1-4"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">html</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  default</span></span>
+<span id="cb1-5"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">pdf</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">   </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">{</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">documentclass</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> scrartcl </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">}</span></span>
+<span id="cb1-6"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">docx</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  default</span></span>
+<span id="cb1-7"><span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">---</span></span></code></pre></div></div>
+<p>Then:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">quarto</span> render manuscript.qmd            <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># builds every format</span></span>
+<span id="cb2-2"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">quarto</span> render manuscript.qmd <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">--to</span> docx  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># or just one</span></span></code></pre></div></div>
+<p>Cross-references (<code>@fig-</code>, <code>@tbl-</code>), citations from a <code>.bib</code> file, and figure numbering all travel across formats automatically. Send the <strong>Word</strong> file to a co-author for track-changes; submit the <strong>PDF</strong> to the journal; post the <strong>HTML</strong> as a pre-print — never re-formatting by hand.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Open the rendered outputs
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="../../outputs/manuscript.html">HTML</a> · <a href="../../outputs/manuscript.pdf"><strong>PDF</strong></a> · <a href="../../outputs/manuscript.docx"><strong>Word (.docx)</strong></a> — all three built from the one file.</p>
+</div>
+</div>
+
+
+<!-- -->
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
+  <category>Documents</category>
+  <guid>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/scientific-manuscript/</guid>
+  <pubDate>Tue, 14 Jul 2026 23:00:00 GMT</pubDate>
+  <media:content url="https://abdulmannan1974.github.io/blood-doctor-quarto/posts/scientific-manuscript/thumbnail.svg" medium="image" type="image/svg+xml"/>
+</item>
+<item>
+  <title>Reveal.js slides — a deck that runs your code</title>
+  <dc:creator>Dr Abdul Mannan</dc:creator>
+  <link>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/revealjs-slides/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>This is where the story began — a badly aligned PowerPoint slide, decades ago. Today the same idea becomes a <strong>Reveal.js</strong> deck: authored in Markdown, with every figure generated by code at render, and presented full-screen in any browser.</p>
+<section id="a-slide-is-a-heading" class="level2">
+<h2 class="anchored" data-anchor-id="a-slide-is-a-heading">A slide is a heading</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">---</span></span>
+<span id="cb1-2"><span class="an" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">format:</span><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"> revealjs</span></span>
+<span id="cb1-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">---</span></span>
+<span id="cb1-4"></span>
+<span id="cb1-5"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">## Why Quarto slides?</span></span>
+<span id="cb1-6"><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">- </span>Author in Markdown</span>
+<span id="cb1-7"><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">- </span>**Executable** code makes figures live</span>
+<span id="cb1-8"><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">- </span>Export to PDF with one flag</span>
+<span id="cb1-9"></span>
+<span id="cb1-10"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">## A computed figure</span></span>
+<span id="cb1-11"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">```{python}</span></span>
+<span id="cb1-12"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> matplotlib.pyplot <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> plt</span>
+<span id="cb1-13">plt.plot([<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>],[<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>])<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span> plt.show()</span>
+<span id="cb1-14"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">```</span></span></code></pre></div></div>
+<p>Each <code>##</code> starts a new slide. Incremental bullets, speaker notes, fragments, transitions and a logo are all one line of YAML each. Press <strong><code>E</code></strong> in the deck to export to PDF; the same source can also target <strong>PowerPoint</strong> (<code>pptx</code>) or <strong>Beamer</strong> for LaTeX purists.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Present it now
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Open the <a href="../../outputs/slides.html"><strong>live Reveal.js deck</strong></a> — arrow keys to advance, <code>F</code> for full-screen, <code>S</code> for speaker notes.</p>
+</div>
+</div>
+
+
+<!-- -->
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
+  <category>Presenting</category>
+  <guid>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/revealjs-slides/</guid>
+  <pubDate>Mon, 13 Jul 2026 23:00:00 GMT</pubDate>
+  <media:content url="https://abdulmannan1974.github.io/blood-doctor-quarto/posts/revealjs-slides/thumbnail.svg" medium="image" type="image/svg+xml"/>
+</item>
+<item>
+  <title>A Quarto book — chapters, cross-refs and an index</title>
+  <dc:creator>Dr Abdul Mannan</dc:creator>
+  <link>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/quarto-book/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>A book is more than a long document: it needs numbered chapters, a table of contents, cross-chapter references and a single bibliography. Quarto’s <strong>book</strong> project type handles all of it.</p>
+<section id="the-whole-book-is-a-list-of-chapters" class="level2">
+<h2 class="anchored" data-anchor-id="the-whole-book-is-a-list-of-chapters">The whole book is a list of chapters</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">project</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb1-2"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">type</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> book</span></span>
+<span id="cb1-3"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">book</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb1-4"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">title</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"A Short Haematology Handbook"</span></span>
+<span id="cb1-5"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">author</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Dr Abdul Mannan"</span></span>
+<span id="cb1-6"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">chapters</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb1-7"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> index.qmd</span></span>
+<span id="cb1-8"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> intro.qmd</span></span>
+<span id="cb1-9"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> anaemia.qmd</span></span>
+<span id="cb1-10"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">-</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> references.qmd</span></span>
+<span id="cb1-11"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">format</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb1-12"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">html</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> default</span></span>
+<span id="cb1-13"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">pdf</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">{</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">documentclass</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> scrreprt </span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">}</span></span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">quarto</span> render book            <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># → an HTML book website</span></span>
+<span id="cb2-2"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">quarto</span> render book <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">--to</span> pdf   <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># → a typeset PDF</span></span></code></pre></div></div>
+<p>Reference a figure in Chapter 3 from Chapter 1 and the number resolves itself. The output is simultaneously a navigable <strong>website</strong> and a print-ready <strong>PDF</strong> — the same content, two finished products.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Read the demo book
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Open the <a href="../../book/_book/index.html"><strong>rendered handbook</strong></a> — a complete multi-chapter Quarto book, built from four <code>.qmd</code> files.</p>
+</div>
+</div>
+
+
+<!-- -->
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
+  <category>Documents</category>
+  <guid>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/quarto-book/</guid>
+  <pubDate>Sun, 12 Jul 2026 23:00:00 GMT</pubDate>
+  <media:content url="https://abdulmannan1974.github.io/blood-doctor-quarto/posts/quarto-book/thumbnail.svg" medium="image" type="image/svg+xml"/>
+</item>
+<item>
+  <title>EPUB e-books — a chapter that opens in Apple Books</title>
+  <dc:creator>Dr Abdul Mannan</dc:creator>
+  <link>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/epub-apple-books/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>Seeing a chapter I had written, coded and published <em>myself</em> appear in <strong>Apple Books</strong> was a genuinely remarkable moment. Quarto builds the EPUB directly.</p>
+<section id="from-markdown-to-a-real-e-book" class="level2">
+<h2 class="anchored" data-anchor-id="from-markdown-to-a-real-e-book">From Markdown to a real e-book</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">---</span></span>
+<span id="cb1-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">title</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"HbS trait vs β-thalassaemia trait"</span></span>
+<span id="cb1-3"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">author</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Dr Abdul Mannan"</span></span>
+<span id="cb1-4"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">format</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb1-5"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">  </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">epub</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span></span>
+<span id="cb1-6"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">cover-image</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> cover.png</span></span>
+<span id="cb1-7"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">css</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> epub-styles.css</span></span>
+<span id="cb1-8"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">    </span><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">toc</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">true</span></span>
+<span id="cb1-9"><span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">---</span></span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">quarto</span> render explainer.qmd <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">--to</span> epub</span></code></pre></div></div>
+<p>The result is a reflowable <strong>EPUB</strong> — a proper cover, styled typography, a linked table of contents and chapters — that opens in Apple Books, Calibre or any reader, and resizes to any screen. A single explainer becomes a distributable e-book.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Download the e-book
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Grab the <a href="../../outputs/epub-hbs-hba2/hbs-vs-beta-thal-hba2.epub"><strong>HbS vs β-thal EPUB</strong></a> and open it in Apple Books. Source and cover live in <code>outputs/epub-hbs-hba2/</code>.</p>
+</div>
+</div>
+
+
+<!-- -->
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
+  <category>Documents</category>
+  <guid>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/epub-apple-books/</guid>
+  <pubDate>Sat, 11 Jul 2026 23:00:00 GMT</pubDate>
+  <media:content url="https://abdulmannan1974.github.io/blood-doctor-quarto/posts/epub-apple-books/thumbnail.svg" medium="image" type="image/svg+xml"/>
+</item>
+<item>
+  <title>Quarto dashboards — a clinical cockpit from code</title>
+  <dc:creator>Dr Abdul Mannan</dc:creator>
+  <link>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/quarto-dashboard/</link>
+  <description><![CDATA[ 
+
+
+
+
+
+<p>Sometimes the output is not a paper but a <strong>dashboard</strong> — headline numbers, a chart and a table, laid out as a cockpit. Quarto builds these from the same Markdown + code you already know, with <code>format: dashboard</code>.</p>
+<section id="layout-by-headings-content-by-code" class="level2">
+<h2 class="anchored" data-anchor-id="layout-by-headings-content-by-code">Layout by headings, content by code</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">---</span></span>
+<span id="cb1-2"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">title</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> </span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Anticoagulation Service Dashboard"</span></span>
+<span id="cb1-3"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">format</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">:</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;"> dashboard</span></span>
+<span id="cb1-4"><span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">---</span></span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">## Row {height=20%}</span></span>
+<span id="cb2-2"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">```{python}</span></span>
+<span id="cb2-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#| content: valuebox</span></span>
+<span id="cb2-4"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#| title: "Patients in range"</span></span>
+<span id="cb2-5"><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">dict</span>(value<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"78%"</span>, icon<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"heart-pulse"</span>, color<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"success"</span>)</span>
+<span id="cb2-6"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">```</span></span>
+<span id="cb2-7"></span>
+<span id="cb2-8"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">## Row</span></span>
+<span id="cb2-9"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">```{python}</span></span>
+<span id="cb2-10"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># a matplotlib chart fills this card</span></span>
+<span id="cb2-11"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">```</span></span>
+<span id="cb2-12"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">```{python}</span></span>
+<span id="cb2-13"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># a pandas table fills the next card</span></span>
+<span id="cb2-14"><span class="in" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">```</span></span></code></pre></div></div>
+<p>Rows and columns come from heading levels; <code>#| content: valuebox</code> turns a cell into a KPI tile. The result is responsive and self-contained — no dashboard framework, no server.</p>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Open the live dashboard
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>See the <a href="../../outputs/dashboard.html"><strong>anticoagulation dashboard</strong></a> — value boxes, a computed chart and a data table, all from one <code>.qmd</code>.</p>
+</div>
+</div>
+
+
+<!-- -->
+
+</section>
+
+<a onclick="window.scrollTo(0, 0); return false;" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a> ]]></description>
+  <category>Visualisation</category>
+  <category>Interactive</category>
+  <guid>https://abdulmannan1974.github.io/blood-doctor-quarto/posts/quarto-dashboard/</guid>
+  <pubDate>Fri, 10 Jul 2026 23:00:00 GMT</pubDate>
+  <media:content url="https://abdulmannan1974.github.io/blood-doctor-quarto/posts/quarto-dashboard/thumbnail.svg" medium="image" type="image/svg+xml"/>
+</item>
+</channel>
+</rss>

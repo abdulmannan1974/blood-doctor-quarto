@@ -1,0 +1,394 @@
+[
+  {
+    "objectID": "diagrams/algorithms.html",
+    "href": "diagrams/algorithms.html",
+    "title": "Diagrams & Clinical Algorithms",
+    "section": "",
+    "text": "Quarto renders Mermaid and Graphviz (DOT) from plain text. Edit the logic, re-render, and the diagram updates — ideal for versioned clinical algorithms."
+  },
+  {
+    "objectID": "diagrams/algorithms.html#mermaid-microcytic-anaemia-work-up",
+    "href": "diagrams/algorithms.html#mermaid-microcytic-anaemia-work-up",
+    "title": "Diagrams & Clinical Algorithms",
+    "section": "Mermaid: microcytic anaemia work-up",
+    "text": "Mermaid: microcytic anaemia work-up\n\n\n\n\n\n\nflowchart TD\n    A[Microcytic anaemia&lt;br/&gt;MCV &lt; 80 fL] --&gt; B{Ferritin}\n    B --&gt;|Low| C[Iron deficiency]\n    B --&gt;|Normal / high| D{Investigate further}\n    C --&gt; C1[Find the source:&lt;br/&gt;GI loss, diet, malabsorption]\n    D --&gt; E[Serum iron / TIBC]\n    D --&gt; F[Haemoglobinopathy screen]\n    F --&gt;|HbA2 raised| G[β-thalassaemia trait]\n    F --&gt;|Normal| H[Anaemia of chronic disease&lt;br/&gt;or sideroblastic]\n    style A fill:#B71C1C,color:#fff\n    style C fill:#ffd5d5\n    style G fill:#ffd5d5\n\n\n\n\nFigure 1: Simplified diagnostic pathway for microcytic anaemia."
+  },
+  {
+    "objectID": "diagrams/algorithms.html#graphviz-a-simplified-coagulation-pathway",
+    "href": "diagrams/algorithms.html#graphviz-a-simplified-coagulation-pathway",
+    "title": "Diagrams & Clinical Algorithms",
+    "section": "Graphviz: a simplified coagulation pathway",
+    "text": "Graphviz: a simplified coagulation pathway\n\n\n\n\n\n\n\n\ncoag\n\n\ncluster_i\n\nIntrinsic (APTT)\n\n\ncluster_e\n\nExtrinsic (PT)\n\n\n\nXII\n\nXII\n\n\n\nXI\n\nXI\n\n\n\nXII-&gt;XI\n\n\n\n\n\nIX\n\nIX\n\n\n\nXI-&gt;IX\n\n\n\n\n\nIXa/VIIIa\n\nIXa/VIIIa\n\n\n\nIX-&gt;IXa/VIIIa\n\n\n\n\n\nXa\n\nXa\n\n\n\nIXa/VIIIa-&gt;Xa\n\n\n\n\n\nTF/VIIa\n\nTF/VIIa\n\n\n\nTF/VIIa-&gt;Xa\n\n\n\n\n\nThrombin (IIa)\n\nThrombin (IIa)\n\n\n\nXa-&gt;Thrombin (IIa)\n\n\n\n\n\nFibrin\n\nFibrin\n\n\n\nThrombin (IIa)-&gt;Fibrin\n\n\n\n\n\n\n\n\nFigure 2: Convergence of intrinsic and extrinsic pathways on the common pathway.\n\n\n\n\n\n\n\n\n\n\n\nTip\n\n\n\nBecause these are text, they diff cleanly in git and never go stale against an exported PNG."
+  },
+  {
+    "objectID": "engines/python.html",
+    "href": "engines/python.html",
+    "title": "Python Engine — Jupyter",
+    "section": "",
+    "text": "The Jupyter engine runs Python code blocks at render time and embeds the results. This page uses numpy, scipy and matplotlib from the dedicated ~/.venvs/quarto environment."
+  },
+  {
+    "objectID": "engines/python.html#a-worked-example-one-compartment-pharmacokinetics",
+    "href": "engines/python.html#a-worked-example-one-compartment-pharmacokinetics",
+    "title": "Python Engine — Jupyter",
+    "section": "A worked example: one-compartment pharmacokinetics",
+    "text": "A worked example: one-compartment pharmacokinetics\nWe model plasma concentration after an IV bolus, \\(C(t) = \\dfrac{D}{V_d}\\,e^{-k_e t}\\), with \\(k_e = \\ln 2 / t_{1/2}\\).\n\nimport numpy as np\nimport matplotlib.pyplot as plt\n\ndose, Vd, t_half = 1000.0, 50.0, 12.0     # mg, L, hours\nke = np.log(2) / t_half\nt  = np.linspace(0, 48, 400)\nC  = (dose / Vd) * np.exp(-ke * t)\n\nfig, ax = plt.subplots(figsize=(7, 4.2))\nax.plot(t, C, color=\"#B71C1C\", lw=2.2)\nax.axhline(5, ls=\"--\", color=\"grey\", label=\"MEC (5 mg/L)\")\nax.fill_between(t, C, 5, where=(C &gt; 5), alpha=0.12, color=\"#B71C1C\")\nax.set(xlabel=\"Time (h)\", ylabel=\"Concentration (mg/L)\",\n       title=\"One-compartment IV bolus decay\")\nax.legend(); ax.grid(alpha=.3)\nplt.show()\n\n\n\n\n\n\n\nFigure 1: Plasma concentration–time curve after a 1000 mg IV bolus.\n\n\n\n\n\nFigure Figure 1 is cross-referenced automatically."
+  },
+  {
+    "objectID": "engines/python.html#computation-auc-by-numerical-integration",
+    "href": "engines/python.html#computation-auc-by-numerical-integration",
+    "title": "Python Engine — Jupyter",
+    "section": "Computation: AUC by numerical integration",
+    "text": "Computation: AUC by numerical integration\n\nfrom scipy.integrate import trapezoid\nauc = trapezoid(C, t)\nabove_mec = t[C &gt; 5][-1]\nprint(f\"AUC(0–48h)      = {auc:8.1f} mg·h/L\")\nprint(f\"Time above MEC  = {above_mec:8.1f} h\")\n\nAUC(0–48h)      =    324.6 mg·h/L\nTime above MEC  =     23.9 h"
+  },
+  {
+    "objectID": "engines/python.html#a-computed-table",
+    "href": "engines/python.html#a-computed-table",
+    "title": "Python Engine — Jupyter",
+    "section": "A computed table",
+    "text": "A computed table\n\nimport pandas as pd\nsample_t = [0, 6, 12, 24, 36, 48]\npd.DataFrame({\n    \"Time (h)\": sample_t,\n    \"Concentration (mg/L)\": [round((dose/Vd)*np.exp(-ke*x), 2) for x in sample_t],\n    \"Fraction remaining\": [round(np.exp(-ke*x), 3) for x in sample_t],\n})\n\n\n\n\n\n\n\n\nTime (h)\nConcentration (mg/L)\nFraction remaining\n\n\n\n\n0\n0\n20.00\n1.000\n\n\n1\n6\n14.14\n0.707\n\n\n2\n12\n10.00\n0.500\n\n\n3\n24\n5.00\n0.250\n\n\n4\n36\n2.50\n0.125\n\n\n5\n48\n1.25\n0.062"
+  },
+  {
+    "objectID": "engines/julia.html",
+    "href": "engines/julia.html",
+    "title": "Julia Engine",
+    "section": "",
+    "text": "The Julia engine runs Julia via IJulia. Great when an algorithm needs raw numerical speed. Plots use Plots.jl (GR backend). We set GKSwstype=100 so GR renders straight to a file on a headless machine."
+  },
+  {
+    "objectID": "engines/julia.html#a-worked-example-iv-bolus-decay",
+    "href": "engines/julia.html#a-worked-example-iv-bolus-decay",
+    "title": "Julia Engine",
+    "section": "A worked example: IV bolus decay",
+    "text": "A worked example: IV bolus decay\n\nusing Plots\nENV[\"GKSwstype\"] = \"100\"   # headless GR: write to file, no display server\ngr()\n\ndose, Vd, thalf = 1000.0, 50.0, 12.0\nke = log(2) / thalf\nt  = 0:0.5:48\nC  = (dose / Vd) .* exp.(-ke .* t)\n\nplot(t, C, lw = 2.4, color = :firebrick, label = \"C(t)\",\n     xlabel = \"Time (h)\", ylabel = \"Concentration (mg/L)\",\n     title = \"Julia — one-compartment IV bolus\", legend = :topright)\nhline!([5], ls = :dash, color = :grey, label = \"MEC\")\n\n\n\n\n\n\nFigure 1: Julia + Plots.jl: concentration–time curve."
+  },
+  {
+    "objectID": "engines/julia.html#an-algorithm-newtonraphson-root-finding",
+    "href": "engines/julia.html#an-algorithm-newtonraphson-root-finding",
+    "title": "Julia Engine",
+    "section": "An algorithm: Newton–Raphson root finding",
+    "text": "An algorithm: Newton–Raphson root finding\nSolve for the time at which concentration reaches the 5 mg/L threshold. (The cell is self-contained.)\n\ndose, Vd, ke = 1000.0, 50.0, log(2) / 12   # constants\n\nf(x)  = (dose / Vd) * exp(-ke * x) - 5.0\ndf(x) = -ke * (dose / Vd) * exp(-ke * x)\n\nx = 10.0\nfor _ in 1:20\n    x -= f(x) / df(x)\nend\nprintln(\"Threshold crossed at t = \", round(x, digits = 2), \" h\")\nprintln(\"Analytic solution      = \", round(log((dose / Vd) / 5) / ke, digits = 2), \" h\")\n\nThreshold crossed at t = 24.0 h\nAnalytic solution      = 24.0 h"
+  },
+  {
+    "objectID": "posts/revealjs-slides/index.html",
+    "href": "posts/revealjs-slides/index.html",
+    "title": "Reveal.js slides — a deck that runs your code",
+    "section": "",
+    "text": "This is where the story began — a badly aligned PowerPoint slide, decades ago. Today the same idea becomes a Reveal.js deck: authored in Markdown, with every figure generated by code at render, and presented full-screen in any browser."
+  },
+  {
+    "objectID": "posts/revealjs-slides/index.html#a-slide-is-a-heading",
+    "href": "posts/revealjs-slides/index.html#a-slide-is-a-heading",
+    "title": "Reveal.js slides — a deck that runs your code",
+    "section": "A slide is a heading",
+    "text": "A slide is a heading\n---\nformat: revealjs\n---\n\n## Why Quarto slides?\n- Author in Markdown\n- **Executable** code makes figures live\n- Export to PDF with one flag\n\n## A computed figure\n```{python}\nimport matplotlib.pyplot as plt\nplt.plot([0,1,2],[0,1,4]); plt.show()\n```\nEach ## starts a new slide. Incremental bullets, speaker notes, fragments, transitions and a logo are all one line of YAML each. Press E in the deck to export to PDF; the same source can also target PowerPoint (pptx) or Beamer for LaTeX purists.\n\n\n\n\n\n\nTipPresent it now\n\n\n\nOpen the live Reveal.js deck — arrow keys to advance, F for full-screen, S for speaker notes."
+  },
+  {
+    "objectID": "posts/quarto-dashboard/index.html",
+    "href": "posts/quarto-dashboard/index.html",
+    "title": "Quarto dashboards — a clinical cockpit from code",
+    "section": "",
+    "text": "Sometimes the output is not a paper but a dashboard — headline numbers, a chart and a table, laid out as a cockpit. Quarto builds these from the same Markdown + code you already know, with format: dashboard."
+  },
+  {
+    "objectID": "posts/quarto-dashboard/index.html#layout-by-headings-content-by-code",
+    "href": "posts/quarto-dashboard/index.html#layout-by-headings-content-by-code",
+    "title": "Quarto dashboards — a clinical cockpit from code",
+    "section": "Layout by headings, content by code",
+    "text": "Layout by headings, content by code\n---\ntitle: \"Anticoagulation Service Dashboard\"\nformat: dashboard\n---\n## Row {height=20%}\n```{python}\n#| content: valuebox\n#| title: \"Patients in range\"\ndict(value=\"78%\", icon=\"heart-pulse\", color=\"success\")\n```\n\n## Row\n```{python}\n# a matplotlib chart fills this card\n```\n```{python}\n# a pandas table fills the next card\n```\nRows and columns come from heading levels; #| content: valuebox turns a cell into a KPI tile. The result is responsive and self-contained — no dashboard framework, no server.\n\n\n\n\n\n\nTipOpen the live dashboard\n\n\n\nSee the anticoagulation dashboard — value boxes, a computed chart and a data table, all from one .qmd."
+  },
+  {
+    "objectID": "posts/python-engine/index.html",
+    "href": "posts/python-engine/index.html",
+    "title": "The Python engine — Jupyter under the hood",
+    "section": "",
+    "text": "When a document is rendered, Quarto hands every ```{python} block to a Jupyter kernel, executes it, and embeds the result — a figure, a table, a value — back into the page. Nothing is copied and pasted, so nothing can go stale."
+  },
+  {
+    "objectID": "posts/python-engine/index.html#the-idea-in-three-lines",
+    "href": "posts/python-engine/index.html#the-idea-in-three-lines",
+    "title": "The Python engine — Jupyter under the hood",
+    "section": "The idea in three lines",
+    "text": "The idea in three lines\nA Python code cell is written with a {python} engine tag and optional YAML-style options after #|:\n```{python}\n#| label: fig-pk\n#| fig-cap: \"Plasma concentration after a 1000 mg IV bolus.\"\nimport numpy as np, matplotlib.pyplot as plt\nt = np.linspace(0, 48, 400)\nC = (1000/50) * np.exp(-np.log(2)/12 * t)\nplt.plot(t, C, color=\"#B71C1C\", lw=2.2); plt.show()\n```\n#| label: fig-pk makes the figure cross-referenceable — write @fig-pk anywhere and Quarto inserts the correct number and a hyperlink."
+  },
+  {
+    "objectID": "posts/python-engine/index.html#why-it-matters-clinically",
+    "href": "posts/python-engine/index.html#why-it-matters-clinically",
+    "title": "The Python engine — Jupyter under the hood",
+    "section": "Why it matters clinically",
+    "text": "Why it matters clinically\nEvery pharmacokinetic curve, every summary table, every p-value is regenerated from the data each time the paper is built. Re-run with new numbers and the prose, figures and tables all move together. That is reproducibility you can defend in front of a reviewer.\n\n\n\n\n\n\nTipSee it running live\n\n\n\nThe Python engine page executes this pharmacokinetic model in full — curve, numerical AUC, and a pandas table — all at render time.\n\n\nThe environment is pinned outside the synced Drive folder (~/.venvs/quarto) so package installs never trigger a cloud-sync storm."
+  },
+  {
+    "objectID": "posts/julia-engine/index.html",
+    "href": "posts/julia-engine/index.html",
+    "title": "The Julia engine — speed for heavy computation",
+    "section": "",
+    "text": "Some problems — large matrix differential equations, Monte-Carlo simulations, population PK models — are simply slow in interpreted languages. Julia compiles to native code and runs close to C speed, and Quarto speaks it natively."
+  },
+  {
+    "objectID": "posts/julia-engine/index.html#same-document-a-third-language",
+    "href": "posts/julia-engine/index.html#same-document-a-third-language",
+    "title": "The Julia engine — speed for heavy computation",
+    "section": "Same document, a third language",
+    "text": "Same document, a third language\n```{julia}\nusing Plots\ngr()\nt = 0:0.5:48\nC = 20.0 .* exp.(-(log(2)/12) .* t)\nplot(t, C, lw = 2.4, color = :firebrick, xlabel = \"Time (h)\")\n```\nThe remarkable part is not Julia alone — it is that an R chunk, a Python chunk and a Julia chunk can sit in one source file, each doing what it is best at, and render into one seamless document.\n\n\n\n\n\n\nTipSee it running live\n\n\n\nThe Julia engine page executes a Plots.jl computation at render time. The project’s Julia environment is pinned via Project.toml / Manifest.toml so the result is fully reproducible.\n\n\n\n\n\n\n\n\nNote\n\n\n\nJulia’s first render compiles its packages and can take a minute; Quarto’s freeze then caches the result so subsequent builds are instant."
+  },
+  {
+    "objectID": "posts/epub-apple-books/index.html",
+    "href": "posts/epub-apple-books/index.html",
+    "title": "EPUB e-books — a chapter that opens in Apple Books",
+    "section": "",
+    "text": "Seeing a chapter I had written, coded and published myself appear in Apple Books was a genuinely remarkable moment. Quarto builds the EPUB directly."
+  },
+  {
+    "objectID": "posts/epub-apple-books/index.html#from-markdown-to-a-real-e-book",
+    "href": "posts/epub-apple-books/index.html#from-markdown-to-a-real-e-book",
+    "title": "EPUB e-books — a chapter that opens in Apple Books",
+    "section": "From Markdown to a real e-book",
+    "text": "From Markdown to a real e-book\n---\ntitle: \"HbS trait vs β-thalassaemia trait\"\nauthor: \"Dr Abdul Mannan\"\nformat:\n  epub:\n    cover-image: cover.png\n    css: epub-styles.css\n    toc: true\n---\nquarto render explainer.qmd --to epub\nThe result is a reflowable EPUB — a proper cover, styled typography, a linked table of contents and chapters — that opens in Apple Books, Calibre or any reader, and resizes to any screen. A single explainer becomes a distributable e-book.\n\n\n\n\n\n\nTipDownload the e-book\n\n\n\nGrab the HbS vs β-thal EPUB and open it in Apple Books. Source and cover live in outputs/epub-hbs-hba2/."
+  },
+  {
+    "objectID": "posts/2026-07-22-knowledge-has-no-limits/index.html",
+    "href": "posts/2026-07-22-knowledge-has-no-limits/index.html",
+    "title": "Knowledge Has No Limits: From a Misaligned PowerPoint to a Complete Quarto Publishing System",
+    "section": "",
+    "text": "NoteAuthor’s Reflection\n\n\n\n\n“Knowledge has no limits, and learning has no finishing line.”\n— Dr Abdul Mannan"
+  },
+  {
+    "objectID": "posts/2026-07-22-knowledge-has-no-limits/index.html#r-engine-r-kaplan-meier-survival-curve",
+    "href": "posts/2026-07-22-knowledge-has-no-limits/index.html#r-engine-r-kaplan-meier-survival-curve",
+    "title": "Knowledge Has No Limits: From a Misaligned PowerPoint to a Complete Quarto Publishing System",
+    "section": "1. R Engine ({r}): Kaplan-Meier Survival Curve",
+    "text": "1. R Engine ({r}): Kaplan-Meier Survival Curve\nUsing R and ggplot2, we generate a publication-ready Kaplan-Meier survival curve for clinical trials:\n\n\nCode\nlibrary(ggplot2)\n\nset.seed(2026)\ntime &lt;- seq(0, 36, by=1)\nsurv_control &lt;- exp(-0.06 * time) + rnorm(length(time), 0, 0.01)\nsurv_treated &lt;- exp(-0.025 * time) + rnorm(length(time), 0, 0.01)\n\ndf &lt;- data.frame(\n  Time = rep(time, 2),\n  Survival = c(pmax(0, surv_control), pmax(0, surv_treated)),\n  Arm = factor(rep(c(\"Standard Care\", \"Targeted Therapy\"), each=length(time)))\n)\n\nggplot(df, aes(x=Time, y=Survival, color=Arm, linetype=Arm)) +\n  geom_line(linewidth=1.2) +\n  scale_color_manual(values=c(\"#7f0000\", \"#2e7d32\")) +\n  scale_y_continuous(labels=scales::percent, limits=c(0, 1)) +\n  labs(title=\"Overall Survival in Relapsed/Refractory Disease\",\n       subtitle=\"Kaplan-Meier Survival Estimates by Treatment Arm\",\n       x=\"Follow-up Duration (Months)\", y=\"Overall Survival (%)\") +\n  theme_minimal(base_size=12) +\n  theme(legend.position=\"bottom\", plot.title=element_text(face=\"bold\", color=\"#7f0000\"))\n\n\n\n\n\n\n\n\nFigure 1: Kaplan-Meier overall survival curve generated dynamically with R and ggplot2.\n\n\n\n\n\nAs demonstrated in Figure 1, targeted therapy significantly extends overall survival compared to standard care."
+  },
+  {
+    "objectID": "posts/2026-07-22-knowledge-has-no-limits/index.html#r-engine-r-meta-analysis-forest-plot",
+    "href": "posts/2026-07-22-knowledge-has-no-limits/index.html#r-engine-r-meta-analysis-forest-plot",
+    "title": "Knowledge Has No Limits: From a Misaligned PowerPoint to a Complete Quarto Publishing System",
+    "section": "2. R Engine ({r}): Meta-Analysis Forest Plot",
+    "text": "2. R Engine ({r}): Meta-Analysis Forest Plot\nForest plots synthesize relative risk or hazard ratios across clinical studies:\n\n\nCode\ntrials &lt;- data.frame(\n  Study = c(\"UK Haem Study (2022)\", \"EHA Registry (2024)\", \"ASH Consortium (2025)\", \"Blood Doctor Cohort (2026)\", \"Pooled Meta-Analysis\"),\n  HR = c(0.68, 0.72, 0.61, 0.58, 0.65),\n  Lower = c(0.51, 0.58, 0.45, 0.42, 0.54),\n  Upper = c(0.91, 0.89, 0.82, 0.80, 0.78),\n  Summary = c(FALSE, FALSE, FALSE, FALSE, TRUE)\n)\n\nggplot(trials, aes(x=HR, y=reorder(Study, c(5,4,3,2,1)))) +\n  geom_vline(xintercept=1, linetype=\"dashed\", color=\"grey40\") +\n  geom_errorbarh(aes(xmin=Lower, xmax=Upper), height=0.25, color=\"#7f0000\", linewidth=1) +\n  geom_point(aes(shape=Summary, size=Summary, fill=Summary), color=\"#7f0000\") +\n  scale_shape_manual(values=c(21, 23)) +\n  scale_size_manual(values=c(3.5, 5)) +\n  scale_fill_manual(values=c(\"#7f0000\", \"#ffd5d5\")) +\n  labs(title=\"Forest Plot of Treatment Hazard Ratios\",\n       x=\"Hazard Ratio (95% CI)\", y=NULL) +\n  theme_minimal(base_size=12) +\n  theme(legend.position=\"none\", axis.text.y=element_text(face=\"bold\"))\n\n\n\n\n\n\n\n\nFigure 2: Clinical Trial Forest Plot showing Hazard Ratios (HR) and 95% Confidence Intervals."
+  },
+  {
+    "objectID": "posts/2026-07-22-knowledge-has-no-limits/index.html#python-engine-python-pharmacokinetics-a-pandas-table",
+    "href": "posts/2026-07-22-knowledge-has-no-limits/index.html#python-engine-python-pharmacokinetics-a-pandas-table",
+    "title": "Knowledge Has No Limits: From a Misaligned PowerPoint to a Complete Quarto Publishing System",
+    "section": "3. Python engine ({python}) — pharmacokinetics & a pandas table",
+    "text": "3. Python engine ({python}) — pharmacokinetics & a pandas table\nThe same workflow speaks Python. This is the source that models one-compartment IV-bolus kinetics and builds a pandas summary table:\nimport numpy as np, matplotlib.pyplot as plt, pandas as pd\n\ndose, Vd, t_half = 1000.0, 50.0, 12.0\nke = np.log(2) / t_half\nt  = np.linspace(0, 48, 200)\nC  = (dose / Vd) * np.exp(-ke * t)\n\nfig, ax = plt.subplots(figsize=(7, 3.8))\nax.plot(t, C, color=\"#B71C1C\", lw=2.2, label=\"Concentration C(t)\")\nax.axhline(5, ls=\"--\", color=\"grey\", label=\"MEC (5 mg/L)\")\nax.fill_between(t, C, 5, where=(C &gt; 5), alpha=0.15, color=\"#B71C1C\")\nax.set(xlabel=\"Time (h)\", ylabel=\"Plasma concentration (mg/L)\")\nax.legend(); ax.grid(alpha=0.3); plt.show()\n\n\n\n\n\n\nTipWhy the Python figure isn’t drawn here\n\n\n\nA Quarto document runs one execution engine at a time. This page is driven by R’s knitr — which is why the survival curve and forest plot above are live. The identical Python model runs live on its own page: watch it compute the curve, the numerical AUC and the table on the Python engine page, and drive the clinical dashboard."
+  },
+  {
+    "objectID": "posts/2026-07-22-knowledge-has-no-limits/index.html#julia-engine-julia-speed-for-heavy-computation",
+    "href": "posts/2026-07-22-knowledge-has-no-limits/index.html#julia-engine-julia-speed-for-heavy-computation",
+    "title": "Knowledge Has No Limits: From a Misaligned PowerPoint to a Complete Quarto Publishing System",
+    "section": "4. Julia engine ({julia}) — speed for heavy computation",
+    "text": "4. Julia engine ({julia}) — speed for heavy computation\nFor numerically expensive models, Julia compiles to near-C speed:\nusing Plots\ngr()\nt = 0:0.5:48\nC = 20.0 .* exp.(-(log(2)/12) .* t)\n\nplot(t, C, lw=2.4, color=:firebrick, xlabel=\"Time (h)\",\n     ylabel=\"Concentration (mg/L)\", legend=:topright)\n\n\n\n\n\n\nTipSee the Julia engine execute\n\n\n\nThe Julia engine page runs this Plots.jl code live at render, with the environment pinned by Project.toml / Manifest.toml."
+  },
+  {
+    "objectID": "posts/2026-07-22-knowledge-has-no-limits/index.html#observable-js-engine-ojs-client-side-interactivity",
+    "href": "posts/2026-07-22-knowledge-has-no-limits/index.html#observable-js-engine-ojs-client-side-interactivity",
+    "title": "Knowledge Has No Limits: From a Misaligned PowerPoint to a Complete Quarto Publishing System",
+    "section": "5. Observable JS Engine ({ojs}): Client-Side Interactivity",
+    "text": "5. Observable JS Engine ({ojs}): Client-Side Interactivity\nObservable JS (ojs) runs natively in the reader’s browser with zero backend server requirement:\n\n\nCode\nviewof half_life = Inputs.range([2, 48], {value: 12, step: 1, label: \"Adjust Half-life t½ (hours):\"})\n\n\n\n\n\n\n\n\n\nCode\nke_ojs = Math.log(2) / half_life\ndata_ojs = d3.range(0, 48.5, 0.5).map(t =&gt; ({t, C: (1000 / 50) * Math.exp(-ke_ojs * t)}))\n\nPlot.plot({\n  width: 700, height: 320,\n  x: {label: \"Time (hours) →\"},\n  y: {label: \"↑ Concentration (mg/L)\", grid: true},\n  marks: [\n    Plot.ruleY([5], {stroke: \"grey\", strokeDasharray: \"4\"}),\n    Plot.areaY(data_ojs, {x: \"t\", y: \"C\", fill: \"#B71C1C\", fillOpacity: 0.15}),\n    Plot.lineY(data_ojs, {x: \"t\", y: \"C\", stroke: \"#B71C1C\", strokeWidth: 2.2})\n  ]\n})\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nCode\nmd`Dynamic Calculation: At **t½ = ${half_life} hours**, the elimination rate constant is **kₑ = ${ke_ojs.toFixed(4)} h⁻¹**.`"
+  },
+  {
+    "objectID": "posts/2026-07-22-knowledge-has-no-limits/index.html#diagrams-algorithms-mermaid",
+    "href": "posts/2026-07-22-knowledge-has-no-limits/index.html#diagrams-algorithms-mermaid",
+    "title": "Knowledge Has No Limits: From a Misaligned PowerPoint to a Complete Quarto Publishing System",
+    "section": "6. Diagrams & Algorithms ({mermaid})",
+    "text": "6. Diagrams & Algorithms ({mermaid})\nQuarto compiles plain-text Mermaid code blocks into static, vector SVG diagrams:\n\n\n\n\n\n\nflowchart TD\n    A[\"Patient Chromatogram Evaluation\"] --&gt; B{\"HbS Present?\"}\n    B --&gt;|Yes| C[\"Evaluate % HbS\"]\n    B --&gt;|No| D[\"Evaluate % HbA2\"]\n    \n    C --&gt;|HbS 38–45%| E[\"Sickle Cell Trait (HbAS)\"]\n    C --&gt;|HbS &lt; 35%| F[\"HbAS + Concurrent α-Thal Trait\"]\n    D --&gt;|HbA2 3.5–7.0%| G[\"β-Thalassaemia Trait\"]\n\n    style E fill:#edf8f0,stroke:#2e7d32,stroke-width:2px\n    style F fill:#fff8e1,stroke:#d68b00,stroke-width:2px\n    style G fill:#fff0f0,stroke:#b71c1c,stroke-width:2px\n\n\n\n\nFigure 3: Clinical decision algorithm compiled directly from plain text."
+  },
+  {
+    "objectID": "posts/2026-07-22-knowledge-has-no-limits/index.html#mathematical-equations-citation-integrity",
+    "href": "posts/2026-07-22-knowledge-has-no-limits/index.html#mathematical-equations-citation-integrity",
+    "title": "Knowledge Has No Limits: From a Misaligned PowerPoint to a Complete Quarto Publishing System",
+    "section": "7. Mathematical Equations & Citation Integrity",
+    "text": "7. Mathematical Equations & Citation Integrity\nMathematical expressions render using LaTeX / MathJax formatting:\n\\[\\text{Hazard Ratio (HR)} = \\frac{h_1(t)}{h_0(t)} = \\exp\\left( \\beta_1 X_1 + \\beta_2 X_2 + \\dots \\right)\\]\n\\[\\text{AUC}_{0 \\to \\infty} = \\int_{0}^{\\infty} C(t) \\, dt = \\frac{C_0}{k_e} = \\frac{Dose}{CL}\\]\nCitations are linked to verified PubMed entries per the Citation Integrity Protocol (Donze et al. 1997; Mrabet et al. 1985)."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Knowledge has no limits.",
+    "section": "",
+    "text": "A reproducible publishing lab\n\n\n\n\nFrom a badly aligned PowerPoint slide on a hospital laboratory computer in the early 2000s — to coding my own books, reports, websites, dashboards and scientific figures. This blog is that journey, and a live demonstration of everything Quarto can build from a single source file.\nRead the story ↓    Browse the gallery ↓"
+  },
+  {
+    "objectID": "index.html#gallery",
+    "href": "index.html#gallery",
+    "title": "Knowledge has no limits.",
+    "section": "The gallery",
+    "text": "The gallery\nEvery card below is a working example. Each output type — from survival curves to EPUB e-books that open in Apple Books — is built, rendered and reproducible. Filter by category, or open a post to read the code that made it."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About this blog",
+    "section": "",
+    "text": "I am Dr Abdul Mannan, a Consultant Haematologist and Director of the Bangor Haemophilia Centre. This blog is two things at once: a personal record of learning to publish with code, and a living demonstration of what Quarto can build.\nEvery post here is a genuine, rendered example — not a screenshot. The survival curves are computed in R, the pharmacokinetic models in Python, the interactive sliders in your own browser, and the manuscripts, slides, book, EPUB and dashboard are all built from the same plain-text sources you can read in each post."
+  },
+  {
+    "objectID": "about.html#why-i-built-it",
+    "href": "about.html#why-i-built-it",
+    "title": "About this blog",
+    "section": "Why I built it",
+    "text": "Why I built it\nFor most of my career, turning an idea into a finished scientific product meant depending on a publisher, a statistician or a designer — and on costly proprietary software. Quarto, with R and Python, removed many of those barriers. The analysis, the narrative, the references, the figures and the final publication now live in one reproducible workflow that I control.\nTools do not replace sound statistical judgement, scientific review or good design. But they remove the friction between an idea and its final form.\n\n\n\n\n\n\n\nDo not be embarrassed by your first attempt. Every polished skill begins with an imperfect beginning. Keep learning. Keep building. Keep creating.\n\n\n\n\n\n\n\n\n\n\nImportantCitation integrity\n\n\n\nBibliographic references in these demonstration posts illustrate the mechanism. Before any real publication, every citation is re-verified live against PubMed and Crossref under my Citation Integrity Protocol."
+  },
+  {
+    "objectID": "posts/diagrams-as-code/index.html",
+    "href": "posts/diagrams-as-code/index.html",
+    "title": "Diagrams as code — Mermaid & Graphviz",
+    "section": "",
+    "text": "Drawing a flowchart by hand in PowerPoint is slow, and the moment guidance changes you redraw it. Quarto lets you write diagrams as text and compiles them to scalable vector graphics."
+  },
+  {
+    "objectID": "posts/diagrams-as-code/index.html#a-decision-algorithm-in-plain-text",
+    "href": "posts/diagrams-as-code/index.html#a-decision-algorithm-in-plain-text",
+    "title": "Diagrams as code — Mermaid & Graphviz",
+    "section": "A decision algorithm in plain text",
+    "text": "A decision algorithm in plain text\n```{mermaid}\nflowchart TD\n  A[\"Chromatogram\"] --&gt; B{\"HbS present?\"}\n  B --&gt;|Yes| C[\"Evaluate % HbS\"]\n  B --&gt;|No|  D[\"Evaluate % HbA2\"]\n  C --&gt;|38–45%| E[\"Sickle cell trait\"]\n  D --&gt;|3.5–7%| G[\"β-thalassaemia trait\"]\n```\nThat text renders as a labelled, colour-coded flowchart. Because it is text, it diffs cleanly in git — you can see exactly how a pathway changed between versions, and reviewers can comment on a line.\nMermaid covers flowcharts, sequence diagrams, Gantt charts and mind-maps; Graphviz (dot) handles dense graphs and inheritance trees. Both are built in.\n\n\n\n\n\n\nTipSee the gallery\n\n\n\nThe Diagrams & algorithms page compiles several clinical pathways, including the HbS / HbA2 interpretation tree."
+  },
+  {
+    "objectID": "posts/interactive-teaching/index.html",
+    "href": "posts/interactive-teaching/index.html",
+    "title": "Interactive teaching documents — tabsets & callouts",
+    "section": "",
+    "text": "A good teaching page reveals detail on demand. Quarto ships the building blocks as simple Markdown fences — no JavaScript to write."
+  },
+  {
+    "objectID": "posts/interactive-teaching/index.html#tabsets-one-concept-several-views",
+    "href": "posts/interactive-teaching/index.html#tabsets-one-concept-several-views",
+    "title": "Interactive teaching documents — tabsets & callouts",
+    "section": "Tabsets: one concept, several views",
+    "text": "Tabsets: one concept, several views\n::: {.panel-tabset}\n## Film        …blood-film description…\n## Immunophenotype  …markers…\n## Management   …first-line therapy…\n:::\nReaders click between Film, Immunophenotype and Management without leaving the page — ideal for comparing differentials."
+  },
+  {
+    "objectID": "posts/interactive-teaching/index.html#callouts-carry-the-signal",
+    "href": "posts/interactive-teaching/index.html#callouts-carry-the-signal",
+    "title": "Interactive teaching documents — tabsets & callouts",
+    "section": "Callouts carry the signal",
+    "text": "Callouts carry the signal\n::: {.callout-warning}\n## Red flag\nBlasts + coagulopathy → treat as APL until proven otherwise.\n:::\nFive callout styles (note, tip, important, warning, caution) give teaching material a consistent visual grammar, and collapsible callouts hide a model answer until the learner is ready.\n\n\n\n\n\n\nTipSee it live\n\n\n\nThe interactive teaching demo combines tabsets, callouts and a live Observable widget in one lesson page."
+  },
+  {
+    "objectID": "posts/observable-interactive/index.html",
+    "href": "posts/observable-interactive/index.html",
+    "title": "Observable JS — interactivity with no server",
+    "section": "",
+    "text": "R, Python and Julia run when the document is built. Observable JS (ojs) runs when the document is read — in the reader’s browser. That means genuine interactivity on a plain static website, with no server to host or maintain."
+  },
+  {
+    "objectID": "posts/observable-interactive/index.html#a-reactive-cell",
+    "href": "posts/observable-interactive/index.html#a-reactive-cell",
+    "title": "Observable JS — interactivity with no server",
+    "section": "A reactive cell",
+    "text": "A reactive cell\n```{ojs}\nviewof half_life = Inputs.range([2, 48], {value: 12, label: \"t½ (hours)\"})\n```\n```{ojs}\nPlot.plot({ marks: [Plot.lineY(\n  d3.range(0, 48, 0.5).map(t =&gt; ({t, C: 20*Math.exp(-Math.log(2)/half_life*t)})),\n  {x: \"t\", y: \"C\", stroke: \"#B71C1C\"})] })\n```\nDrag the slider and every cell that depends on it recomputes instantly — the reactive model made famous by Observable, built into Quarto and powered by d3 and Observable Plot."
+  },
+  {
+    "objectID": "posts/observable-interactive/index.html#why-teachers-love-it",
+    "href": "posts/observable-interactive/index.html#why-teachers-love-it",
+    "title": "Observable JS — interactivity with no server",
+    "section": "Why teachers love it",
+    "text": "Why teachers love it\nA trainee can feel how halving a drug’s half-life changes its concentration curve, or how a diagnostic threshold shifts sensitivity and specificity — by moving a control, not by reading a caption.\n\n\n\n\n\n\nTipTry it live\n\n\n\nThe Observable page and the flagship essay both carry a working half-life slider you can drag right now."
+  },
+  {
+    "objectID": "posts/quarto-book/index.html",
+    "href": "posts/quarto-book/index.html",
+    "title": "A Quarto book — chapters, cross-refs and an index",
+    "section": "",
+    "text": "A book is more than a long document: it needs numbered chapters, a table of contents, cross-chapter references and a single bibliography. Quarto’s book project type handles all of it."
+  },
+  {
+    "objectID": "posts/quarto-book/index.html#the-whole-book-is-a-list-of-chapters",
+    "href": "posts/quarto-book/index.html#the-whole-book-is-a-list-of-chapters",
+    "title": "A Quarto book — chapters, cross-refs and an index",
+    "section": "The whole book is a list of chapters",
+    "text": "The whole book is a list of chapters\nproject:\n  type: book\nbook:\n  title: \"A Short Haematology Handbook\"\n  author: \"Dr Abdul Mannan\"\n  chapters:\n    - index.qmd\n    - intro.qmd\n    - anaemia.qmd\n    - references.qmd\nformat:\n  html: default\n  pdf:  { documentclass: scrreprt }\nquarto render book            # → an HTML book website\nquarto render book --to pdf   # → a typeset PDF\nReference a figure in Chapter 3 from Chapter 1 and the number resolves itself. The output is simultaneously a navigable website and a print-ready PDF — the same content, two finished products.\n\n\n\n\n\n\nTipRead the demo book\n\n\n\nOpen the rendered handbook — a complete multi-chapter Quarto book, built from four .qmd files."
+  },
+  {
+    "objectID": "posts/r-engine/index.html",
+    "href": "posts/r-engine/index.html",
+    "title": "The R engine — knitr, ggplot2 and the tidyverse",
+    "section": "",
+    "text": "Quarto’s R support is the mature knitr engine that powered R Markdown for a decade. Anything you can do in R — ggplot2, survival, gtsummary, meta — you can do inside a document, with the output embedded automatically."
+  },
+  {
+    "objectID": "posts/r-engine/index.html#a-kaplanmeier-curve-from-code",
+    "href": "posts/r-engine/index.html#a-kaplanmeier-curve-from-code",
+    "title": "The R engine — knitr, ggplot2 and the tidyverse",
+    "section": "A Kaplan–Meier curve, from code",
+    "text": "A Kaplan–Meier curve, from code\n```{r}\n#| label: fig-km\n#| fig-cap: \"Overall survival by treatment arm.\"\nlibrary(ggplot2)\nggplot(df, aes(Time, Survival, colour = Arm)) +\n  geom_step(linewidth = 1.2) +\n  scale_colour_manual(values = c(\"#7f0000\", \"#2e7d32\")) +\n  theme_minimal()\n```\nChange the dataset, re-render, and the curve redraws itself. The same pattern produces meta-analysis forest plots, gtsummary Table 1s, and regression outputs — the staples of a haematology paper."
+  },
+  {
+    "objectID": "posts/r-engine/index.html#freedom-from-licences",
+    "href": "posts/r-engine/index.html#freedom-from-licences",
+    "title": "The R engine — knitr, ggplot2 and the tidyverse",
+    "section": "Freedom from licences",
+    "text": "Freedom from licences\nR and its 20,000 packages are open source. For most analyses I run in clinic and research, I am no longer tied to a costly proprietary statistics licence: the computation, the figure and the manuscript now live in one free toolchain.\n\n\n\n\n\n\nTipSee it running live\n\n\n\nThe R engine page renders a survival curve and a forest plot from scratch. The flagship essay also embeds both, side by side with Python, Julia and Observable."
+  },
+  {
+    "objectID": "posts/scientific-manuscript/index.html",
+    "href": "posts/scientific-manuscript/index.html",
+    "title": "One source, three manuscripts — HTML, PDF & Word",
+    "section": "",
+    "text": "The oldest friction in academic writing is format juggling: the journal wants a Word file, your co-author wants a PDF, the pre-print server wants HTML. Quarto produces all three from one source."
+  },
+  {
+    "objectID": "posts/scientific-manuscript/index.html#declare-the-formats-render-once",
+    "href": "posts/scientific-manuscript/index.html#declare-the-formats-render-once",
+    "title": "One source, three manuscripts — HTML, PDF & Word",
+    "section": "Declare the formats, render once",
+    "text": "Declare the formats, render once\n---\ntitle: \"A reproducible haematology manuscript\"\nformat:\n  html:  default\n  pdf:   { documentclass: scrartcl }\n  docx:  default\n---\nThen:\nquarto render manuscript.qmd            # builds every format\nquarto render manuscript.qmd --to docx  # or just one\nCross-references (@fig-, @tbl-), citations from a .bib file, and figure numbering all travel across formats automatically. Send the Word file to a co-author for track-changes; submit the PDF to the journal; post the HTML as a pre-print — never re-formatting by hand.\n\n\n\n\n\n\nTipOpen the rendered outputs\n\n\n\nHTML · PDF · Word (.docx) — all three built from the one file."
+  },
+  {
+    "objectID": "engines/observable.html",
+    "href": "engines/observable.html",
+    "title": "Observable JS Engine",
+    "section": "",
+    "text": "Observable JS (OJS) cells run entirely in the reader’s browser and react to each other automatically. d3 and Plot are built in — nothing to install.\nDrag the slider: the pharmacokinetic curve updates live.\n\nviewof thalf = Inputs.range([2, 48], {value: 12, step: 1, label: \"Half-life t½ (h)\"})\n\n\n\n\n\n\n\nke = Math.log(2) / thalf\ndata = d3.range(0, 48.5, 0.5).map(t =&gt; ({t, C: (1000 / 50) * Math.exp(-ke * t)}))\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPlot.plot({\n  width: 700, height: 340,\n  x: {label: \"Time (h) →\"},\n  y: {label: \"↑ Concentration (mg/L)\", grid: true},\n  marks: [\n    Plot.ruleY([5], {stroke: \"grey\", strokeDasharray: \"4\"}),\n    Plot.areaY(data, {x: \"t\", y: \"C\", fill: \"#B71C1C\", fillOpacity: 0.12}),\n    Plot.lineY(data, {x: \"t\", y: \"C\", stroke: \"#B71C1C\", strokeWidth: 2.2})\n  ]\n})\n\n\n\n\n\n\n\nmd`At **t½ = ${thalf} h**, the elimination rate constant is\n**kₑ = ${ke.toFixed(4)} h⁻¹** and the concentration falls below the\n5 mg/L threshold at about **${(Math.log((1000/50)/5)/ke).toFixed(1)} h**.`\n\n\n\n\n\n\n\n\n\n Back to top"
+  },
+  {
+    "objectID": "engines/r.html",
+    "href": "engines/r.html",
+    "title": "R Engine — knitr",
+    "section": "",
+    "text": "The knitr engine executes R chunks. Packages are loaded from your personal library (~/Library/R/arm64/4.5/library). Here we use ggplot2."
+  },
+  {
+    "objectID": "engines/r.html#simulated-platelet-recovery-after-chemotherapy",
+    "href": "engines/r.html#simulated-platelet-recovery-after-chemotherapy",
+    "title": "R Engine — knitr",
+    "section": "Simulated platelet recovery after chemotherapy",
+    "text": "Simulated platelet recovery after chemotherapy\n\nlibrary(ggplot2)\nset.seed(42)\n\ndays      &lt;- 0:28\nplatelets &lt;- 20 + 380 / (1 + exp(-0.30 * (days - 14)))   # logistic recovery\nobs       &lt;- platelets + rnorm(length(days), 0, 9)\ndf        &lt;- data.frame(day = days, platelets = obs)\n\nggplot(df, aes(day, platelets)) +\n  geom_hline(yintercept = 100, linetype = \"dashed\", colour = \"grey50\") +\n  geom_line(colour = \"#B71C1C\", linewidth = 1.1) +\n  geom_point(colour = \"#7f0000\", size = 1.8) +\n  labs(title = \"Simulated platelet recovery\",\n       x = \"Day post-chemotherapy\",\n       y = expression(Platelets~(10^9/L))) +\n  theme_minimal(base_size = 13)\n\n\n\n\n\n\n\nFigure 1: Modelled platelet recovery; dashed line marks the 100 ×10⁹/L threshold."
+  },
+  {
+    "objectID": "engines/r.html#a-quick-summary-table",
+    "href": "engines/r.html#a-quick-summary-table",
+    "title": "R Engine — knitr",
+    "section": "A quick summary table",
+    "text": "A quick summary table\n\nknitr::kable(\n  data.frame(\n    Milestone = c(\"Nadir\", \"Threshold crossed\", \"Day 28\"),\n    Day       = c(which.min(platelets) - 1,\n                  days[which(platelets &gt;= 100)[1]],\n                  28),\n    Platelets = round(c(min(platelets),\n                        platelets[which(platelets &gt;= 100)[1]],\n                        tail(platelets, 1)))\n  ),\n  caption = \"Key points of the recovery curve.\"\n)\n\n\nKey points of the recovery curve.\n\n\nMilestone\nDay\nPlatelets\n\n\n\n\nNadir\n0\n26\n\n\nThreshold crossed\n10\n108\n\n\nDay 28\n28\n394"
+  },
+  {
+    "objectID": "outputs/interactive.html",
+    "href": "outputs/interactive.html",
+    "title": "Interactive Teaching Document",
+    "section": "",
+    "text": "This mirrors your single-file HTML learning apps, but authored in Markdown and fully reproducible."
+  },
+  {
+    "objectID": "outputs/interactive.html#layered-content-with-tabsets",
+    "href": "outputs/interactive.html#layered-content-with-tabsets",
+    "title": "Interactive Teaching Document",
+    "section": "Layered content with tabsets",
+    "text": "Layered content with tabsets\n\nConceptMechanismMonitoring\n\n\nEmicizumab is a bispecific antibody bridging activated factor IX and factor X, mimicking the cofactor function of factor VIII.\n\n\nIt does not require activation and is not affected by FVIII inhibitors — hence its role in haemophilia A with inhibitors.\n\n\nStandard APTT-based assays are unreliable on emicizumab. Use a bovine-based chromogenic FVIII assay to monitor."
+  },
+  {
+    "objectID": "outputs/interactive.html#callouts-for-emphasis",
+    "href": "outputs/interactive.html#callouts-for-emphasis",
+    "title": "Interactive Teaching Document",
+    "section": "Callouts for emphasis",
+    "text": "Callouts for emphasis\n\n\n\n\n\n\nWarningAssay pitfall\n\n\n\nEmicizumab shortens the APTT dramatically and invalidates one-stage FVIII assays.\n\n\n\n\n\n\n\n\nNoteExpand: dosing summary\n\n\n\n\n\nLoading 3 mg/kg weekly ×4, then a maintenance schedule (weekly / fortnightly / four-weekly). Verify against the current SmPC before clinical use."
+  },
+  {
+    "objectID": "outputs/interactive.html#a-live-interactive-doseexposure-explorer",
+    "href": "outputs/interactive.html#a-live-interactive-doseexposure-explorer",
+    "title": "Interactive Teaching Document",
+    "section": "A live interactive: dose–exposure explorer",
+    "text": "A live interactive: dose–exposure explorer\n\nviewof weight = Inputs.range([10, 120], {value: 70, step: 1, label: \"Body weight (kg)\"})\n\n\n\n\n\n\n\nloading = 3.0 * weight\nmd`A **3 mg/kg** loading dose for a **${weight} kg** patient is\n**${loading.toFixed(0)} mg** per weekly dose during the 4-week loading phase.`"
+  }
+]

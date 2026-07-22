@@ -1,0 +1,19 @@
+[
+  {
+    "listing": "/index.html",
+    "items": [
+      "/posts/2026-07-22-knowledge-has-no-limits/index.html",
+      "/posts/python-engine/index.html",
+      "/posts/r-engine/index.html",
+      "/posts/julia-engine/index.html",
+      "/posts/observable-interactive/index.html",
+      "/posts/diagrams-as-code/index.html",
+      "/posts/interactive-teaching/index.html",
+      "/posts/scientific-manuscript/index.html",
+      "/posts/revealjs-slides/index.html",
+      "/posts/quarto-book/index.html",
+      "/posts/epub-apple-books/index.html",
+      "/posts/quarto-dashboard/index.html"
+    ]
+  }
+]
