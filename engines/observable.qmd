@@ -1,41 +1,403 @@
 ---
-title: "Observable JS Engine"
-subtitle: "Reactive, client-side interactivity — no server required"
+title: "Observable JS Engine & Interactive Studio"
+subtitle: "Reactive, client-side data science and data apps — no backend server required"
+format:
+  html:
+    toc: true
+    toc-depth: 3
+    code-fold: show
 ---
 
-**Observable JS (OJS)** cells run entirely in the reader's browser and react to
-each other automatically. `d3` and `Plot` are built in — nothing to install.
+::: {.callout-tip}
+## The Power of Observable JS (OJS) in Quarto
+Observable JS cells run entirely in the reader's web browser using a **topological dataflow graph**. When an input widget changes, only cells that depend on that variable re-evaluate automatically. `Plot`, `D3`, `htl`, and `Inputs` are natively built-in—no installation or server configuration required.
+:::
 
-Drag the slider: the pharmacokinetic curve updates live.
+---
+
+# 1. Interactive Pharmacokinetic & Clinical Dashboard
+
+Adjust the parameters below to explore live pharmacokinetic clearance curves and patient cohort simulations in real time:
 
 ```{ojs}
 //| echo: false
-viewof thalf = Inputs.range([2, 48], {value: 12, step: 1, label: "Half-life t½ (h)"})
+//| panel: input
+viewof dose = Inputs.range([250, 2000], {value: 1000, step: 25, label: "IV Bolus Dose (mg):"})
+viewof thalf = Inputs.range([4, 48], {value: 12, step: 1, label: "Half-life t½ (hours):"})
+viewof Vd = Inputs.range([20, 100], {value: 50, step: 2, label: "Vol. Distribution Vd (L):"})
+viewof mec = Inputs.range([1, 25], {value: 5, step: 0.5, label: "Target MEC (mg/L):"})
+viewof showThreshold = Inputs.toggle({label: "Show Threshold Line", value: true})
 ```
 
 ```{ojs}
 //| echo: false
+// Reactive calculations
 ke = Math.log(2) / thalf
-data = d3.range(0, 48.5, 0.5).map(t => ({t, C: (1000 / 50) * Math.exp(-ke * t)}))
+C0 = dose / Vd
+auc = dose / (Vd * ke)
+timeToMec = C0 > mec ? (Math.log(C0 / mec) / ke) : 0
+
+// Time grid series
+pkData = d3.range(0, 72.5, 0.5).map(t => {
+  const conc = C0 * Math.exp(-ke * t);
+  return {
+    t: t,
+    C: conc,
+    above: conc >= mec ? "Above Target" : "Below Target"
+  };
+})
 ```
 
 ```{ojs}
 //| echo: false
+//| label: fig-ojs-pk
+//| fig-cap: "Live-updating pharmacokinetic concentration-time curve with interactive tooltips."
 Plot.plot({
-  width: 700, height: 340,
-  x: {label: "Time (h) →"},
-  y: {label: "↑ Concentration (mg/L)", grid: true},
+  width: 760,
+  height: 380,
+  marginRight: 40,
+  x: {label: "Time Post-Dose (hours) →", grid: true, domain: [0, 72]},
+  y: {label: "↑ Plasma Concentration (mg/L)", grid: true, domain: [0, Math.max(C0 * 1.05, mec * 1.2)]},
+  color: {
+    domain: ["Above Target", "Below Target"],
+    range: ["#2e7d32", "#B71C1C"],
+    legend: true
+  },
   marks: [
-    Plot.ruleY([5], {stroke: "grey", strokeDasharray: "4"}),
-    Plot.areaY(data, {x: "t", y: "C", fill: "#B71C1C", fillOpacity: 0.12}),
-    Plot.lineY(data, {x: "t", y: "C", stroke: "#B71C1C", strokeWidth: 2.2})
+    showThreshold ? Plot.ruleY([mec], {stroke: "#d68b00", strokeDasharray: "4,4", strokeWidth: 1.8}) : null,
+    showThreshold ? Plot.text([{t: 70, C: mec}], {x: "t", y: "C", text: d => `MEC: ${mec} mg/L`, dy: -10, fill: "#d68b00", textAnchor: "end"}) : null,
+    Plot.areaY(pkData, {x: "t", y: "C", fill: "#B71C1C", fillOpacity: 0.12}),
+    Plot.lineY(pkData, {x: "t", y: "C", stroke: "#B71C1C", strokeWidth: 2.5}),
+    Plot.dot(pkData.filter((d, i) => i % 8 === 0), {x: "t", y: "C", fill: "#7f0000", r: 3, tip: true})
   ]
 })
 ```
 
 ```{ojs}
 //| echo: false
-md`At **t½ = ${thalf} h**, the elimination rate constant is
-**kₑ = ${ke.toFixed(4)} h⁻¹** and the concentration falls below the
-5 mg/L threshold at about **${(Math.log((1000/50)/5)/ke).toFixed(1)} h**.`
+md`
+### Live PK Parameters Summary
+- **Peak Initial Concentration ($C_0$):** **${C0.toFixed(1)} mg/L**
+- **Elimination Rate Constant ($k_e$):** **${ke.toFixed(4)} h⁻¹**
+- **Total AUC ($0 \to \infty$):** **${auc.toFixed(1)} mg·h/L**
+- **Time Above Target MEC (${mec} mg/L):** **${timeToMec.toFixed(1)} hours**
+`
 ```
+
+---
+
+# 2. Interactive Patient Cohort Table & Filtering
+
+Observable Inputs include `Inputs.table()` and `Inputs.search()`, offering spreadsheet-style sorting and filtering right inside the browser:
+
+```{ojs}
+//| echo: false
+// Simulated patient cohort dataset
+cohortData = [
+  { id: "PT-101", age: 45, sex: "Female", genotype: "HbSS", hb: 7.2, hbf: 14.5, hydroxyurea: "Yes", response: "Complete" },
+  { id: "PT-102", age: 52, sex: "Male", genotype: "HbS/β0", hb: 8.1, hbf: 8.2, hydroxyurea: "Yes", response: "Partial" },
+  { id: "PT-103", age: 29, sex: "Female", genotype: "HbAS", hb: 12.8, hbf: 1.1, hydroxyurea: "No", response: "Carrier" },
+  { id: "PT-104", age: 61, sex: "Male", genotype: "HbSS", hb: 6.9, hbf: 18.2, hydroxyurea: "Yes", response: "Complete" },
+  { id: "PT-105", age: 38, sex: "Female", genotype: "HbS/β+", hb: 9.8, hbf: 6.4, hydroxyurea: "No", response: "Partial" },
+  { id: "PT-106", age: 44, sex: "Male", genotype: "HbSC", hb: 10.4, hbf: 3.5, hydroxyurea: "No", response: "Moderate" },
+  { id: "PT-107", age: 57, sex: "Female", genotype: "HbSS", hb: 7.5, hbf: 12.1, hydroxyurea: "Yes", response: "Complete" },
+  { id: "PT-108", age: 33, sex: "Male", genotype: "HbS/β0", hb: 7.8, hbf: 9.0, hydroxyurea: "Yes", response: "Partial" }
+]
+```
+
+```{ojs}
+//| echo: false
+viewof selectedGenotype = Inputs.checkbox(
+  ["HbSS", "HbS/β0", "HbS/β+", "HbSC", "HbAS"],
+  { value: ["HbSS", "HbS/β0", "HbS/β+", "HbSC"], label: "Filter Genotype:" }
+)
+```
+
+```{ojs}
+//| echo: false
+filteredCohort = cohortData.filter(d => selectedGenotype.includes(d.genotype))
+```
+
+```{ojs}
+//| echo: false
+Inputs.table(filteredCohort, {
+  columns: ["id", "age", "sex", "genotype", "hb", "hbf", "hydroxyurea", "response"],
+  header: {
+    id: "Patient ID",
+    age: "Age (yrs)",
+    sex: "Sex",
+    genotype: "Genotype",
+    hb: "Hb (g/dL)",
+    hbf: "HbF (%)",
+    hydroxyurea: "Hydroxyurea",
+    response: "Clinical Response"
+  },
+  layout: "auto"
+})
+```
+
+```{ojs}
+//| echo: false
+// Summary statistics chart based on filtered selection
+Plot.plot({
+  title: "Hemoglobin Distribution by Genotype in Selected Cohort",
+  width: 720,
+  height: 280,
+  x: {label: "Genotype"},
+  y: {label: "Hemoglobin Hb (g/dL)", domain: [0, 15]},
+  marks: [
+    Plot.barY(filteredCohort, {x: "genotype", y: "hb", fill: "#7f0000", opacity: 0.7, tip: true}),
+    Plot.ruleY([0])
+  ]
+})
+```
+
+---
+
+# 3. Complete Observable Inputs Reference
+
+Observable HQ provides a full suite of reactive input primitives for data apps:
+
+| Input Function | Purpose | Syntax Example |
+|---|---|---|
+| `Inputs.range([min, max], opts)` | Numeric slider | `viewof x = Inputs.range([0, 100], {step: 1})` |
+| `Inputs.select(values, opts)` | Single / Multi dropdown | `viewof drug = Inputs.select(["Drug A", "Drug B"])` |
+| `Inputs.radio(values, opts)` | Radio button group | `viewof arm = Inputs.radio(["Control", "Active"])` |
+| `Inputs.checkbox(values, opts)` | Multi-checkbox selection | `viewof sites = Inputs.checkbox(["Site 1", "Site 2"])` |
+| `Inputs.toggle(opts)` | Boolean switch | `viewof logScale = Inputs.toggle({label: "Log Scale"})` |
+| `Inputs.text(opts)` | Text search input | `viewof query = Inputs.text({placeholder: "Search..."})` |
+| `Inputs.color(opts)` | Color picker | `viewof color = Inputs.color({value: "#7f0000"})` |
+| `Inputs.table(data, opts)` | Interactive data table | `Inputs.table(data, {columns: [...]})` |
+| `Inputs.search(data, opts)` | Data search engine | `viewof search = Inputs.search(data)` |
+
+---
+
+# 4. The reactive model — order does not matter
+
+In vanilla JavaScript, code runs top to bottom. In Observable it runs in
+**topological order**: a cell runs *after* the cells it references, regardless of
+source order — like a spreadsheet. Below, the summary cell is written **before**
+the cells that define its inputs, yet it resolves correctly and re-runs the
+instant the slider moves.
+
+```{ojs}
+//| echo: false
+viewof platelets = Inputs.range([0, 450], {value: 250, step: 5, label: "Platelet count (×10⁹/L):"})
+```
+
+```{ojs}
+//| echo: true
+//| code-summary: "This cell is written FIRST but depends on cells defined below"
+md`**Interpretation:** a count of **${platelets}×10⁹/L** is
+**${bleedRisk}** — ${bleedRisk === "critical" ? "consider prophylactic transfusion" : bleedRisk === "low" ? "spontaneous bleeding likely" : "no specific action on count alone"}.`
+```
+
+```{ojs}
+//| echo: true
+//| code-summary: "…its dependency, defined AFTERWARDS"
+bleedRisk = platelets < 10 ? "critical" : platelets < 20 ? "low" : platelets < 50 ? "moderate" : "adequate"
+```
+
+::: {.callout-note appearance="minimal"}
+Each OJS cell is a **named declaration**, not an assignment. Quarto builds the
+dependency graph and re-runs only affected cells. Names must be unique across the
+document, and circular references error — exactly the spreadsheet rules.
+:::
+
+# 5. Reactive `width`
+
+`width` is a reactive variable from the standard library holding the current
+column width. Reference it and figures re-lay-out automatically on resize or
+column change — **drag your browser edge** and watch this bar re-fit.
+
+```{ojs}
+//| echo: true
+Plot.plot({
+  width,                                     // ← reactive: no fixed pixel value
+  height: 90,
+  x: {label: "Half-life t½ (h) →"},
+  marks: [Plot.barX([{p:"SHL FVIII", h:12}, {p:"EHL FVIII", h:19}, {p:"BHL FVIII", h:42}],
+    {x: "h", y: "p", fill: "#B71C1C", sort: {y: "x"}}), Plot.ruleX([0])]
+})
+```
+
+# 6. `mutable` — opt-in shared state
+
+Named cells can't be reassigned. When you genuinely need shared, writable state
+(a running log, a tally), Observable's `mutable` operator is the escape hatch:
+one cell declares it, **other cells write to it**, and every reader updates.
+
+```{ojs}
+//| echo: false
+mutable transfusionLog = []
+```
+
+```{ojs}
+//| echo: false
+viewof addUnit = Inputs.button("🩸 Transfuse 1 unit (+30 ×10⁹/L expected)", {reduce: () => { mutable transfusionLog = [...transfusionLog, {unit: transfusionLog.length + 1, expectedRise: 30, runningTotal: platelets + 30 * (transfusionLog.length + 1)}]; }})
+```
+
+```{ojs}
+//| echo: false
+transfusionLog.length
+  ? Inputs.table(transfusionLog, {header: {unit: "Unit #", expectedRise: "Δ ×10⁹/L", runningTotal: "Projected count"}})
+  : md`*No units logged yet — set the platelet slider in §4, then click the button.*`
+```
+
+# 7. Generators, `now` and animation
+
+If a cell `yield`s repeatedly, referencing cells see the **latest value**, at most
+once every animation frame. With the reactive `now` clock and `Promises.tick`,
+this drives live simulation — no timers to manage. Here a continuous-infusion
+model climbs to steady state in real time.
+
+```{ojs}
+//| echo: false
+viewof infusionRate = Inputs.range([0.5, 5], {value: 2, step: 0.5, label: "Infusion rate (× clearance):"})
+```
+
+```{ojs}
+//| echo: true
+//| code-summary: "A generator cell that yields ≤ once every 50 ms"
+steadyLevel = {
+  let c = 0;
+  while (true) {
+    c = c + (infusionRate * 10 - c) * 0.04;   // first-order approach to steady state
+    yield Promises.tick(50, c);
+  }
+}
+```
+
+```{ojs}
+//| echo: false
+html`<div style="font:600 1rem/1.5 Inter, sans-serif">
+  Current level: <span style="color:#B71C1C">${steadyLevel.toFixed(1)} mg/L</span>
+  <progress max="50" value="${steadyLevel}" style="width:55%;height:14px"></progress>
+</div>`
+```
+
+# 8. Loading data with `FileAttachment`
+
+`FileAttachment("file.csv").csv({typed: true})` loads a data file **lazily** and
+type-infers columns. Piped into `Inputs.search` (a live query box) and
+`Inputs.table`, it becomes an instant data explorer — the pattern behind most
+Observable dashboards. This reads a real CSV that sits beside this `.qmd`.
+
+```{ojs}
+//| echo: true
+factorProducts = FileAttachment("factor-products.csv").csv({typed: true})
+```
+
+```{ojs}
+//| echo: false
+viewof productQuery = Inputs.search(factorProducts, {placeholder: "Search products — try EHL, FIX, emicizumab…"})
+```
+
+```{ojs}
+//| echo: false
+Inputs.table(productQuery, {
+  columns: ["product", "factor", "technology", "half_life_h", "dosing_per_week"],
+  header: {product: "Product", factor: "Factor", technology: "Technology", half_life_h: "t½ (h)", dosing_per_week: "Doses/wk"},
+  sort: "half_life_h", reverse: true
+})
+```
+
+```{ojs}
+//| echo: false
+Plot.plot({
+  width, height: 300, marginLeft: 100,
+  x: {label: "Half-life t½ (hours) →", grid: true},
+  y: {label: null},
+  color: {legend: true, scheme: "reds"},
+  marks: [
+    Plot.barX(productQuery, {x: "half_life_h", y: "product", fill: "factor", sort: {y: "x", reverse: true}, tip: true}),
+    Plot.ruleX([0])
+  ]
+})
+```
+
+# 9. The cross-language bridge — `ojs_define()`
+
+The Quarto superpower that the Observable notebook platform can't match: compute
+in **R, Python or Julia** at render time, then hand the result to the browser
+with `ojs_define()`. Here R builds pharmacokinetic decay curves; OJS plots them
+client-side after `transpose()`.
+
+```{r}
+#| echo: true
+#| warning: false
+prods <- data.frame(
+  product = c("Advate · t½ 12 h", "Elocta · t½ 19 h", "Altuviiio · t½ 42 h"),
+  thalf   = c(12, 19, 42.5)
+)
+grid  <- seq(0, 168, by = 2)
+decay <- do.call(rbind, lapply(seq_len(nrow(prods)), function(i) {
+  data.frame(product = prods$product[i], t = grid,
+             level = 100 * exp(-log(2) / prods$thalf[i] * grid))
+}))
+ojs_define(decayData = decay)
+```
+
+```{ojs}
+//| echo: true
+decayCurves = transpose(decayData)     // Quarto helper: R data.frame → array of objects
+Plot.plot({
+  width, height: 320,
+  x: {label: "Time since dose (h) →"},
+  y: {label: "↑ % of peak", grid: true, domain: [0, 100]},
+  color: {legend: true, scheme: "reds"},
+  marks: [
+    Plot.ruleY([1], {stroke: "#999", strokeDasharray: "3"}),
+    Plot.lineY(decayCurves, {x: "t", y: "level", stroke: "product", strokeWidth: 2.4}),
+    Plot.tip(decayCurves, Plot.pointer({x: "t", y: "level", stroke: "product"}))
+  ]
+})
+```
+
+The three curves make the extended-half-life case visually: a single weekly dose
+of a BHL molecule holds a trough that standard products lose within days.
+
+# 10. Maths and Markdown, interpolated
+
+`tex` renders LaTeX (KaTeX) and `md` renders Markdown; both accept live
+interpolation, so equations and prose stay in sync with the inputs above.
+
+```{ojs}
+//| echo: true
+tex.block`C(t) \;=\; \frac{D}{V_d}\, e^{-k_e t}, \qquad k_e = \frac{\ln 2}{t_{1/2}} = ${(Math.log(2)/thalf).toFixed(4)}\ \text{h}^{-1}`
+```
+
+# 11. Importing from Observable notebooks
+
+Because OJS *is* the Observable runtime, Quarto can **import any named cell** from
+a public notebook — code, charts or inputs — with live bindings. Here we import
+Mike Bostock's `Scrubber` and use it as a play/scrub control over the PK timeline.
+
+```{ojs}
+//| echo: true
+import {Scrubber} from "@mbostock/scrubber"
+```
+
+```{ojs}
+//| echo: false
+viewof scrubT = Scrubber(d3.range(0, 73), {autoplay: false, loop: true, format: h => `t = ${h} h`, delay: 120})
+```
+
+```{ojs}
+//| echo: false
+md`At the scrubbed time **t = ${scrubT} h**, the §1 model predicts a plasma level of
+**${(C0 * Math.exp(-ke * scrubT)).toFixed(1)} mg/L**.`
+```
+
+The `import {x as y} from …` and `import {chart} with {myData as data} from …`
+variations rename cells or **inject your own data into someone else's chart** —
+treating any notebook as an extensible template.
+
+::: {.callout-tip}
+## The Observable standard library, at a glance
+Available in any `{ojs}` cell with **no import**: `FileAttachment` · `Inputs` ·
+`Plot` · `d3` · `width` · `now` · `mutable` · `viewof` · `Generators` ·
+`Promises.tick` · `invalidation` · `html` / `svg` / `md` / `tex` / `dot`
+(Graphviz). Recommended libraries — `_` (Lodash), `aq` (Arquero), `L` (Leaflet),
+`mermaid`, `topojson`, `vl` (Vega-Lite) — load on first use.
+:::

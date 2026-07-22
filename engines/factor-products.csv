@@ -1,0 +1,12 @@
+product,factor,technology,half_life_h,peak_recovery,dosing_per_week,indication
+Advate,VIII,Full-length rFVIII,12.0,2.0,3,Haemophilia A
+Adynovi,VIII,PEGylated rFVIII (EHL),15.0,2.1,2,Haemophilia A
+Elocta,VIII,Fc-fusion rFVIII (EHL),19.0,2.0,2,Haemophilia A
+Jivi,VIII,PEGylated rFVIII (EHL),17.0,2.1,2,Haemophilia A
+Esperoct,VIII,Glyco-PEGylated rFVIII (EHL),19.9,2.2,2,Haemophilia A
+Altuviiio,VIII,Fc-VWF-XTEN rFVIII (BHL),42.5,2.4,1,Haemophilia A
+BeneFIX,IX,Recombinant FIX,19.0,0.8,2,Haemophilia B
+Alprolix,IX,Fc-fusion rFIX (EHL),82.0,1.0,1,Haemophilia B
+Idelvion,IX,Albumin-fusion rFIX (EHL),104.0,1.3,1,Haemophilia B
+Rebinyn,IX,Glyco-PEGylated rFIX (EHL),93.0,1.6,1,Haemophilia B
+Hemlibra,Mimetic,Emicizumab (bispecific mAb),720.0,NA,0.5,Haemophilia A +/- inhibitors
