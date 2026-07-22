@@ -194,6 +194,10 @@ window.Quarto = {
   </li>  
         <li>
     <a class="dropdown-item" href="../engines/observable-plot.html">
+ <span class="dropdown-text">Observable Plot (gallery)</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="../engines/observable-plot.html">
  <span class="dropdown-text">Observable Plot (all marks)</span></a>
   </li>  
         <li>
@@ -257,7 +261,20 @@ window.Quarto = {
   <li><a href="#boxplots-statistical-ranges-plot.boxy" id="toc-boxplots-statistical-ranges-plot.boxy" class="nav-link" data-scroll-target="#boxplots-statistical-ranges-plot.boxy">6. Boxplots &amp; Statistical Ranges (<code>Plot.boxY</code>)</a></li>
   <li><a href="#faceted-small-multiples-fx-fy" id="toc-faceted-small-multiples-fx-fy" class="nav-link" data-scroll-target="#faceted-small-multiples-fx-fy">7. Faceted Small Multiples (<code>fx</code>, <code>fy</code>)</a></li>
   <li><a href="#matrix-heatmaps-plot.cell" id="toc-matrix-heatmaps-plot.cell" class="nav-link" data-scroll-target="#matrix-heatmaps-plot.cell">8. Matrix Heatmaps (<code>Plot.cell</code>)</a></li>
-  <li><a href="#summary-of-observable-plot-mark-primitives" id="toc-summary-of-observable-plot-mark-primitives" class="nav-link" data-scroll-target="#summary-of-observable-plot-mark-primitives">9. Summary of Observable Plot Mark Primitives</a></li>
+  <li><a href="#layered-marks-curve-interpolation-plot.areay-liney-curve" id="toc-layered-marks-curve-interpolation-plot.areay-liney-curve" class="nav-link" data-scroll-target="#layered-marks-curve-interpolation-plot.areay-liney-curve">9. Layered marks &amp; curve interpolation (<code>Plot.areaY</code>, <code>lineY</code>, <code>curve</code>)</a></li>
+  <li><a href="#stacked-areas-streamgraphs-stack-offset" id="toc-stacked-areas-streamgraphs-stack-offset" class="nav-link" data-scroll-target="#stacked-areas-streamgraphs-stack-offset">10. Stacked areas &amp; streamgraphs (<code>stack</code>, <code>offset</code>)</a></li>
+  <li><a href="#rolling-averages-normalisation-plot.windowy-plot.normalizey" id="toc-rolling-averages-normalisation-plot.windowy-plot.normalizey" class="nav-link" data-scroll-target="#rolling-averages-normalisation-plot.windowy-plot.normalizey">11. Rolling averages &amp; normalisation (<code>Plot.windowY</code>, <code>Plot.normalizeY</code>)</a></li>
+  <li><a href="#parts-of-a-whole-plot.waffley" id="toc-parts-of-a-whole-plot.waffley" class="nav-link" data-scroll-target="#parts-of-a-whole-plot.waffley">12. Parts of a whole (<code>Plot.waffleY</code>)</a></li>
+  <li><a href="#hexbin-density-plot.hexbin" id="toc-hexbin-density-plot.hexbin" class="nav-link" data-scroll-target="#hexbin-density-plot.hexbin">13. Hexbin density (<code>Plot.hexbin</code>)</a></li>
+  <li><a href="#change-fields-plot.arrow-plot.vector" id="toc-change-fields-plot.arrow-plot.vector" class="nav-link" data-scroll-target="#change-fields-plot.arrow-plot.vector">14. Change &amp; fields (<code>Plot.arrow</code>, <code>Plot.vector</code>)</a></li>
+  <li><a href="#ridgeline-small-multiples-facets-plot.areay" id="toc-ridgeline-small-multiples-facets-plot.areay" class="nav-link" data-scroll-target="#ridgeline-small-multiples-facets-plot.areay">15. Ridgeline small multiples (facets + <code>Plot.areaY</code>)</a></li>
+  <li><a href="#comparison-plot.differencey" id="toc-comparison-plot.differencey" class="nav-link" data-scroll-target="#comparison-plot.differencey">16. Comparison (<code>Plot.differenceY</code>)</a></li>
+  <li><a href="#hierarchies-plot.tree" id="toc-hierarchies-plot.tree" class="nav-link" data-scroll-target="#hierarchies-plot.tree">17. Hierarchies (<code>Plot.tree</code>)</a></li>
+  <li><a href="#maps-projections-plot.geo-plot.sphere-plot.graticule" id="toc-maps-projections-plot.geo-plot.sphere-plot.graticule" class="nav-link" data-scroll-target="#maps-projections-plot.geo-plot.sphere-plot.graticule">18. Maps &amp; projections (<code>Plot.geo</code>, <code>Plot.sphere</code>, <code>Plot.graticule</code>)</a></li>
+  <li><a href="#continuous-fields-plot.raster-plot.contour" id="toc-continuous-fields-plot.raster-plot.contour" class="nav-link" data-scroll-target="#continuous-fields-plot.raster-plot.contour">19. Continuous fields (<code>Plot.raster</code>, <code>Plot.contour</code>)</a></li>
+  <li><a href="#the-auto-mark-plot.auto" id="toc-the-auto-mark-plot.auto" class="nav-link" data-scroll-target="#the-auto-mark-plot.auto">20. The auto mark (<code>Plot.auto</code>)</a></li>
+  <li><a href="#interaction-crosshair-and-a-reactive-plot" id="toc-interaction-crosshair-and-a-reactive-plot" class="nav-link" data-scroll-target="#interaction-crosshair-and-a-reactive-plot">21. Interaction: crosshair, and a reactive Plot</a></li>
+  <li><a href="#the-complete-plot-vocabulary" id="toc-the-complete-plot-vocabulary" class="nav-link" data-scroll-target="#the-complete-plot-vocabulary">22. The complete Plot vocabulary</a></li>
   </ul>
 </nav>
     </div>
@@ -668,86 +685,713 @@ Figure&nbsp;9: Matrix heatmap showing clinical severity index.
 </div>
 <hr>
 </section>
-<section id="summary-of-observable-plot-mark-primitives" class="level1">
-<h1>9. Summary of Observable Plot Mark Primitives</h1>
+<section id="layered-marks-curve-interpolation-plot.areay-liney-curve" class="level1">
+<h1>9. Layered marks &amp; curve interpolation (<code>Plot.areaY</code>, <code>lineY</code>, <code>curve</code>)</h1>
+<p>Plot has <strong>no chart types</strong> — you <em>layer marks</em>. A time-series below layers a translucent area, a line, and a <code>ruleY</code> baseline; a second panel shows how the <code>curve</code> option changes interpolation (linear vs.&nbsp;<code>catmull-rom</code> vs.&nbsp;<code>step</code>).</p>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb12" data-startfrom="283" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 282;"><span id="cb12-283"><a href="#cb12-283" aria-hidden="true" tabindex="-1"></a><span class="co">// Synthetic ferritin trajectory over 24 weeks of iron chelation</span></span>
+<span id="cb12-284"><a href="#cb12-284" aria-hidden="true" tabindex="-1"></a>series <span class="op">=</span> d3<span class="op">.</span><span class="fu">range</span>(<span class="dv">0</span><span class="op">,</span> <span class="dv">25</span>)<span class="op">.</span><span class="fu">map</span>(w <span class="kw">=&gt;</span> ({</span>
+<span id="cb12-285"><a href="#cb12-285" aria-hidden="true" tabindex="-1"></a>  <span class="dt">week</span><span class="op">:</span> w<span class="op">,</span></span>
+<span id="cb12-286"><a href="#cb12-286" aria-hidden="true" tabindex="-1"></a>  <span class="dt">ferritin</span><span class="op">:</span> <span class="dv">2400</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">exp</span>(<span class="op">-</span><span class="fl">0.06</span> <span class="op">*</span> w) <span class="op">+</span> <span class="dv">120</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sin</span>(w <span class="op">/</span> <span class="dv">2</span>) <span class="op">+</span> (d3<span class="op">.</span><span class="fu">randomNormal</span>(<span class="dv">0</span><span class="op">,</span> <span class="dv">60</span>)())</span>
+<span id="cb12-287"><a href="#cb12-287" aria-hidden="true" tabindex="-1"></a>}))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-12" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13" data-startfrom="293" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 292;"><span id="cb13-293"><a href="#cb13-293" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb13-294"><a href="#cb13-294" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span><span class="op">:</span> <span class="st">"Serum ferritin during iron chelation"</span><span class="op">,</span></span>
+<span id="cb13-295"><a href="#cb13-295" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">760</span><span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">320</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb13-296"><a href="#cb13-296" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Weeks on chelation →"</span>}<span class="op">,</span></span>
+<span id="cb13-297"><a href="#cb13-297" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"↑ Ferritin (µg/L)"</span>}<span class="op">,</span></span>
+<span id="cb13-298"><a href="#cb13-298" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb13-299"><a href="#cb13-299" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">500</span>]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> <span class="st">"#2e7d32"</span><span class="op">,</span> <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"4"</span>})<span class="op">,</span></span>
+<span id="cb13-300"><a href="#cb13-300" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">areaY</span>(series<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"week"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"ferritin"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"#B71C1C"</span><span class="op">,</span> <span class="dt">fillOpacity</span><span class="op">:</span> <span class="fl">0.12</span>})<span class="op">,</span></span>
+<span id="cb13-301"><a href="#cb13-301" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">lineY</span>(series<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"week"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"ferritin"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"#B71C1C"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">2.2</span><span class="op">,</span> <span class="dt">tip</span><span class="op">:</span> <span class="kw">true</span>})</span>
+<span id="cb13-302"><a href="#cb13-302" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb13-303"><a href="#cb13-303" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="fig-plot-layered" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-plot-layered-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="ojs-cell-13" data-nodetype="expression">
+
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-plot-layered-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: Layered area + line + baseline — serum ferritin during chelation.
+</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb14" data-startfrom="308" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 307;"><span id="cb14-308"><a href="#cb14-308" aria-hidden="true" tabindex="-1"></a>viewof curveType <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>([<span class="st">"linear"</span><span class="op">,</span> <span class="st">"catmull-rom"</span><span class="op">,</span> <span class="st">"step"</span><span class="op">,</span> <span class="st">"basis"</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="st">"catmull-rom"</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Curve interpolation:"</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-14" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb15" data-startfrom="313" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 312;"><span id="cb15-313"><a href="#cb15-313" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb15-314"><a href="#cb15-314" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">760</span><span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">220</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb15-315"><a href="#cb15-315" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Weeks →"</span>}<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Ferritin (µg/L)"</span>}<span class="op">,</span></span>
+<span id="cb15-316"><a href="#cb15-316" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb15-317"><a href="#cb15-317" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">lineY</span>(series<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"week"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"ferritin"</span><span class="op">,</span> <span class="dt">curve</span><span class="op">:</span> curveType<span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"#7f0000"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">2.4</span>})<span class="op">,</span></span>
+<span id="cb15-318"><a href="#cb15-318" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(series<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"week"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"ferritin"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"#7f0000"</span>})</span>
+<span id="cb15-319"><a href="#cb15-319" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb15-320"><a href="#cb15-320" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-15" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</section>
+<section id="stacked-areas-streamgraphs-stack-offset" class="level1">
+<h1>10. Stacked areas &amp; streamgraphs (<code>stack</code>, <code>offset</code>)</h1>
+<p>The <code>areaY</code>/<code>barY</code> marks apply an implicit <strong>stack</strong> transform. Setting <code>offset: "wiggle"</code> produces a streamgraph — ideal for cohort composition over time.</p>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb16" data-startfrom="331" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 330;"><span id="cb16-331"><a href="#cb16-331" aria-hidden="true" tabindex="-1"></a>composition <span class="op">=</span> d3<span class="op">.</span><span class="fu">range</span>(<span class="dv">0</span><span class="op">,</span> <span class="dv">25</span>)<span class="op">.</span><span class="fu">flatMap</span>(m <span class="kw">=&gt;</span></span>
+<span id="cb16-332"><a href="#cb16-332" aria-hidden="true" tabindex="-1"></a>  [<span class="st">"HbSS"</span><span class="op">,</span> <span class="st">"HbS/β0"</span><span class="op">,</span> <span class="st">"HbS/β+"</span><span class="op">,</span> <span class="st">"HbSC"</span>]<span class="op">.</span><span class="fu">map</span>((g<span class="op">,</span> i) <span class="kw">=&gt;</span> ({</span>
+<span id="cb16-333"><a href="#cb16-333" aria-hidden="true" tabindex="-1"></a>    <span class="dt">month</span><span class="op">:</span> m<span class="op">,</span> <span class="dt">genotype</span><span class="op">:</span> g<span class="op">,</span></span>
+<span id="cb16-334"><a href="#cb16-334" aria-hidden="true" tabindex="-1"></a>    <span class="dt">n</span><span class="op">:</span> <span class="dv">20</span> <span class="op">+</span> <span class="dv">8</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sin</span>(m <span class="op">/</span> <span class="dv">4</span> <span class="op">+</span> i) <span class="op">+</span> i <span class="op">*</span> <span class="dv">6</span> <span class="op">+</span> d3<span class="op">.</span><span class="fu">randomNormal</span>(<span class="dv">0</span><span class="op">,</span> <span class="dv">3</span>)()</span>
+<span id="cb16-335"><a href="#cb16-335" aria-hidden="true" tabindex="-1"></a>  })))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-16" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17" data-startfrom="341" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 340;"><span id="cb17-341"><a href="#cb17-341" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb17-342"><a href="#cb17-342" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span><span class="op">:</span> <span class="st">"Clinic cohort composition over time (streamgraph)"</span><span class="op">,</span></span>
+<span id="cb17-343"><a href="#cb17-343" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">760</span><span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">300</span><span class="op">,</span></span>
+<span id="cb17-344"><a href="#cb17-344" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Month →"</span>}<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="kw">null</span>}<span class="op">,</span></span>
+<span id="cb17-345"><a href="#cb17-345" aria-hidden="true" tabindex="-1"></a>  <span class="dt">color</span><span class="op">:</span> {<span class="dt">legend</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span> <span class="dt">scheme</span><span class="op">:</span> <span class="st">"Reds"</span>}<span class="op">,</span></span>
+<span id="cb17-346"><a href="#cb17-346" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb17-347"><a href="#cb17-347" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">areaY</span>(composition<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"month"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"genotype"</span><span class="op">,</span> <span class="dt">offset</span><span class="op">:</span> <span class="st">"wiggle"</span><span class="op">,</span> <span class="dt">curve</span><span class="op">:</span> <span class="st">"basis"</span><span class="op">,</span> <span class="dt">tip</span><span class="op">:</span> <span class="kw">true</span>})</span>
+<span id="cb17-348"><a href="#cb17-348" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb17-349"><a href="#cb17-349" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="fig-plot-stream" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-plot-stream-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="ojs-cell-17" data-nodetype="expression">
+
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-plot-stream-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;11: Streamgraph of clinic cohort composition by genotype.
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="rolling-averages-normalisation-plot.windowy-plot.normalizey" class="level1">
+<h1>11. Rolling averages &amp; normalisation (<code>Plot.windowY</code>, <code>Plot.normalizeY</code>)</h1>
+<p>The <strong>window</strong> transform smooths a noisy signal (moving average); the <strong>normalize</strong> transform re-indexes series to a common baseline for fair comparison.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18" data-startfrom="361" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 360;"><span id="cb18-361"><a href="#cb18-361" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb18-362"><a href="#cb18-362" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span><span class="op">:</span> <span class="st">"Reticulocyte signal: raw vs 5-week moving average"</span><span class="op">,</span></span>
+<span id="cb18-363"><a href="#cb18-363" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">760</span><span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">300</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb18-364"><a href="#cb18-364" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Weeks →"</span>}<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Reticulocytes"</span>}<span class="op">,</span></span>
+<span id="cb18-365"><a href="#cb18-365" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb18-366"><a href="#cb18-366" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">lineY</span>(series<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"week"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"ferritin"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"#ccc"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">1</span>})<span class="op">,</span></span>
+<span id="cb18-367"><a href="#cb18-367" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">lineY</span>(series<span class="op">,</span> Plot<span class="op">.</span><span class="fu">windowY</span>({<span class="dt">k</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span> <span class="dt">reduce</span><span class="op">:</span> <span class="st">"mean"</span>}<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"week"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"ferritin"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"#B71C1C"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">2.5</span>}))</span>
+<span id="cb18-368"><a href="#cb18-368" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb18-369"><a href="#cb18-369" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="fig-plot-window" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-plot-window-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="ojs-cell-18" data-nodetype="expression">
+
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-plot-window-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;12: Raw signal with a 5-point moving average overlaid.
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="parts-of-a-whole-plot.waffley" class="level1">
+<h1>12. Parts of a whole (<code>Plot.waffleY</code>)</h1>
+<p>The waffle mark renders counts as unit squares — a friendlier alternative to pie charts for treatment allocation.</p>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb19" data-startfrom="379" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 378;"><span id="cb19-379"><a href="#cb19-379" aria-hidden="true" tabindex="-1"></a>allocation <span class="op">=</span> [</span>
+<span id="cb19-380"><a href="#cb19-380" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">arm</span><span class="op">:</span> <span class="st">"Emicizumab prophylaxis"</span><span class="op">,</span> <span class="dt">n</span><span class="op">:</span> <span class="dv">63</span>}<span class="op">,</span></span>
+<span id="cb19-381"><a href="#cb19-381" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">arm</span><span class="op">:</span> <span class="st">"Factor VIII prophylaxis"</span><span class="op">,</span> <span class="dt">n</span><span class="op">:</span> <span class="dv">41</span>}<span class="op">,</span></span>
+<span id="cb19-382"><a href="#cb19-382" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">arm</span><span class="op">:</span> <span class="st">"On-demand"</span><span class="op">,</span> <span class="dt">n</span><span class="op">:</span> <span class="dv">18</span>}</span>
+<span id="cb19-383"><a href="#cb19-383" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-19" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20" data-startfrom="389" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 388;"><span id="cb20-389"><a href="#cb20-389" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb20-390"><a href="#cb20-390" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span><span class="op">:</span> <span class="st">"Trial arm allocation (1 square = 1 patient)"</span><span class="op">,</span></span>
+<span id="cb20-391"><a href="#cb20-391" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">760</span><span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">220</span><span class="op">,</span></span>
+<span id="cb20-392"><a href="#cb20-392" aria-hidden="true" tabindex="-1"></a>  <span class="dt">color</span><span class="op">:</span> {<span class="dt">legend</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span> <span class="dt">scheme</span><span class="op">:</span> <span class="st">"Reds"</span>}<span class="op">,</span></span>
+<span id="cb20-393"><a href="#cb20-393" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [Plot<span class="op">.</span><span class="fu">waffleY</span>(allocation<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"arm"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"n"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"arm"</span>})]</span>
+<span id="cb20-394"><a href="#cb20-394" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="fig-plot-waffle" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-plot-waffle-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="ojs-cell-20" data-nodetype="expression">
+
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-plot-waffle-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;13: Waffle chart of trial arm allocation.
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="hexbin-density-plot.hexbin" class="level1">
+<h1>13. Hexbin density (<code>Plot.hexbin</code>)</h1>
+<p>The <strong>hexbin</strong> transform aggregates 2-D points into hexagonal bins — a scalable alternative to overplotted scatterplots.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21" data-startfrom="405" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 404;"><span id="cb21-405"><a href="#cb21-405" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb21-406"><a href="#cb21-406" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span><span class="op">:</span> <span class="st">"Hexbin density (Hb vs reticulocytes)"</span><span class="op">,</span></span>
+<span id="cb21-407"><a href="#cb21-407" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">760</span><span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">360</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb21-408"><a href="#cb21-408" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Hemoglobin (g/dL) →"</span>}<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"↑ Reticulocytes"</span>}<span class="op">,</span></span>
+<span id="cb21-409"><a href="#cb21-409" aria-hidden="true" tabindex="-1"></a>  <span class="dt">color</span><span class="op">:</span> {<span class="dt">scheme</span><span class="op">:</span> <span class="st">"Reds"</span><span class="op">,</span> <span class="dt">legend</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"count"</span>}<span class="op">,</span></span>
+<span id="cb21-410"><a href="#cb21-410" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb21-411"><a href="#cb21-411" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(patients<span class="op">,</span> Plot<span class="op">.</span><span class="fu">hexbin</span>({<span class="dt">r</span><span class="op">:</span> <span class="st">"count"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"count"</span>}<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"hb"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"retic"</span>}))<span class="op">,</span></span>
+<span id="cb21-412"><a href="#cb21-412" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">frame</span>()</span>
+<span id="cb21-413"><a href="#cb21-413" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb21-414"><a href="#cb21-414" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="fig-plot-hexbin" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-plot-hexbin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="ojs-cell-21" data-nodetype="expression">
+
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-plot-hexbin-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;14: Hexbin density of Hb vs reticulocytes; colour = count.
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="change-fields-plot.arrow-plot.vector" class="level1">
+<h1>14. Change &amp; fields (<code>Plot.arrow</code>, <code>Plot.vector</code>)</h1>
+<p>The <strong>arrow</strong> mark connects a start and end point (e.g.&nbsp;before/after treatment); the <strong>vector</strong> mark draws little arrows for magnitude + direction fields.</p>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb22" data-startfrom="424" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 423;"><span id="cb22-424"><a href="#cb22-424" aria-hidden="true" tabindex="-1"></a>prePost <span class="op">=</span> [<span class="st">"HbSS"</span><span class="op">,</span> <span class="st">"HbS/β0"</span><span class="op">,</span> <span class="st">"HbS/β+"</span><span class="op">,</span> <span class="st">"HbSC"</span>]<span class="op">.</span><span class="fu">map</span>((g<span class="op">,</span> i) <span class="kw">=&gt;</span> ({</span>
+<span id="cb22-425"><a href="#cb22-425" aria-hidden="true" tabindex="-1"></a>  <span class="dt">genotype</span><span class="op">:</span> g<span class="op">,</span> <span class="dt">hbfBefore</span><span class="op">:</span> [<span class="dv">8</span><span class="op">,</span> <span class="dv">5</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> <span class="dv">2</span>][i]<span class="op">,</span> <span class="dt">hbfAfter</span><span class="op">:</span> [<span class="dv">22</span><span class="op">,</span> <span class="dv">16</span><span class="op">,</span> <span class="dv">9</span><span class="op">,</span> <span class="dv">6</span>][i]</span>
+<span id="cb22-426"><a href="#cb22-426" aria-hidden="true" tabindex="-1"></a>}))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-22" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23" data-startfrom="432" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 431;"><span id="cb23-432"><a href="#cb23-432" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb23-433"><a href="#cb23-433" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span><span class="op">:</span> <span class="st">"HbF response to hydroxycarbamide (before → after)"</span><span class="op">,</span></span>
+<span id="cb23-434"><a href="#cb23-434" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">760</span><span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">280</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span> <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">80</span><span class="op">,</span></span>
+<span id="cb23-435"><a href="#cb23-435" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Fetal haemoglobin HbF (%) →"</span>}<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="kw">null</span>}<span class="op">,</span></span>
+<span id="cb23-436"><a href="#cb23-436" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb23-437"><a href="#cb23-437" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">arrow</span>(prePost<span class="op">,</span> {<span class="dt">x1</span><span class="op">:</span> <span class="st">"hbfBefore"</span><span class="op">,</span> <span class="dt">x2</span><span class="op">:</span> <span class="st">"hbfAfter"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"genotype"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"#B71C1C"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span> <span class="dt">bend</span><span class="op">:</span> <span class="kw">true</span>})<span class="op">,</span></span>
+<span id="cb23-438"><a href="#cb23-438" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(prePost<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"hbfBefore"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"genotype"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"#ccc"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">4</span>})<span class="op">,</span></span>
+<span id="cb23-439"><a href="#cb23-439" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(prePost<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"hbfAfter"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"genotype"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"#7f0000"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">5</span><span class="op">,</span> <span class="dt">tip</span><span class="op">:</span> <span class="kw">true</span>})</span>
+<span id="cb23-440"><a href="#cb23-440" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb23-441"><a href="#cb23-441" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="fig-plot-arrow" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-plot-arrow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="ojs-cell-23" data-nodetype="expression">
+
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-plot-arrow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;15: Arrow mark: rise in HbF after hydroxycarbamide, by genotype.
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="ridgeline-small-multiples-facets-plot.areay" class="level1">
+<h1>15. Ridgeline small multiples (facets + <code>Plot.areaY</code>)</h1>
+<p>Faceting on <code>fy</code> with a density-like area produces a ridgeline plot — comparing distributions across genotypes.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24" data-startfrom="452" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 451;"><span id="cb24-452"><a href="#cb24-452" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb24-453"><a href="#cb24-453" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span><span class="op">:</span> <span class="st">"Hemoglobin distribution by genotype (ridgeline)"</span><span class="op">,</span></span>
+<span id="cb24-454"><a href="#cb24-454" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">760</span><span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">300</span><span class="op">,</span> <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">70</span><span class="op">,</span></span>
+<span id="cb24-455"><a href="#cb24-455" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Hemoglobin (g/dL) →"</span>}<span class="op">,</span></span>
+<span id="cb24-456"><a href="#cb24-456" aria-hidden="true" tabindex="-1"></a>  <span class="dt">fy</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="kw">null</span>}<span class="op">,</span></span>
+<span id="cb24-457"><a href="#cb24-457" aria-hidden="true" tabindex="-1"></a>  <span class="dt">color</span><span class="op">:</span> {<span class="dt">scheme</span><span class="op">:</span> <span class="st">"Reds"</span>}<span class="op">,</span></span>
+<span id="cb24-458"><a href="#cb24-458" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb24-459"><a href="#cb24-459" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">areaY</span>(patients<span class="op">,</span> Plot<span class="op">.</span><span class="fu">binX</span>({<span class="dt">y</span><span class="op">:</span> <span class="st">"count"</span>}<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"hb"</span><span class="op">,</span> <span class="dt">fy</span><span class="op">:</span> <span class="st">"genotype"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"genotype"</span><span class="op">,</span> <span class="dt">curve</span><span class="op">:</span> <span class="st">"basis"</span><span class="op">,</span> <span class="dt">thresholds</span><span class="op">:</span> <span class="dv">20</span>}))<span class="op">,</span></span>
+<span id="cb24-460"><a href="#cb24-460" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleY</span>([<span class="dv">0</span>])</span>
+<span id="cb24-461"><a href="#cb24-461" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb24-462"><a href="#cb24-462" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="fig-plot-ridgeline" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-plot-ridgeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="ojs-cell-24" data-nodetype="expression">
+
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-plot-ridgeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;16: Ridgeline of hemoglobin distribution by genotype.
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="comparison-plot.differencey" class="level1">
+<h1>16. Comparison (<code>Plot.differenceY</code>)</h1>
+<p>The <strong>difference</strong> mark fills the gap between two series, colouring gains and shortfalls differently — a natural fit for observed vs target trough levels.</p>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb25" data-startfrom="472" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 471;"><span id="cb25-472"><a href="#cb25-472" aria-hidden="true" tabindex="-1"></a>troughs <span class="op">=</span> d3<span class="op">.</span><span class="fu">range</span>(<span class="dv">0</span><span class="op">,</span> <span class="dv">25</span>)<span class="op">.</span><span class="fu">map</span>(w <span class="kw">=&gt;</span> ({</span>
+<span id="cb25-473"><a href="#cb25-473" aria-hidden="true" tabindex="-1"></a>  <span class="dt">week</span><span class="op">:</span> w<span class="op">,</span> <span class="dt">observed</span><span class="op">:</span> <span class="dv">45</span> <span class="op">+</span> <span class="dv">15</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sin</span>(w <span class="op">/</span> <span class="dv">3</span>) <span class="op">+</span> d3<span class="op">.</span><span class="fu">randomNormal</span>(<span class="dv">0</span><span class="op">,</span> <span class="dv">4</span>)()<span class="op">,</span> <span class="dt">target</span><span class="op">:</span> <span class="dv">50</span></span>
+<span id="cb25-474"><a href="#cb25-474" aria-hidden="true" tabindex="-1"></a>}))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-25" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26" data-startfrom="480" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 479;"><span id="cb26-480"><a href="#cb26-480" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb26-481"><a href="#cb26-481" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span><span class="op">:</span> <span class="st">"Observed trough vs 50% target"</span><span class="op">,</span></span>
+<span id="cb26-482"><a href="#cb26-482" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">760</span><span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">300</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb26-483"><a href="#cb26-483" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Weeks →"</span>}<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Factor level (%)"</span>}<span class="op">,</span></span>
+<span id="cb26-484"><a href="#cb26-484" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb26-485"><a href="#cb26-485" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">differenceY</span>(troughs<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"week"</span><span class="op">,</span> <span class="dt">y1</span><span class="op">:</span> <span class="st">"target"</span><span class="op">,</span> <span class="dt">y2</span><span class="op">:</span> <span class="st">"observed"</span><span class="op">,</span> <span class="dt">positiveFill</span><span class="op">:</span> <span class="st">"#2e7d32"</span><span class="op">,</span> <span class="dt">negativeFill</span><span class="op">:</span> <span class="st">"#B71C1C"</span>})<span class="op">,</span></span>
+<span id="cb26-486"><a href="#cb26-486" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">lineY</span>(troughs<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"week"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"observed"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"black"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.2</span>})</span>
+<span id="cb26-487"><a href="#cb26-487" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb26-488"><a href="#cb26-488" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="fig-plot-difference" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-plot-difference-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="ojs-cell-26" data-nodetype="expression">
+
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-plot-difference-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;17: Difference mark: observed factor trough vs 50% target.
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="hierarchies-plot.tree" class="level1">
+<h1>17. Hierarchies (<code>Plot.tree</code>)</h1>
+<p>The <strong>tree</strong> mark lays out hierarchical data from a delimited <code>path</code> — here a mini classification of bleeding disorders.</p>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb27" data-startfrom="498" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 497;"><span id="cb27-498"><a href="#cb27-498" aria-hidden="true" tabindex="-1"></a>taxonomy <span class="op">=</span> [</span>
+<span id="cb27-499"><a href="#cb27-499" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Bleeding/Coagulation factor/Haemophilia A (FVIII)"</span><span class="op">,</span></span>
+<span id="cb27-500"><a href="#cb27-500" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Bleeding/Coagulation factor/Haemophilia B (FIX)"</span><span class="op">,</span></span>
+<span id="cb27-501"><a href="#cb27-501" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Bleeding/Coagulation factor/Rare factor deficiency"</span><span class="op">,</span></span>
+<span id="cb27-502"><a href="#cb27-502" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Bleeding/Von Willebrand/Type 1"</span><span class="op">,</span></span>
+<span id="cb27-503"><a href="#cb27-503" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Bleeding/Von Willebrand/Type 2"</span><span class="op">,</span></span>
+<span id="cb27-504"><a href="#cb27-504" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Bleeding/Von Willebrand/Type 3"</span><span class="op">,</span></span>
+<span id="cb27-505"><a href="#cb27-505" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Bleeding/Platelet/Glanzmann"</span><span class="op">,</span></span>
+<span id="cb27-506"><a href="#cb27-506" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Bleeding/Platelet/Bernard-Soulier"</span></span>
+<span id="cb27-507"><a href="#cb27-507" aria-hidden="true" tabindex="-1"></a>]<span class="op">.</span><span class="fu">map</span>(path <span class="kw">=&gt;</span> ({path}))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-27" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28" data-startfrom="513" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 512;"><span id="cb28-513"><a href="#cb28-513" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb28-514"><a href="#cb28-514" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">760</span><span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">320</span><span class="op">,</span> <span class="dt">axis</span><span class="op">:</span> <span class="kw">null</span><span class="op">,</span> <span class="dt">margin</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span> <span class="dt">marginLeft</span><span class="op">:</span> <span class="dv">40</span><span class="op">,</span> <span class="dt">marginRight</span><span class="op">:</span> <span class="dv">200</span><span class="op">,</span></span>
+<span id="cb28-515"><a href="#cb28-515" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> Plot<span class="op">.</span><span class="fu">tree</span>(taxonomy<span class="op">,</span> {<span class="dt">path</span><span class="op">:</span> <span class="st">"path"</span><span class="op">,</span> <span class="dt">delimiter</span><span class="op">:</span> <span class="st">"/"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"#B71C1C"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="fl">1.5</span>})</span>
+<span id="cb28-516"><a href="#cb28-516" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="fig-plot-tree" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-plot-tree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="ojs-cell-28" data-nodetype="expression">
+
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-plot-tree-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;18: Tree layout of a bleeding-disorder classification.
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="maps-projections-plot.geo-plot.sphere-plot.graticule" class="level1">
+<h1>18. Maps &amp; projections (<code>Plot.geo</code>, <code>Plot.sphere</code>, <code>Plot.graticule</code>)</h1>
+<p>Plot speaks GeoJSON and D3 projections natively. This self-contained globe uses an orthographic projection with a sphere, graticule, and plotted centres — no external shapefiles required.</p>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb29" data-startfrom="527" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 526;"><span id="cb29-527"><a href="#cb29-527" aria-hidden="true" tabindex="-1"></a>centres <span class="op">=</span> [</span>
+<span id="cb29-528"><a href="#cb29-528" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">name</span><span class="op">:</span> <span class="st">"Bangor"</span><span class="op">,</span> <span class="dt">lon</span><span class="op">:</span> <span class="op">-</span><span class="fl">4.13</span><span class="op">,</span> <span class="dt">lat</span><span class="op">:</span> <span class="fl">53.23</span>}<span class="op">,</span></span>
+<span id="cb29-529"><a href="#cb29-529" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">name</span><span class="op">:</span> <span class="st">"London"</span><span class="op">,</span> <span class="dt">lon</span><span class="op">:</span> <span class="op">-</span><span class="fl">0.13</span><span class="op">,</span> <span class="dt">lat</span><span class="op">:</span> <span class="fl">51.51</span>}<span class="op">,</span></span>
+<span id="cb29-530"><a href="#cb29-530" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">name</span><span class="op">:</span> <span class="st">"Paris (ISTH)"</span><span class="op">,</span> <span class="dt">lon</span><span class="op">:</span> <span class="fl">2.35</span><span class="op">,</span> <span class="dt">lat</span><span class="op">:</span> <span class="fl">48.86</span>}<span class="op">,</span></span>
+<span id="cb29-531"><a href="#cb29-531" aria-hidden="true" tabindex="-1"></a>  {<span class="dt">name</span><span class="op">:</span> <span class="st">"New York"</span><span class="op">,</span> <span class="dt">lon</span><span class="op">:</span> <span class="op">-</span><span class="fl">74.0</span><span class="op">,</span> <span class="dt">lat</span><span class="op">:</span> <span class="fl">40.71</span>}</span>
+<span id="cb29-532"><a href="#cb29-532" aria-hidden="true" tabindex="-1"></a>]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-29" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30" data-startfrom="538" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 537;"><span id="cb30-538"><a href="#cb30-538" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb30-539"><a href="#cb30-539" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">480</span><span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">480</span><span class="op">,</span></span>
+<span id="cb30-540"><a href="#cb30-540" aria-hidden="true" tabindex="-1"></a>  <span class="dt">projection</span><span class="op">:</span> {<span class="dt">type</span><span class="op">:</span> <span class="st">"orthographic"</span><span class="op">,</span> <span class="dt">rotate</span><span class="op">:</span> [<span class="dv">10</span><span class="op">,</span> <span class="op">-</span><span class="dv">40</span>]}<span class="op">,</span></span>
+<span id="cb30-541"><a href="#cb30-541" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb30-542"><a href="#cb30-542" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">sphere</span>({<span class="dt">fill</span><span class="op">:</span> <span class="st">"#f7f3f3"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"#ddd"</span>})<span class="op">,</span></span>
+<span id="cb30-543"><a href="#cb30-543" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">graticule</span>({<span class="dt">stroke</span><span class="op">:</span> <span class="st">"#e2c9c9"</span>})<span class="op">,</span></span>
+<span id="cb30-544"><a href="#cb30-544" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(centres<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"lon"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"lat"</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"#B71C1C"</span><span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">5</span>})<span class="op">,</span></span>
+<span id="cb30-545"><a href="#cb30-545" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">text</span>(centres<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"lon"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"lat"</span><span class="op">,</span> <span class="dt">text</span><span class="op">:</span> <span class="st">"name"</span><span class="op">,</span> <span class="dt">dy</span><span class="op">:</span> <span class="op">-</span><span class="dv">10</span><span class="op">,</span> <span class="dt">fontWeight</span><span class="op">:</span> <span class="dv">600</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"#7f0000"</span>})</span>
+<span id="cb30-546"><a href="#cb30-546" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb30-547"><a href="#cb30-547" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="fig-plot-geo" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-plot-geo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="ojs-cell-30" data-nodetype="expression">
+
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-plot-geo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;19: Orthographic globe with graticule and haemophilia-centre markers.
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="continuous-fields-plot.raster-plot.contour" class="level1">
+<h1>19. Continuous fields (<code>Plot.raster</code>, <code>Plot.contour</code>)</h1>
+<p>The <strong>raster</strong> and <strong>contour</strong> marks visualise a scalar field over a 2-D domain — here an illustrative “risk surface” as a function of two lab values.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31" data-startfrom="558" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 557;"><span id="cb31-558"><a href="#cb31-558" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb31-559"><a href="#cb31-559" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span><span class="op">:</span> <span class="st">"Illustrative risk surface f(Hb, platelets)"</span><span class="op">,</span></span>
+<span id="cb31-560"><a href="#cb31-560" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">760</span><span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">340</span><span class="op">,</span></span>
+<span id="cb31-561"><a href="#cb31-561" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Hemoglobin (g/dL) →"</span>}<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"↑ Platelets (×10⁹/L)"</span>}<span class="op">,</span></span>
+<span id="cb31-562"><a href="#cb31-562" aria-hidden="true" tabindex="-1"></a>  <span class="dt">color</span><span class="op">:</span> {<span class="dt">scheme</span><span class="op">:</span> <span class="st">"Reds"</span><span class="op">,</span> <span class="dt">legend</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"risk"</span>}<span class="op">,</span></span>
+<span id="cb31-563"><a href="#cb31-563" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb31-564"><a href="#cb31-564" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">raster</span>({</span>
+<span id="cb31-565"><a href="#cb31-565" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x1</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span> <span class="dt">x2</span><span class="op">:</span> <span class="dv">16</span><span class="op">,</span> <span class="dt">y1</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">y2</span><span class="op">:</span> <span class="dv">400</span><span class="op">,</span></span>
+<span id="cb31-566"><a href="#cb31-566" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fill</span><span class="op">:</span> (x<span class="op">,</span> y) <span class="kw">=&gt;</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">0</span><span class="op">,</span> (<span class="dv">14</span> <span class="op">-</span> x) <span class="op">/</span> <span class="dv">10</span>) <span class="op">+</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">0</span><span class="op">,</span> (<span class="dv">50</span> <span class="op">-</span> y) <span class="op">/</span> <span class="dv">50</span>)</span>
+<span id="cb31-567"><a href="#cb31-567" aria-hidden="true" tabindex="-1"></a>    })<span class="op">,</span></span>
+<span id="cb31-568"><a href="#cb31-568" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">contour</span>({</span>
+<span id="cb31-569"><a href="#cb31-569" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x1</span><span class="op">:</span> <span class="dv">4</span><span class="op">,</span> <span class="dt">x2</span><span class="op">:</span> <span class="dv">16</span><span class="op">,</span> <span class="dt">y1</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">y2</span><span class="op">:</span> <span class="dv">400</span><span class="op">,</span></span>
+<span id="cb31-570"><a href="#cb31-570" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fill</span><span class="op">:</span> (x<span class="op">,</span> y) <span class="kw">=&gt;</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">0</span><span class="op">,</span> (<span class="dv">14</span> <span class="op">-</span> x) <span class="op">/</span> <span class="dv">10</span>) <span class="op">+</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">0</span><span class="op">,</span> (<span class="dv">50</span> <span class="op">-</span> y) <span class="op">/</span> <span class="dv">50</span>)<span class="op">,</span></span>
+<span id="cb31-571"><a href="#cb31-571" aria-hidden="true" tabindex="-1"></a>      <span class="dt">stroke</span><span class="op">:</span> <span class="st">"white"</span><span class="op">,</span> <span class="dt">strokeOpacity</span><span class="op">:</span> <span class="fl">0.4</span></span>
+<span id="cb31-572"><a href="#cb31-572" aria-hidden="true" tabindex="-1"></a>    })</span>
+<span id="cb31-573"><a href="#cb31-573" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb31-574"><a href="#cb31-574" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="fig-plot-raster" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-plot-raster-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="ojs-cell-31" data-nodetype="expression">
+
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-plot-raster-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;20: Raster + contour of an illustrative risk surface.
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="the-auto-mark-plot.auto" class="level1">
+<h1>20. The auto mark (<code>Plot.auto</code>)</h1>
+<p><code>Plot.auto</code> inspects your data and picks a sensible mark and transform — the fastest way to “just show me the data”.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32" data-startfrom="585" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 584;"><span id="cb32-585"><a href="#cb32-585" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb32-586"><a href="#cb32-586" aria-hidden="true" tabindex="-1"></a>  <span class="dt">height</span><span class="op">:</span> <span class="dv">300</span><span class="op">,</span></span>
+<span id="cb32-587"><a href="#cb32-587" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [Plot<span class="op">.</span><span class="fu">auto</span>(patients<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"hb"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"retic"</span><span class="op">,</span> <span class="dt">color</span><span class="op">:</span> <span class="st">"genotype"</span>})]</span>
+<span id="cb32-588"><a href="#cb32-588" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="fig-plot-auto" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-plot-auto-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="ojs-cell-32" data-nodetype="expression">
+
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-plot-auto-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;21: Plot.auto chooses the encoding automatically.
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="interaction-crosshair-and-a-reactive-plot" class="level1">
+<h1>21. Interaction: crosshair, and a reactive Plot</h1>
+<p>The <strong>crosshair</strong> mark reads out the nearest value on the axes without obscuring the data. And because a Plot is just a value, a <code>viewof</code> input can rebuild it live — the pattern behind interactive dashboards.</p>
+<div class="cell">
+<details class="code-fold hidden">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code hidden" id="cb33" data-startfrom="599" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 598;"><span id="cb33-599"><a href="#cb33-599" aria-hidden="true" tabindex="-1"></a>viewof minHbF <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">20</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"Show patients with HbF ≥ (%)"</span>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-33" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34" data-startfrom="605" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 604;"><span id="cb34-605"><a href="#cb34-605" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb34-606"><a href="#cb34-606" aria-hidden="true" tabindex="-1"></a>  <span class="dt">width</span><span class="op">:</span> <span class="dv">760</span><span class="op">,</span> <span class="dt">height</span><span class="op">:</span> <span class="dv">360</span><span class="op">,</span> <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb34-607"><a href="#cb34-607" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Hemoglobin (g/dL) →"</span>}<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"↑ Reticulocytes"</span>}<span class="op">,</span></span>
+<span id="cb34-608"><a href="#cb34-608" aria-hidden="true" tabindex="-1"></a>  <span class="dt">color</span><span class="op">:</span> {<span class="dt">legend</span><span class="op">:</span> <span class="kw">true</span>}<span class="op">,</span></span>
+<span id="cb34-609"><a href="#cb34-609" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb34-610"><a href="#cb34-610" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">dot</span>(patients<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">hbf</span> <span class="op">&gt;=</span> minHbF)<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"hb"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"retic"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"genotype"</span>})<span class="op">,</span></span>
+<span id="cb34-611"><a href="#cb34-611" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">crosshair</span>(patients<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> d<span class="op">.</span><span class="at">hbf</span> <span class="op">&gt;=</span> minHbF)<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"hb"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"retic"</span>})</span>
+<span id="cb34-612"><a href="#cb34-612" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb34-613"><a href="#cb34-613" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details>
+<div id="fig-plot-crosshair" class="cell-output cell-output-display quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-plot-crosshair-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div id="ojs-cell-34" data-nodetype="expression">
+
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-plot-crosshair-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;22: Reactive scatter with a live crosshair; filter with the slider.
+</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="the-complete-plot-vocabulary" class="level1">
+<h1>22. The complete Plot vocabulary</h1>
+<p>Everything below runs natively in Quarto OJS. This one page exercises the full grammar — <strong>marks × transforms × scales × facets × projections × interactions</strong>.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">Marks</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Transforms</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false" href="">Scales &amp; facets</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false" href="">Interaction</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
 <table class="caption-top table">
 <colgroup>
-<col style="width: 33%">
-<col style="width: 33%">
-<col style="width: 33%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <thead>
 <tr class="header">
-<th>Mark Primitive</th>
-<th>Visual Element</th>
-<th>Primary Clinical / Scientific Application</th>
+<th>Category</th>
+<th>Marks</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><code>Plot.dot()</code></td>
-<td>Circle / Symbol</td>
-<td>Scatterplots, beeswarm plots, individual patient points</td>
+<td>Points</td>
+<td><code>dot</code> · <code>image</code> · <code>text</code> · <code>vector</code> · <code>spike</code></td>
 </tr>
 <tr class="even">
-<td><code>Plot.lineY()</code></td>
-<td>Polyline</td>
-<td>Time-series, pharmacokinetic clearance, survival curves</td>
+<td>Lines &amp; areas</td>
+<td><code>line</code> · <code>area</code> · <code>link</code> · <code>arrow</code> · <code>difference</code> · <code>bollinger</code></td>
 </tr>
 <tr class="odd">
-<td><code>Plot.areaY()</code></td>
-<td>Polygon / Area</td>
-<td>Cumulative dose, confidence bands, streamgraphs</td>
+<td>Bars &amp; rects</td>
+<td><code>barX</code> / <code>barY</code> · <code>rectX</code> / <code>rectY</code> · <code>cell</code> · <code>waffle</code> · <code>tick</code></td>
 </tr>
 <tr class="even">
-<td><code>Plot.barY()</code></td>
-<td>Rectangle</td>
-<td>Categorical bar charts, count frequency</td>
+<td>Distribution</td>
+<td><code>boxX</code> / <code>boxY</code> · <code>density</code> · <code>contour</code> · <code>raster</code> · <code>hexgrid</code></td>
 </tr>
 <tr class="odd">
-<td><code>Plot.rectY()</code></td>
-<td>Binned Rect</td>
-<td>Continuous histograms, 2D heatmaps</td>
+<td>Statistical</td>
+<td><code>linearRegressionX</code> / <code>Y</code> · <code>bollinger</code></td>
 </tr>
 <tr class="even">
-<td><code>Plot.boxY()</code></td>
-<td>Box &amp; Whiskers</td>
-<td>Quartiles, median, IQR, statistical outlier detection</td>
+<td>Spatial</td>
+<td><code>geo</code> · <code>sphere</code> · <code>graticule</code> · <code>delaunay</code> · <code>voronoi</code></td>
 </tr>
 <tr class="odd">
-<td><code>Plot.density()</code></td>
-<td>Contour Lines</td>
-<td>Bivariate kernel density estimates</td>
+<td>Structure</td>
+<td><code>tree</code> · <code>frame</code> · <code>grid</code> · <code>axis</code> · <code>rule</code></td>
 </tr>
 <tr class="even">
-<td><code>Plot.linearRegressionY()</code></td>
-<td>Line + Band</td>
-<td>Trendlines with 95% confidence intervals</td>
-</tr>
-<tr class="odd">
-<td><code>Plot.cell()</code></td>
-<td>Grid Cell</td>
-<td>Correlation matrices, categorical heatmaps</td>
-</tr>
-<tr class="even">
-<td><code>Plot.ruleY()</code></td>
-<td>Line</td>
-<td>Reference thresholds (e.g., MEC, normal ranges)</td>
-</tr>
-<tr class="odd">
-<td><code>Plot.tip()</code></td>
-<td>HTML Callout</td>
-<td>Interactive mouse-over tooltips</td>
+<td>Meta</td>
+<td><code>auto</code> (chooses for you) · <code>tip</code> · <code>crosshair</code></td>
 </tr>
 </tbody>
 </table>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Category</th>
+<th>Transforms</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Aggregate</td>
+<td><code>binX</code> / <code>binY</code> / <code>bin</code> · <code>group</code> · <code>hexbin</code></td>
+</tr>
+<tr class="even">
+<td>Layout</td>
+<td><code>stack</code> (offset: wiggle / center) · <code>dodge</code> (beeswarm)</td>
+</tr>
+<tr class="odd">
+<td>Smoothing</td>
+<td><code>window</code> (rolling mean) · <code>map</code> · <code>normalize</code></td>
+</tr>
+<tr class="even">
+<td>Selection</td>
+<td><code>filter</code> · <code>select</code> · <code>sort</code> · <code>shift</code> · <code>interval</code></td>
+</tr>
+<tr class="odd">
+<td>Hierarchy</td>
+<td><code>tree</code> · <code>centroid</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Options</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Position</td>
+<td><code>linear</code> · <code>log</code> · <code>pow</code> · <code>sqrt</code> · <code>symlog</code> · <code>time</code> · <code>band</code> · <code>point</code></td>
+</tr>
+<tr class="even">
+<td>Colour</td>
+<td><code>scheme</code> (Reds, YlGnBu…) · <code>sequential</code> · <code>diverging</code> · <code>ordinal</code> · <code>legend</code></td>
+</tr>
+<tr class="odd">
+<td>Facets</td>
+<td><code>fx</code> · <code>fy</code> — small multiples across rows/columns</td>
+</tr>
+<tr class="even">
+<td>Curves</td>
+<td><code>linear</code> · <code>basis</code> · <code>catmull-rom</code> · <code>step</code> · <code>natural</code> · <code>monotone</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Feature</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>tip: true</code></td>
+<td>details-on-demand tooltip via the pointer transform</td>
+</tr>
+<tr class="even">
+<td><code>Plot.crosshair</code></td>
+<td>axis read-out of the nearest datum</td>
+</tr>
+<tr class="odd">
+<td><code>Plot.pointer</code></td>
+<td>filter to the nearest point</td>
+</tr>
+<tr class="even">
+<td><code>viewof</code> + Plot</td>
+<td>rebuild the plot reactively from an input</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>One grammar, every figure
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Plot has <strong>no chart types</strong> — you compose <em>marks</em> over <em>scales</em>, reshape with <em>transforms</em>, split with <em>facets</em>, and add <em>interaction</em> declaratively. Master these primitives and the entire chart universe above is reachable from a single <code>Plot.plot({...})</code> call, right inside your <code>.qmd</code>.</p>
+</div>
+</div>
 
 
 </section>
 
 <a onclick="window.scrollTo(0, 0); return false;" role="button" id="quarto-back-to-top"><i class="bi bi-arrow-up"></i> Back to top</a></main> <!-- /main -->
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIFNpbXVsYXRlZCBwYXRpZW50IHNhbXBsZSBkYXRhc2V0XG5wYXRpZW50cyA9IGQzLnJhbmdlKDEyMCkubWFwKGkgPT4ge1xuICBjb25zdCBnZW5vdHlwZSA9IFtcIkhiU1NcIiwgXCJIYlMvzrIwXCIsIFwiSGJTL86yK1wiLCBcIkhiU0NcIl1baSAlIDRdO1xuICBjb25zdCBzZXggPSBpICUgMiA9PT0gMCA/IFwiRmVtYWxlXCIgOiBcIk1hbGVcIjtcbiAgY29uc3QgaGIgPSBnZW5vdHlwZSA9PT0gXCJIYlNTXCIgPyA2LjUgKyBNYXRoLnJhbmRvbSgpICogMi41IDpcbiAgICAgICAgICAgICBnZW5vdHlwZSA9PT0gXCJIYlMvzrIwXCIgPyA3LjIgKyBNYXRoLnJhbmRvbSgpICogMi4yIDpcbiAgICAgICAgICAgICBnZW5vdHlwZSA9PT0gXCJIYlMvzrIrXCIgPyA5LjAgKyBNYXRoLnJhbmRvbSgpICogMi41IDpcbiAgICAgICAgICAgICAxMC41ICsgTWF0aC5yYW5kb20oKSAqIDIuNTtcbiAgY29uc3QgaGJmID0gZ2Vub3R5cGUgPT09IFwiSGJTU1wiID8gOCArIE1hdGgucmFuZG9tKCkgKiAxNCA6XG4gICAgICAgICAgICAgIGdlbm90eXBlID09PSBcIkhiUy/OsjBcIiA/IDUgKyBNYXRoLnJhbmRvbSgpICogMTAgOlxuICAgICAgICAgICAgICAxICsgTWF0aC5yYW5kb20oKSAqIDU7XG4gIGNvbnN0IHJldGljID0gMTIwICsgKDE1IC0gaGIpICogMjUgKyAoTWF0aC5yYW5kb20oKSAtIDAuNSkgKiA0MDtcbiAgcmV0dXJuIHsgaWQ6IGBQLSR7MTAwK2l9YCwgZ2Vub3R5cGUsIHNleCwgaGIsIGhiZiwgcmV0aWMgfTtcbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICB0aXRsZTogXCJIZW1vZ2xvYmluIChIYikgdnMgRmV0YWwgSGVtb2dsb2JpbiAoSGJGKSBieSBHZW5vdHlwZVwiLFxuICB3aWR0aDogNzYwLFxuICBoZWlnaHQ6IDM4MCxcbiAgZ3JpZDogdHJ1ZSxcbiAgeDoge2xhYmVsOiBcIkhlbW9nbG9iaW4gSGIgKGcvZEwpIOKGklwifSxcbiAgeToge2xhYmVsOiBcIuKGkSBGZXRhbCBIZW1vZ2xvYmluIEhiRiAoJSlcIn0sXG4gIGNvbG9yOiB7bGVnZW5kOiB0cnVlfSxcbiAgbWFya3M6IFtcbiAgICBQbG90LnJ1bGVZKFswXSksXG4gICAgUGxvdC5kb3QocGF0aWVudHMsIHtcbiAgICAgIHg6IFwiaGJcIixcbiAgICAgIHk6IFwiaGJmXCIsXG4gICAgICBmaWxsOiBcImdlbm90eXBlXCIsXG4gICAgICByOiA0LjUsXG4gICAgICBmaWxsT3BhY2l0eTogMC44LFxuICAgICAgdGlwOiB0cnVlXG4gICAgfSlcbiAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlBsb3QucGxvdCh7XG4gIHRpdGxlOiBcIkJlZXN3YXJtIERpc3RyaWJ1dGlvbiBvZiBSZXRpY3Vsb2N5dGUgQ291bnQgYWNyb3NzIEdlbm90eXBlc1wiLFxuICB3aWR0aDogNzYwLFxuICBoZWlnaHQ6IDI4MCxcbiAgeDoge2xhYmVsOiBcIkdlbm90eXBlXCJ9LFxuICB5OiB7bGFiZWw6IFwiUmV0aWN1bG9jeXRlIENvdW50ICh4MTDigbkvTClcIiwgZ3JpZDogdHJ1ZX0sXG4gIGNvbG9yOiB7bGVnZW5kOiB0cnVlfSxcbiAgbWFya3M6IFtcbiAgICBQbG90LmRvdChwYXRpZW50cywgUGxvdC5kb2RnZVgoXCJkb3RcIiwge1xuICAgICAgeDogXCJnZW5vdHlwZVwiLFxuICAgICAgeTogXCJyZXRpY1wiLFxuICAgICAgZmlsbDogXCJnZW5vdHlwZVwiLFxuICAgICAgcjogNCxcbiAgICAgIHRpcDogdHJ1ZVxuICAgIH0pKVxuICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC00IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiUGxvdC5wbG90KHtcbiAgdGl0bGU6IFwiSGVtb2dsb2JpbiBGcmVxdWVuY3kgSGlzdG9ncmFtXCIsXG4gIHdpZHRoOiA3NjAsXG4gIGhlaWdodDogMzIwLFxuICBncmlkOiB0cnVlLFxuICB4OiB7bGFiZWw6IFwiSGVtb2dsb2JpbiBIYiAoZy9kTClcIn0sXG4gIHk6IHtsYWJlbDogXCLihpEgUGF0aWVudCBDb3VudFwifSxcbiAgY29sb3I6IHtsZWdlbmQ6IHRydWV9LFxuICBtYXJrczogW1xuICAgIFBsb3QucmVjdFkocGF0aWVudHMsIFBsb3QuYmluWCh7eTogXCJjb3VudFwifSwge3g6IFwiaGJcIiwgZmlsbDogXCJzZXhcIiwgdGhyZXNob2xkczogMTV9KSksXG4gICAgUGxvdC5ydWxlWShbMF0pXG4gIF1cbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTUiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICB0aXRsZTogXCIyRCBEZW5zaXR5IEVzdGltYXRpb24gKEhiIHZzIFJldGljdWxvY3l0ZXMpXCIsXG4gIHdpZHRoOiA3NjAsXG4gIGhlaWdodDogMzYwLFxuICBncmlkOiB0cnVlLFxuICB4OiB7bGFiZWw6IFwiSGVtb2dsb2JpbiBIYiAoZy9kTClcIn0sXG4gIHk6IHtsYWJlbDogXCJSZXRpY3Vsb2N5dGVzICh4MTDigbkvTClcIn0sXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5kZW5zaXR5KHBhdGllbnRzLCB7eDogXCJoYlwiLCB5OiBcInJldGljXCIsIHN0cm9rZTogXCJnZW5vdHlwZVwiLCBzdHJva2VXaWR0aDogMS41fSksXG4gICAgUGxvdC5kb3QocGF0aWVudHMsIHt4OiBcImhiXCIsIHk6IFwicmV0aWNcIiwgZmlsbDogXCJnZW5vdHlwZVwiLCByOiAyLCBvcGFjaXR5OiAwLjV9KVxuICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC02IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiUGxvdC5wbG90KHtcbiAgdGl0bGU6IFwiTWVhbiBIZW1vZ2xvYmluIExldmVsIGJ5IEdlbm90eXBlICYgU2V4XCIsXG4gIHdpZHRoOiA3NjAsXG4gIGhlaWdodDogMzIwLFxuICB4OiB7bGFiZWw6IFwiR2Vub3R5cGVcIn0sXG4gIHk6IHtsYWJlbDogXCJNZWFuIEhiIChnL2RMKVwiLCBncmlkOiB0cnVlfSxcbiAgY29sb3I6IHtsZWdlbmQ6IHRydWV9LFxuICBtYXJrczogW1xuICAgIFBsb3QuYmFyWShwYXRpZW50cywgUGxvdC5ncm91cFgoe3k6IFwibWVhblwifSwge3g6IFwiZ2Vub3R5cGVcIiwgeTogXCJoYlwiLCBmaWxsOiBcInNleFwiLCBmeDogXCJzZXhcIn0pKSxcbiAgICBQbG90LnJ1bGVZKFswXSlcbiAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlBsb3QucGxvdCh7XG4gIHRpdGxlOiBcIkxpbmVhciBSZWdyZXNzaW9uOiBSZXRpY3Vsb2N5dGVzIHZzIEhlbW9nbG9iaW5cIixcbiAgd2lkdGg6IDc2MCxcbiAgaGVpZ2h0OiAzNDAsXG4gIGdyaWQ6IHRydWUsXG4gIHg6IHtsYWJlbDogXCJIZW1vZ2xvYmluIEhiIChnL2RMKVwifSxcbiAgeToge2xhYmVsOiBcIlJldGljdWxvY3l0ZXMgKHgxMOKBuS9MKVwifSxcbiAgbWFya3M6IFtcbiAgICBQbG90LmRvdChwYXRpZW50cywge3g6IFwiaGJcIiwgeTogXCJyZXRpY1wiLCBmaWxsOiBcImdlbm90eXBlXCIsIG9wYWNpdHk6IDAuNn0pLFxuICAgIFBsb3QubGluZWFyUmVncmVzc2lvblkocGF0aWVudHMsIHt4OiBcImhiXCIsIHk6IFwicmV0aWNcIiwgc3Ryb2tlOiBcIiNiNzFjMWNcIiwgc3Ryb2tlV2lkdGg6IDIuNSwgY2k6IDAuOTV9KVxuICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC04IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiUGxvdC5wbG90KHtcbiAgdGl0bGU6IFwiU2lja2xlIENlbGwgR2Vub3R5cGUgSGVtb2dsb2JpbiBEaXN0cmlidXRpb25cIixcbiAgd2lkdGg6IDc2MCxcbiAgaGVpZ2h0OiAzMjAsXG4gIHg6IHtsYWJlbDogXCJHZW5vdHlwZVwifSxcbiAgeToge2xhYmVsOiBcIkhlbW9nbG9iaW4gSGIgKGcvZEwpXCIsIGdyaWQ6IHRydWV9LFxuICBtYXJrczogW1xuICAgIFBsb3QuYm94WShwYXRpZW50cywge3g6IFwiZ2Vub3R5cGVcIiwgeTogXCJoYlwiLCBmaWxsOiBcImdlbm90eXBlXCIsIHRpcDogdHJ1ZX0pXG4gIF1cbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTkiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICB0aXRsZTogXCJGYWNldGVkIFN1Yi1wbG90czogSGVtb2dsb2JpbiB2cyBIYkYgYnkgU2V4IGFuZCBHZW5vdHlwZVwiLFxuICB3aWR0aDogNzYwLFxuICBoZWlnaHQ6IDQyMCxcbiAgZ3JpZDogdHJ1ZSxcbiAgeDoge2xhYmVsOiBcIkhiIChnL2RMKVwifSxcbiAgeToge2xhYmVsOiBcIkhiRiAoJSlcIn0sXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5kb3QocGF0aWVudHMsIHtcbiAgICAgIHg6IFwiaGJcIixcbiAgICAgIHk6IFwiaGJmXCIsXG4gICAgICBmaWxsOiBcImdlbm90eXBlXCIsXG4gICAgICBmeDogXCJzZXhcIixcbiAgICAgIGZ5OiBcImdlbm90eXBlXCIsXG4gICAgICByOiAzLjUsXG4gICAgICB0aXA6IHRydWVcbiAgICB9KVxuICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0xMCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIEJpbm5lZCBtYXRyaXggYWdncmVnYXRlZCBmb3IgY2VsbCBtYXJrXG5tYXRyaXhEYXRhID0gW1xuICB7IGdyb3VwOiBcIkhiU1NcIiwgbWV0cmljOiBcIkFuZW1pYSBTZXZlcml0eVwiLCB2YWx1ZTogOTUgfSxcbiAgeyBncm91cDogXCJIYlNTXCIsIG1ldHJpYzogXCJWYXNvLW9jY2x1c2lvbiBSYXRlXCIsIHZhbHVlOiA4NSB9LFxuICB7IGdyb3VwOiBcIkhiU1NcIiwgbWV0cmljOiBcIkhiRiBQcm90ZWN0aW9uXCIsIHZhbHVlOiA0MCB9LFxuICB7IGdyb3VwOiBcIkhiUy/OsjBcIiwgbWV0cmljOiBcIkFuZW1pYSBTZXZlcml0eVwiLCB2YWx1ZTogODAgfSxcbiAgeyBncm91cDogXCJIYlMvzrIwXCIsIG1ldHJpYzogXCJWYXNvLW9jY2x1c2lvbiBSYXRlXCIsIHZhbHVlOiA3NSB9LFxuICB7IGdyb3VwOiBcIkhiUy/OsjBcIiwgbWV0cmljOiBcIkhiRiBQcm90ZWN0aW9uXCIsIHZhbHVlOiAzMCB9LFxuICB7IGdyb3VwOiBcIkhiUy/OsitcIiwgbWV0cmljOiBcIkFuZW1pYSBTZXZlcml0eVwiLCB2YWx1ZTogNTAgfSxcbiAgeyBncm91cDogXCJIYlMvzrIrXCIsIG1ldHJpYzogXCJWYXNvLW9jY2x1c2lvbiBSYXRlXCIsIHZhbHVlOiA0MCB9LFxuICB7IGdyb3VwOiBcIkhiUy/OsitcIiwgbWV0cmljOiBcIkhiRiBQcm90ZWN0aW9uXCIsIHZhbHVlOiAyMCB9LFxuICB7IGdyb3VwOiBcIkhiU0NcIiwgbWV0cmljOiBcIkFuZW1pYSBTZXZlcml0eVwiLCB2YWx1ZTogNDUgfSxcbiAgeyBncm91cDogXCJIYlNDXCIsIG1ldHJpYzogXCJWYXNvLW9jY2x1c2lvbiBSYXRlXCIsIHZhbHVlOiA2MCB9LFxuICB7IGdyb3VwOiBcIkhiU0NcIiwgbWV0cmljOiBcIkhiRiBQcm90ZWN0aW9uXCIsIHZhbHVlOiAxNSB9XG5dXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTExIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiUGxvdC5wbG90KHtcbiAgdGl0bGU6IFwiQ2xpbmljYWwgU2V2ZXJpdHkgSGVhdG1hcCBNYXRyaXhcIixcbiAgd2lkdGg6IDcyMCxcbiAgaGVpZ2h0OiAyODAsXG4gIHBhZGRpbmc6IDAuMDUsXG4gIHg6IHtsYWJlbDogXCJHZW5vdHlwZVwifSxcbiAgeToge2xhYmVsOiBcIkNsaW5pY2FsIFBhcmFtZXRlclwifSxcbiAgY29sb3I6IHtzY2hlbWU6IFwiUmVkc1wiLCBsZWdlbmQ6IHRydWUsIGxhYmVsOiBcIlNldmVyaXR5IFNjb3JlICgwLTEwMClcIn0sXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5jZWxsKG1hdHJpeERhdGEsIHt4OiBcImdyb3VwXCIsIHk6IFwibWV0cmljXCIsIGZpbGw6IFwidmFsdWVcIiwgdGlwOiB0cnVlfSksXG4gICAgUGxvdC50ZXh0KG1hdHJpeERhdGEsIHt4OiBcImdyb3VwXCIsIHk6IFwibWV0cmljXCIsIHRleHQ6IGQgPT4gZC52YWx1ZSwgZmlsbDogZCA9PiBkLnZhbHVlID4gNjAgPyBcIndoaXRlXCIgOiBcImJsYWNrXCJ9KVxuICBdXG59KVxuIn1dfQ==
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIFNpbXVsYXRlZCBwYXRpZW50IHNhbXBsZSBkYXRhc2V0XG5wYXRpZW50cyA9IGQzLnJhbmdlKDEyMCkubWFwKGkgPT4ge1xuICBjb25zdCBnZW5vdHlwZSA9IFtcIkhiU1NcIiwgXCJIYlMvzrIwXCIsIFwiSGJTL86yK1wiLCBcIkhiU0NcIl1baSAlIDRdO1xuICBjb25zdCBzZXggPSBpICUgMiA9PT0gMCA/IFwiRmVtYWxlXCIgOiBcIk1hbGVcIjtcbiAgY29uc3QgaGIgPSBnZW5vdHlwZSA9PT0gXCJIYlNTXCIgPyA2LjUgKyBNYXRoLnJhbmRvbSgpICogMi41IDpcbiAgICAgICAgICAgICBnZW5vdHlwZSA9PT0gXCJIYlMvzrIwXCIgPyA3LjIgKyBNYXRoLnJhbmRvbSgpICogMi4yIDpcbiAgICAgICAgICAgICBnZW5vdHlwZSA9PT0gXCJIYlMvzrIrXCIgPyA5LjAgKyBNYXRoLnJhbmRvbSgpICogMi41IDpcbiAgICAgICAgICAgICAxMC41ICsgTWF0aC5yYW5kb20oKSAqIDIuNTtcbiAgY29uc3QgaGJmID0gZ2Vub3R5cGUgPT09IFwiSGJTU1wiID8gOCArIE1hdGgucmFuZG9tKCkgKiAxNCA6XG4gICAgICAgICAgICAgIGdlbm90eXBlID09PSBcIkhiUy/OsjBcIiA/IDUgKyBNYXRoLnJhbmRvbSgpICogMTAgOlxuICAgICAgICAgICAgICAxICsgTWF0aC5yYW5kb20oKSAqIDU7XG4gIGNvbnN0IHJldGljID0gMTIwICsgKDE1IC0gaGIpICogMjUgKyAoTWF0aC5yYW5kb20oKSAtIDAuNSkgKiA0MDtcbiAgcmV0dXJuIHsgaWQ6IGBQLSR7MTAwK2l9YCwgZ2Vub3R5cGUsIHNleCwgaGIsIGhiZiwgcmV0aWMgfTtcbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICB0aXRsZTogXCJIZW1vZ2xvYmluIChIYikgdnMgRmV0YWwgSGVtb2dsb2JpbiAoSGJGKSBieSBHZW5vdHlwZVwiLFxuICB3aWR0aDogNzYwLFxuICBoZWlnaHQ6IDM4MCxcbiAgZ3JpZDogdHJ1ZSxcbiAgeDoge2xhYmVsOiBcIkhlbW9nbG9iaW4gSGIgKGcvZEwpIOKGklwifSxcbiAgeToge2xhYmVsOiBcIuKGkSBGZXRhbCBIZW1vZ2xvYmluIEhiRiAoJSlcIn0sXG4gIGNvbG9yOiB7bGVnZW5kOiB0cnVlfSxcbiAgbWFya3M6IFtcbiAgICBQbG90LnJ1bGVZKFswXSksXG4gICAgUGxvdC5kb3QocGF0aWVudHMsIHtcbiAgICAgIHg6IFwiaGJcIixcbiAgICAgIHk6IFwiaGJmXCIsXG4gICAgICBmaWxsOiBcImdlbm90eXBlXCIsXG4gICAgICByOiA0LjUsXG4gICAgICBmaWxsT3BhY2l0eTogMC44LFxuICAgICAgdGlwOiB0cnVlXG4gICAgfSlcbiAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlBsb3QucGxvdCh7XG4gIHRpdGxlOiBcIkJlZXN3YXJtIERpc3RyaWJ1dGlvbiBvZiBSZXRpY3Vsb2N5dGUgQ291bnQgYWNyb3NzIEdlbm90eXBlc1wiLFxuICB3aWR0aDogNzYwLFxuICBoZWlnaHQ6IDI4MCxcbiAgeDoge2xhYmVsOiBcIkdlbm90eXBlXCJ9LFxuICB5OiB7bGFiZWw6IFwiUmV0aWN1bG9jeXRlIENvdW50ICh4MTDigbkvTClcIiwgZ3JpZDogdHJ1ZX0sXG4gIGNvbG9yOiB7bGVnZW5kOiB0cnVlfSxcbiAgbWFya3M6IFtcbiAgICBQbG90LmRvdChwYXRpZW50cywgUGxvdC5kb2RnZVgoXCJkb3RcIiwge1xuICAgICAgeDogXCJnZW5vdHlwZVwiLFxuICAgICAgeTogXCJyZXRpY1wiLFxuICAgICAgZmlsbDogXCJnZW5vdHlwZVwiLFxuICAgICAgcjogNCxcbiAgICAgIHRpcDogdHJ1ZVxuICAgIH0pKVxuICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC00IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiUGxvdC5wbG90KHtcbiAgdGl0bGU6IFwiSGVtb2dsb2JpbiBGcmVxdWVuY3kgSGlzdG9ncmFtXCIsXG4gIHdpZHRoOiA3NjAsXG4gIGhlaWdodDogMzIwLFxuICBncmlkOiB0cnVlLFxuICB4OiB7bGFiZWw6IFwiSGVtb2dsb2JpbiBIYiAoZy9kTClcIn0sXG4gIHk6IHtsYWJlbDogXCLihpEgUGF0aWVudCBDb3VudFwifSxcbiAgY29sb3I6IHtsZWdlbmQ6IHRydWV9LFxuICBtYXJrczogW1xuICAgIFBsb3QucmVjdFkocGF0aWVudHMsIFBsb3QuYmluWCh7eTogXCJjb3VudFwifSwge3g6IFwiaGJcIiwgZmlsbDogXCJzZXhcIiwgdGhyZXNob2xkczogMTV9KSksXG4gICAgUGxvdC5ydWxlWShbMF0pXG4gIF1cbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTUiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICB0aXRsZTogXCIyRCBEZW5zaXR5IEVzdGltYXRpb24gKEhiIHZzIFJldGljdWxvY3l0ZXMpXCIsXG4gIHdpZHRoOiA3NjAsXG4gIGhlaWdodDogMzYwLFxuICBncmlkOiB0cnVlLFxuICB4OiB7bGFiZWw6IFwiSGVtb2dsb2JpbiBIYiAoZy9kTClcIn0sXG4gIHk6IHtsYWJlbDogXCJSZXRpY3Vsb2N5dGVzICh4MTDigbkvTClcIn0sXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5kZW5zaXR5KHBhdGllbnRzLCB7eDogXCJoYlwiLCB5OiBcInJldGljXCIsIHN0cm9rZTogXCJnZW5vdHlwZVwiLCBzdHJva2VXaWR0aDogMS41fSksXG4gICAgUGxvdC5kb3QocGF0aWVudHMsIHt4OiBcImhiXCIsIHk6IFwicmV0aWNcIiwgZmlsbDogXCJnZW5vdHlwZVwiLCByOiAyLCBvcGFjaXR5OiAwLjV9KVxuICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC02IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiUGxvdC5wbG90KHtcbiAgdGl0bGU6IFwiTWVhbiBIZW1vZ2xvYmluIExldmVsIGJ5IEdlbm90eXBlICYgU2V4XCIsXG4gIHdpZHRoOiA3NjAsXG4gIGhlaWdodDogMzIwLFxuICB4OiB7bGFiZWw6IFwiR2Vub3R5cGVcIn0sXG4gIHk6IHtsYWJlbDogXCJNZWFuIEhiIChnL2RMKVwiLCBncmlkOiB0cnVlfSxcbiAgY29sb3I6IHtsZWdlbmQ6IHRydWV9LFxuICBtYXJrczogW1xuICAgIFBsb3QuYmFyWShwYXRpZW50cywgUGxvdC5ncm91cFgoe3k6IFwibWVhblwifSwge3g6IFwiZ2Vub3R5cGVcIiwgeTogXCJoYlwiLCBmaWxsOiBcInNleFwiLCBmeDogXCJzZXhcIn0pKSxcbiAgICBQbG90LnJ1bGVZKFswXSlcbiAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlBsb3QucGxvdCh7XG4gIHRpdGxlOiBcIkxpbmVhciBSZWdyZXNzaW9uOiBSZXRpY3Vsb2N5dGVzIHZzIEhlbW9nbG9iaW5cIixcbiAgd2lkdGg6IDc2MCxcbiAgaGVpZ2h0OiAzNDAsXG4gIGdyaWQ6IHRydWUsXG4gIHg6IHtsYWJlbDogXCJIZW1vZ2xvYmluIEhiIChnL2RMKVwifSxcbiAgeToge2xhYmVsOiBcIlJldGljdWxvY3l0ZXMgKHgxMOKBuS9MKVwifSxcbiAgbWFya3M6IFtcbiAgICBQbG90LmRvdChwYXRpZW50cywge3g6IFwiaGJcIiwgeTogXCJyZXRpY1wiLCBmaWxsOiBcImdlbm90eXBlXCIsIG9wYWNpdHk6IDAuNn0pLFxuICAgIFBsb3QubGluZWFyUmVncmVzc2lvblkocGF0aWVudHMsIHt4OiBcImhiXCIsIHk6IFwicmV0aWNcIiwgc3Ryb2tlOiBcIiNiNzFjMWNcIiwgc3Ryb2tlV2lkdGg6IDIuNSwgY2k6IDAuOTV9KVxuICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC04IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiUGxvdC5wbG90KHtcbiAgdGl0bGU6IFwiU2lja2xlIENlbGwgR2Vub3R5cGUgSGVtb2dsb2JpbiBEaXN0cmlidXRpb25cIixcbiAgd2lkdGg6IDc2MCxcbiAgaGVpZ2h0OiAzMjAsXG4gIHg6IHtsYWJlbDogXCJHZW5vdHlwZVwifSxcbiAgeToge2xhYmVsOiBcIkhlbW9nbG9iaW4gSGIgKGcvZEwpXCIsIGdyaWQ6IHRydWV9LFxuICBtYXJrczogW1xuICAgIFBsb3QuYm94WShwYXRpZW50cywge3g6IFwiZ2Vub3R5cGVcIiwgeTogXCJoYlwiLCBmaWxsOiBcImdlbm90eXBlXCIsIHRpcDogdHJ1ZX0pXG4gIF1cbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTkiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICB0aXRsZTogXCJGYWNldGVkIFN1Yi1wbG90czogSGVtb2dsb2JpbiB2cyBIYkYgYnkgU2V4IGFuZCBHZW5vdHlwZVwiLFxuICB3aWR0aDogNzYwLFxuICBoZWlnaHQ6IDQyMCxcbiAgZ3JpZDogdHJ1ZSxcbiAgeDoge2xhYmVsOiBcIkhiIChnL2RMKVwifSxcbiAgeToge2xhYmVsOiBcIkhiRiAoJSlcIn0sXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5kb3QocGF0aWVudHMsIHtcbiAgICAgIHg6IFwiaGJcIixcbiAgICAgIHk6IFwiaGJmXCIsXG4gICAgICBmaWxsOiBcImdlbm90eXBlXCIsXG4gICAgICBmeDogXCJzZXhcIixcbiAgICAgIGZ5OiBcImdlbm90eXBlXCIsXG4gICAgICByOiAzLjUsXG4gICAgICB0aXA6IHRydWVcbiAgICB9KVxuICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0xMCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIEJpbm5lZCBtYXRyaXggYWdncmVnYXRlZCBmb3IgY2VsbCBtYXJrXG5tYXRyaXhEYXRhID0gW1xuICB7IGdyb3VwOiBcIkhiU1NcIiwgbWV0cmljOiBcIkFuZW1pYSBTZXZlcml0eVwiLCB2YWx1ZTogOTUgfSxcbiAgeyBncm91cDogXCJIYlNTXCIsIG1ldHJpYzogXCJWYXNvLW9jY2x1c2lvbiBSYXRlXCIsIHZhbHVlOiA4NSB9LFxuICB7IGdyb3VwOiBcIkhiU1NcIiwgbWV0cmljOiBcIkhiRiBQcm90ZWN0aW9uXCIsIHZhbHVlOiA0MCB9LFxuICB7IGdyb3VwOiBcIkhiUy/OsjBcIiwgbWV0cmljOiBcIkFuZW1pYSBTZXZlcml0eVwiLCB2YWx1ZTogODAgfSxcbiAgeyBncm91cDogXCJIYlMvzrIwXCIsIG1ldHJpYzogXCJWYXNvLW9jY2x1c2lvbiBSYXRlXCIsIHZhbHVlOiA3NSB9LFxuICB7IGdyb3VwOiBcIkhiUy/OsjBcIiwgbWV0cmljOiBcIkhiRiBQcm90ZWN0aW9uXCIsIHZhbHVlOiAzMCB9LFxuICB7IGdyb3VwOiBcIkhiUy/OsitcIiwgbWV0cmljOiBcIkFuZW1pYSBTZXZlcml0eVwiLCB2YWx1ZTogNTAgfSxcbiAgeyBncm91cDogXCJIYlMvzrIrXCIsIG1ldHJpYzogXCJWYXNvLW9jY2x1c2lvbiBSYXRlXCIsIHZhbHVlOiA0MCB9LFxuICB7IGdyb3VwOiBcIkhiUy/OsitcIiwgbWV0cmljOiBcIkhiRiBQcm90ZWN0aW9uXCIsIHZhbHVlOiAyMCB9LFxuICB7IGdyb3VwOiBcIkhiU0NcIiwgbWV0cmljOiBcIkFuZW1pYSBTZXZlcml0eVwiLCB2YWx1ZTogNDUgfSxcbiAgeyBncm91cDogXCJIYlNDXCIsIG1ldHJpYzogXCJWYXNvLW9jY2x1c2lvbiBSYXRlXCIsIHZhbHVlOiA2MCB9LFxuICB7IGdyb3VwOiBcIkhiU0NcIiwgbWV0cmljOiBcIkhiRiBQcm90ZWN0aW9uXCIsIHZhbHVlOiAxNSB9XG5dXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTExIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiUGxvdC5wbG90KHtcbiAgdGl0bGU6IFwiQ2xpbmljYWwgU2V2ZXJpdHkgSGVhdG1hcCBNYXRyaXhcIixcbiAgd2lkdGg6IDcyMCxcbiAgaGVpZ2h0OiAyODAsXG4gIHBhZGRpbmc6IDAuMDUsXG4gIHg6IHtsYWJlbDogXCJHZW5vdHlwZVwifSxcbiAgeToge2xhYmVsOiBcIkNsaW5pY2FsIFBhcmFtZXRlclwifSxcbiAgY29sb3I6IHtzY2hlbWU6IFwiUmVkc1wiLCBsZWdlbmQ6IHRydWUsIGxhYmVsOiBcIlNldmVyaXR5IFNjb3JlICgwLTEwMClcIn0sXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5jZWxsKG1hdHJpeERhdGEsIHt4OiBcImdyb3VwXCIsIHk6IFwibWV0cmljXCIsIGZpbGw6IFwidmFsdWVcIiwgdGlwOiB0cnVlfSksXG4gICAgUGxvdC50ZXh0KG1hdHJpeERhdGEsIHt4OiBcImdyb3VwXCIsIHk6IFwibWV0cmljXCIsIHRleHQ6IGQgPT4gZC52YWx1ZSwgZmlsbDogZCA9PiBkLnZhbHVlID4gNjAgPyBcIndoaXRlXCIgOiBcImJsYWNrXCJ9KVxuICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0xMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIFN5bnRoZXRpYyBmZXJyaXRpbiB0cmFqZWN0b3J5IG92ZXIgMjQgd2Vla3Mgb2YgaXJvbiBjaGVsYXRpb25cbnNlcmllcyA9IGQzLnJhbmdlKDAsIDI1KS5tYXAodyA9PiAoe1xuICB3ZWVrOiB3LFxuICBmZXJyaXRpbjogMjQwMCAqIE1hdGguZXhwKC0wLjA2ICogdykgKyAxMjAgKiBNYXRoLnNpbih3IC8gMikgKyAoZDMucmFuZG9tTm9ybWFsKDAsIDYwKSgpKVxufSkpXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTEzIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiUGxvdC5wbG90KHtcbiAgdGl0bGU6IFwiU2VydW0gZmVycml0aW4gZHVyaW5nIGlyb24gY2hlbGF0aW9uXCIsXG4gIHdpZHRoOiA3NjAsIGhlaWdodDogMzIwLCBncmlkOiB0cnVlLFxuICB4OiB7bGFiZWw6IFwiV2Vla3Mgb24gY2hlbGF0aW9uIOKGklwifSxcbiAgeToge2xhYmVsOiBcIuKGkSBGZXJyaXRpbiAowrVnL0wpXCJ9LFxuICBtYXJrczogW1xuICAgIFBsb3QucnVsZVkoWzUwMF0sIHtzdHJva2U6IFwiIzJlN2QzMlwiLCBzdHJva2VEYXNoYXJyYXk6IFwiNFwifSksXG4gICAgUGxvdC5hcmVhWShzZXJpZXMsIHt4OiBcIndlZWtcIiwgeTogXCJmZXJyaXRpblwiLCBmaWxsOiBcIiNCNzFDMUNcIiwgZmlsbE9wYWNpdHk6IDAuMTJ9KSxcbiAgICBQbG90LmxpbmVZKHNlcmllcywge3g6IFwid2Vla1wiLCB5OiBcImZlcnJpdGluXCIsIHN0cm9rZTogXCIjQjcxQzFDXCIsIHN0cm9rZVdpZHRoOiAyLjIsIHRpcDogdHJ1ZX0pXG4gIF1cbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTE0IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIGN1cnZlVHlwZSA9IElucHV0cy5yYWRpbyhbXCJsaW5lYXJcIiwgXCJjYXRtdWxsLXJvbVwiLCBcInN0ZXBcIiwgXCJiYXNpc1wiXSwge3ZhbHVlOiBcImNhdG11bGwtcm9tXCIsIGxhYmVsOiBcIkN1cnZlIGludGVycG9sYXRpb246XCJ9KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0xNSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlBsb3QucGxvdCh7XG4gIHdpZHRoOiA3NjAsIGhlaWdodDogMjIwLCBncmlkOiB0cnVlLFxuICB4OiB7bGFiZWw6IFwiV2Vla3Mg4oaSXCJ9LCB5OiB7bGFiZWw6IFwiRmVycml0aW4gKMK1Zy9MKVwifSxcbiAgbWFya3M6IFtcbiAgICBQbG90LmxpbmVZKHNlcmllcywge3g6IFwid2Vla1wiLCB5OiBcImZlcnJpdGluXCIsIGN1cnZlOiBjdXJ2ZVR5cGUsIHN0cm9rZTogXCIjN2YwMDAwXCIsIHN0cm9rZVdpZHRoOiAyLjR9KSxcbiAgICBQbG90LmRvdChzZXJpZXMsIHt4OiBcIndlZWtcIiwgeTogXCJmZXJyaXRpblwiLCByOiAyLCBmaWxsOiBcIiM3ZjAwMDBcIn0pXG4gIF1cbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTE2IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiY29tcG9zaXRpb24gPSBkMy5yYW5nZSgwLCAyNSkuZmxhdE1hcChtID0+XG4gIFtcIkhiU1NcIiwgXCJIYlMvzrIwXCIsIFwiSGJTL86yK1wiLCBcIkhiU0NcIl0ubWFwKChnLCBpKSA9PiAoe1xuICAgIG1vbnRoOiBtLCBnZW5vdHlwZTogZyxcbiAgICBuOiAyMCArIDggKiBNYXRoLnNpbihtIC8gNCArIGkpICsgaSAqIDYgKyBkMy5yYW5kb21Ob3JtYWwoMCwgMykoKVxuICB9KSkpXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTE3IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiUGxvdC5wbG90KHtcbiAgdGl0bGU6IFwiQ2xpbmljIGNvaG9ydCBjb21wb3NpdGlvbiBvdmVyIHRpbWUgKHN0cmVhbWdyYXBoKVwiLFxuICB3aWR0aDogNzYwLCBoZWlnaHQ6IDMwMCxcbiAgeDoge2xhYmVsOiBcIk1vbnRoIOKGklwifSwgeToge2xhYmVsOiBudWxsfSxcbiAgY29sb3I6IHtsZWdlbmQ6IHRydWUsIHNjaGVtZTogXCJSZWRzXCJ9LFxuICBtYXJrczogW1xuICAgIFBsb3QuYXJlYVkoY29tcG9zaXRpb24sIHt4OiBcIm1vbnRoXCIsIHk6IFwiblwiLCBmaWxsOiBcImdlbm90eXBlXCIsIG9mZnNldDogXCJ3aWdnbGVcIiwgY3VydmU6IFwiYmFzaXNcIiwgdGlwOiB0cnVlfSlcbiAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMTgiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICB0aXRsZTogXCJSZXRpY3Vsb2N5dGUgc2lnbmFsOiByYXcgdnMgNS13ZWVrIG1vdmluZyBhdmVyYWdlXCIsXG4gIHdpZHRoOiA3NjAsIGhlaWdodDogMzAwLCBncmlkOiB0cnVlLFxuICB4OiB7bGFiZWw6IFwiV2Vla3Mg4oaSXCJ9LCB5OiB7bGFiZWw6IFwiUmV0aWN1bG9jeXRlc1wifSxcbiAgbWFya3M6IFtcbiAgICBQbG90LmxpbmVZKHNlcmllcywge3g6IFwid2Vla1wiLCB5OiBcImZlcnJpdGluXCIsIHN0cm9rZTogXCIjY2NjXCIsIHN0cm9rZVdpZHRoOiAxfSksXG4gICAgUGxvdC5saW5lWShzZXJpZXMsIFBsb3Qud2luZG93WSh7azogNSwgcmVkdWNlOiBcIm1lYW5cIn0sIHt4OiBcIndlZWtcIiwgeTogXCJmZXJyaXRpblwiLCBzdHJva2U6IFwiI0I3MUMxQ1wiLCBzdHJva2VXaWR0aDogMi41fSkpXG4gIF1cbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTE5IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiYWxsb2NhdGlvbiA9IFtcbiAge2FybTogXCJFbWljaXp1bWFiIHByb3BoeWxheGlzXCIsIG46IDYzfSxcbiAge2FybTogXCJGYWN0b3IgVklJSSBwcm9waHlsYXhpc1wiLCBuOiA0MX0sXG4gIHthcm06IFwiT24tZGVtYW5kXCIsIG46IDE4fVxuXVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yMCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlBsb3QucGxvdCh7XG4gIHRpdGxlOiBcIlRyaWFsIGFybSBhbGxvY2F0aW9uICgxIHNxdWFyZSA9IDEgcGF0aWVudClcIixcbiAgd2lkdGg6IDc2MCwgaGVpZ2h0OiAyMjAsXG4gIGNvbG9yOiB7bGVnZW5kOiB0cnVlLCBzY2hlbWU6IFwiUmVkc1wifSxcbiAgbWFya3M6IFtQbG90LndhZmZsZVkoYWxsb2NhdGlvbiwge3g6IFwiYXJtXCIsIHk6IFwiblwiLCBmaWxsOiBcImFybVwifSldXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlBsb3QucGxvdCh7XG4gIHRpdGxlOiBcIkhleGJpbiBkZW5zaXR5IChIYiB2cyByZXRpY3Vsb2N5dGVzKVwiLFxuICB3aWR0aDogNzYwLCBoZWlnaHQ6IDM2MCwgZ3JpZDogdHJ1ZSxcbiAgeDoge2xhYmVsOiBcIkhlbW9nbG9iaW4gKGcvZEwpIOKGklwifSwgeToge2xhYmVsOiBcIuKGkSBSZXRpY3Vsb2N5dGVzXCJ9LFxuICBjb2xvcjoge3NjaGVtZTogXCJSZWRzXCIsIGxlZ2VuZDogdHJ1ZSwgbGFiZWw6IFwiY291bnRcIn0sXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5kb3QocGF0aWVudHMsIFBsb3QuaGV4YmluKHtyOiBcImNvdW50XCIsIGZpbGw6IFwiY291bnRcIn0sIHt4OiBcImhiXCIsIHk6IFwicmV0aWNcIn0pKSxcbiAgICBQbG90LmZyYW1lKClcbiAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMjIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJwcmVQb3N0ID0gW1wiSGJTU1wiLCBcIkhiUy/OsjBcIiwgXCJIYlMvzrIrXCIsIFwiSGJTQ1wiXS5tYXAoKGcsIGkpID0+ICh7XG4gIGdlbm90eXBlOiBnLCBoYmZCZWZvcmU6IFs4LCA1LCAzLCAyXVtpXSwgaGJmQWZ0ZXI6IFsyMiwgMTYsIDksIDZdW2ldXG59KSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMjMiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICB0aXRsZTogXCJIYkYgcmVzcG9uc2UgdG8gaHlkcm94eWNhcmJhbWlkZSAoYmVmb3JlIOKGkiBhZnRlcilcIixcbiAgd2lkdGg6IDc2MCwgaGVpZ2h0OiAyODAsIGdyaWQ6IHRydWUsIG1hcmdpbkxlZnQ6IDgwLFxuICB4OiB7bGFiZWw6IFwiRmV0YWwgaGFlbW9nbG9iaW4gSGJGICglKSDihpJcIn0sIHk6IHtsYWJlbDogbnVsbH0sXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5hcnJvdyhwcmVQb3N0LCB7eDE6IFwiaGJmQmVmb3JlXCIsIHgyOiBcImhiZkFmdGVyXCIsIHk6IFwiZ2Vub3R5cGVcIiwgc3Ryb2tlOiBcIiNCNzFDMUNcIiwgc3Ryb2tlV2lkdGg6IDIsIGJlbmQ6IHRydWV9KSxcbiAgICBQbG90LmRvdChwcmVQb3N0LCB7eDogXCJoYmZCZWZvcmVcIiwgeTogXCJnZW5vdHlwZVwiLCBmaWxsOiBcIiNjY2NcIiwgcjogNH0pLFxuICAgIFBsb3QuZG90KHByZVBvc3QsIHt4OiBcImhiZkFmdGVyXCIsIHk6IFwiZ2Vub3R5cGVcIiwgZmlsbDogXCIjN2YwMDAwXCIsIHI6IDUsIHRpcDogdHJ1ZX0pXG4gIF1cbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTI0IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiUGxvdC5wbG90KHtcbiAgdGl0bGU6IFwiSGVtb2dsb2JpbiBkaXN0cmlidXRpb24gYnkgZ2Vub3R5cGUgKHJpZGdlbGluZSlcIixcbiAgd2lkdGg6IDc2MCwgaGVpZ2h0OiAzMDAsIG1hcmdpbkxlZnQ6IDcwLFxuICB4OiB7bGFiZWw6IFwiSGVtb2dsb2JpbiAoZy9kTCkg4oaSXCJ9LFxuICBmeToge2xhYmVsOiBudWxsfSxcbiAgY29sb3I6IHtzY2hlbWU6IFwiUmVkc1wifSxcbiAgbWFya3M6IFtcbiAgICBQbG90LmFyZWFZKHBhdGllbnRzLCBQbG90LmJpblgoe3k6IFwiY291bnRcIn0sIHt4OiBcImhiXCIsIGZ5OiBcImdlbm90eXBlXCIsIGZpbGw6IFwiZ2Vub3R5cGVcIiwgY3VydmU6IFwiYmFzaXNcIiwgdGhyZXNob2xkczogMjB9KSksXG4gICAgUGxvdC5ydWxlWShbMF0pXG4gIF1cbn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTI1IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidHJvdWdocyA9IGQzLnJhbmdlKDAsIDI1KS5tYXAodyA9PiAoe1xuICB3ZWVrOiB3LCBvYnNlcnZlZDogNDUgKyAxNSAqIE1hdGguc2luKHcgLyAzKSArIGQzLnJhbmRvbU5vcm1hbCgwLCA0KSgpLCB0YXJnZXQ6IDUwXG59KSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMjYiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICB0aXRsZTogXCJPYnNlcnZlZCB0cm91Z2ggdnMgNTAlIHRhcmdldFwiLFxuICB3aWR0aDogNzYwLCBoZWlnaHQ6IDMwMCwgZ3JpZDogdHJ1ZSxcbiAgeDoge2xhYmVsOiBcIldlZWtzIOKGklwifSwgeToge2xhYmVsOiBcIkZhY3RvciBsZXZlbCAoJSlcIn0sXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5kaWZmZXJlbmNlWSh0cm91Z2hzLCB7eDogXCJ3ZWVrXCIsIHkxOiBcInRhcmdldFwiLCB5MjogXCJvYnNlcnZlZFwiLCBwb3NpdGl2ZUZpbGw6IFwiIzJlN2QzMlwiLCBuZWdhdGl2ZUZpbGw6IFwiI0I3MUMxQ1wifSksXG4gICAgUGxvdC5saW5lWSh0cm91Z2hzLCB7eDogXCJ3ZWVrXCIsIHk6IFwib2JzZXJ2ZWRcIiwgc3Ryb2tlOiBcImJsYWNrXCIsIHN0cm9rZVdpZHRoOiAxLjJ9KVxuICBdXG59KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0yNyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InRheG9ub215ID0gW1xuICBcIkJsZWVkaW5nL0NvYWd1bGF0aW9uIGZhY3Rvci9IYWVtb3BoaWxpYSBBIChGVklJSSlcIixcbiAgXCJCbGVlZGluZy9Db2FndWxhdGlvbiBmYWN0b3IvSGFlbW9waGlsaWEgQiAoRklYKVwiLFxuICBcIkJsZWVkaW5nL0NvYWd1bGF0aW9uIGZhY3Rvci9SYXJlIGZhY3RvciBkZWZpY2llbmN5XCIsXG4gIFwiQmxlZWRpbmcvVm9uIFdpbGxlYnJhbmQvVHlwZSAxXCIsXG4gIFwiQmxlZWRpbmcvVm9uIFdpbGxlYnJhbmQvVHlwZSAyXCIsXG4gIFwiQmxlZWRpbmcvVm9uIFdpbGxlYnJhbmQvVHlwZSAzXCIsXG4gIFwiQmxlZWRpbmcvUGxhdGVsZXQvR2xhbnptYW5uXCIsXG4gIFwiQmxlZWRpbmcvUGxhdGVsZXQvQmVybmFyZC1Tb3VsaWVyXCJcbl0ubWFwKHBhdGggPT4gKHtwYXRofSkpXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTI4IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiUGxvdC5wbG90KHtcbiAgd2lkdGg6IDc2MCwgaGVpZ2h0OiAzMjAsIGF4aXM6IG51bGwsIG1hcmdpbjogMTAsIG1hcmdpbkxlZnQ6IDQwLCBtYXJnaW5SaWdodDogMjAwLFxuICBtYXJrczogUGxvdC50cmVlKHRheG9ub215LCB7cGF0aDogXCJwYXRoXCIsIGRlbGltaXRlcjogXCIvXCIsIHN0cm9rZTogXCIjQjcxQzFDXCIsIHN0cm9rZVdpZHRoOiAxLjV9KVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMjkiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJjZW50cmVzID0gW1xuICB7bmFtZTogXCJCYW5nb3JcIiwgbG9uOiAtNC4xMywgbGF0OiA1My4yM30sXG4gIHtuYW1lOiBcIkxvbmRvblwiLCBsb246IC0wLjEzLCBsYXQ6IDUxLjUxfSxcbiAge25hbWU6IFwiUGFyaXMgKElTVEgpXCIsIGxvbjogMi4zNSwgbGF0OiA0OC44Nn0sXG4gIHtuYW1lOiBcIk5ldyBZb3JrXCIsIGxvbjogLTc0LjAsIGxhdDogNDAuNzF9XG5dXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTMwIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiUGxvdC5wbG90KHtcbiAgd2lkdGg6IDQ4MCwgaGVpZ2h0OiA0ODAsXG4gIHByb2plY3Rpb246IHt0eXBlOiBcIm9ydGhvZ3JhcGhpY1wiLCByb3RhdGU6IFsxMCwgLTQwXX0sXG4gIG1hcmtzOiBbXG4gICAgUGxvdC5zcGhlcmUoe2ZpbGw6IFwiI2Y3ZjNmM1wiLCBzdHJva2U6IFwiI2RkZFwifSksXG4gICAgUGxvdC5ncmF0aWN1bGUoe3N0cm9rZTogXCIjZTJjOWM5XCJ9KSxcbiAgICBQbG90LmRvdChjZW50cmVzLCB7eDogXCJsb25cIiwgeTogXCJsYXRcIiwgZmlsbDogXCIjQjcxQzFDXCIsIHI6IDV9KSxcbiAgICBQbG90LnRleHQoY2VudHJlcywge3g6IFwibG9uXCIsIHk6IFwibGF0XCIsIHRleHQ6IFwibmFtZVwiLCBkeTogLTEwLCBmb250V2VpZ2h0OiA2MDAsIGZpbGw6IFwiIzdmMDAwMFwifSlcbiAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMzEiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICB0aXRsZTogXCJJbGx1c3RyYXRpdmUgcmlzayBzdXJmYWNlIGYoSGIsIHBsYXRlbGV0cylcIixcbiAgd2lkdGg6IDc2MCwgaGVpZ2h0OiAzNDAsXG4gIHg6IHtsYWJlbDogXCJIZW1vZ2xvYmluIChnL2RMKSDihpJcIn0sIHk6IHtsYWJlbDogXCLihpEgUGxhdGVsZXRzICjDlzEw4oG5L0wpXCJ9LFxuICBjb2xvcjoge3NjaGVtZTogXCJSZWRzXCIsIGxlZ2VuZDogdHJ1ZSwgbGFiZWw6IFwicmlza1wifSxcbiAgbWFya3M6IFtcbiAgICBQbG90LnJhc3Rlcih7XG4gICAgICB4MTogNCwgeDI6IDE2LCB5MTogMCwgeTI6IDQwMCxcbiAgICAgIGZpbGw6ICh4LCB5KSA9PiBNYXRoLm1heCgwLCAoMTQgLSB4KSAvIDEwKSArIE1hdGgubWF4KDAsICg1MCAtIHkpIC8gNTApXG4gICAgfSksXG4gICAgUGxvdC5jb250b3VyKHtcbiAgICAgIHgxOiA0LCB4MjogMTYsIHkxOiAwLCB5MjogNDAwLFxuICAgICAgZmlsbDogKHgsIHkpID0+IE1hdGgubWF4KDAsICgxNCAtIHgpIC8gMTApICsgTWF0aC5tYXgoMCwgKDUwIC0geSkgLyA1MCksXG4gICAgICBzdHJva2U6IFwid2hpdGVcIiwgc3Ryb2tlT3BhY2l0eTogMC40XG4gICAgfSlcbiAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMzIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJQbG90LnBsb3Qoe1xuICBoZWlnaHQ6IDMwMCxcbiAgbWFya3M6IFtQbG90LmF1dG8ocGF0aWVudHMsIHt4OiBcImhiXCIsIHk6IFwicmV0aWNcIiwgY29sb3I6IFwiZ2Vub3R5cGVcIn0pXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMzMiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ2aWV3b2YgbWluSGJGID0gSW5wdXRzLnJhbmdlKFswLCAyMF0sIHt2YWx1ZTogMCwgc3RlcDogMSwgbGFiZWw6IFwiU2hvdyBwYXRpZW50cyB3aXRoIEhiRiDiiaUgKCUpXCJ9KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0zNCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlBsb3QucGxvdCh7XG4gIHdpZHRoOiA3NjAsIGhlaWdodDogMzYwLCBncmlkOiB0cnVlLFxuICB4OiB7bGFiZWw6IFwiSGVtb2dsb2JpbiAoZy9kTCkg4oaSXCJ9LCB5OiB7bGFiZWw6IFwi4oaRIFJldGljdWxvY3l0ZXNcIn0sXG4gIGNvbG9yOiB7bGVnZW5kOiB0cnVlfSxcbiAgbWFya3M6IFtcbiAgICBQbG90LmRvdChwYXRpZW50cy5maWx0ZXIoZCA9PiBkLmhiZiA+PSBtaW5IYkYpLCB7eDogXCJoYlwiLCB5OiBcInJldGljXCIsIHN0cm9rZTogXCJnZW5vdHlwZVwifSksXG4gICAgUGxvdC5jcm9zc2hhaXIocGF0aWVudHMuZmlsdGVyKGQgPT4gZC5oYmYgPj0gbWluSGJGKSwge3g6IFwiaGJcIiwgeTogXCJyZXRpY1wifSlcbiAgXVxufSlcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnY3VydmVUeXBlJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ21pbkhiRicpIn1dfQ==
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
